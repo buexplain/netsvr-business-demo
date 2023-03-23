@@ -1,0 +1,23 @@
+{
+  "name": "buexplain/netsvr-business-phpdemo",
+  "type": "project",
+  "keywords": [
+    "php",
+    "netsvr",
+    "demo"
+  ],
+  "description": "网关 https://github.com/buexplain/netsvr的business演示程序",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=8.0",
+    "swoole/ide-helper": "^5.0",
+    "google/protobuf": "^3.22",
+    "buexplain/netsvr-protocol-php": "dev-main"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
