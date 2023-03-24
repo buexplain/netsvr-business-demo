@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b6d1f0f6406e6a0c4ccc487bfe19e97",
+    "content-hash": "751ef72e3d3eced66cbe9699e1c31951",
     "packages": [
         {
             "name": "buexplain/netsvr-protocol",
@@ -170,9 +170,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0",
-        "ext-sockets": "*"
+        "php": ">=8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

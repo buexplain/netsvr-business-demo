@@ -9,7 +9,7 @@ use Swoole\Coroutine;
 /**
  * 业务进程与网关进程的连接对象
  */
-class Socket
+class AwaitSocket
 {
     protected ?Coroutine\Socket $socket = null;
 
@@ -48,13 +48,16 @@ class Socket
 
     /**
      * 读取
-     * @return string
+     * @return false|string
      */
-    public function receive(): string
+    public function receive(): bool|string
     {
         $data = $this->socket->recvPacket();
-        //收到一个完整的包后，丢弃掉前4个字节，因为这4个字节是包头，这里返回包体即可
-        return substr($data, 4);
+        if (is_string($data)) {
+            //收到一个完整的包后，丢弃掉前4个字节，因为这4个字节是包头，这里返回包体即可
+            return substr($data, 4);
+        }
+        return false;
     }
 
     public function close(): void

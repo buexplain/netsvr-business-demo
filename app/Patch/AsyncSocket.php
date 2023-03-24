@@ -15,13 +15,12 @@ class AsyncSocket
     protected ?Channel $heartbeat = null;
     protected ?Channel $sendCh = null;
     protected ?Channel $receiveCh = null;
-    protected bool $running = false;
-    protected ?Socket $socket = null;
+    protected ?AwaitSocket $socket = null;
+    protected bool $closed = false;
 
-    public function __construct(Socket $socket, float $heartbeatInterval = 30)
+    public function __construct(AwaitSocket $socket, float $heartbeatInterval = 30)
     {
         $this->socket = $socket;
-        $this->running = true;
         $this->loopHeartbeat($heartbeatInterval);
         $this->loopSend();
         $this->loopReceive();
@@ -39,21 +38,38 @@ class AsyncSocket
 
     /**
      * 读取
-     * @return string
+     * @return string|bool
      */
-    public function receive(): string
+    public function receive(): string|bool
     {
         return $this->receiveCh->pop();
     }
 
-    public function close(): void
+    /**
+     * 关闭连接
+     * @param bool $grace
+     * @return void
+     */
+    public function close(bool $grace): void
     {
-        if (!$this->socket) {
+        if ($this->closed) {
             return;
         }
-        $this->running = false;
-        $this->socket->close();
-        $this->socket = null;
+        $this->closed = true;
+        //不再从远端读入数据
+        $this->receiveCh->close();
+        //关闭心跳
+        $this->heartbeat->push(1);
+        //不再产生新数据，并发送数据到远端
+        $this->sendCh->close();
+        //当管子里面的数据都空了，则关闭连接
+        while ($grace) {
+            Coroutine::sleep(0.1);
+            if ($this->receiveCh->isEmpty() && $this->sendCh->isEmpty()) {
+                $this->socket->close();
+                break;
+            }
+        }
     }
 
     /**
@@ -66,9 +82,9 @@ class AsyncSocket
         if ($this->heartbeat) {
             return;
         }
-        $this->heartbeat = new Channel();
+        $this->heartbeat = new Channel(1);
         Coroutine::create(function () use ($heartbeatInterval) {
-            while ($this->running && !$this->heartbeat->pop($heartbeatInterval)) {
+            while ($this->heartbeat->pop($heartbeatInterval) === false) {
                 $this->sendCh->push(Constant::PING_MESSAGE);
             }
         });
@@ -84,11 +100,12 @@ class AsyncSocket
         }
         $this->sendCh = new Channel(100);
         Coroutine::create(function () {
-            while ($this->running) {
+            while (true) {
                 $data = $this->sendCh->pop();
-                if ($data !== false) {
-                    $this->socket->send($data);
+                if ($data === false) {
+                    break;
                 }
+                $this->socket->send($data);
             }
         });
     }
@@ -103,8 +120,16 @@ class AsyncSocket
         }
         $this->receiveCh = new Channel(100);
         Coroutine::create(function () {
-            while ($this->running) {
-                $this->receiveCh->push($this->socket->receive());
+            while (true) {
+                $data = $this->socket->receive();
+                if ($data === false) {
+                    break;
+                } else if ($data === '') {
+                    $this->close(false);
+                    break;
+                } else if ($this->receiveCh->push($data) === false) {
+                    break;
+                }
             }
         });
     }
