@@ -40,9 +40,9 @@ class MainSocket
 
     /**
      * 注册到网关进程
-     * @return void
+     * @return bool
      */
-    public function register(): void
+    public function register(): bool
     {
         $router = new Router();
         $router->setCmd(Cmd::Register);
@@ -50,7 +50,7 @@ class MainSocket
         $reg->setId($this->workerId);
         $reg->setProcessCmdGoroutineNum($this->processCmdGoroutineNum);
         $router->setData($reg->serializeToString());
-        $this->socket->send($router->serializeToString());
+        return $this->socket->send($router->serializeToString());
     }
 
     /**

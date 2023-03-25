@@ -6,8 +6,6 @@ use App\Patch\MainSocketManager;
 use Netsvr\Cmd;
 use Netsvr\ConnClose;
 use Netsvr\ConnOpen;
-use Netsvr\Constant;
-use Netsvr\Router;
 use Netsvr\Transfer;
 use Swoole\Coroutine;
 use function Swoole\Coroutine\run;
@@ -17,22 +15,13 @@ use App\Patch\AwaitSocket;
 require 'vendor/autoload.php';
 
 run(function () {
-    //这里假设有多个网关机器
+    //这里可以配置多个网关机器
     $config = [
         //网关1
         [
             'host' => '127.0.0.1',
             'port' => 6061,
             'serverId' => 0,
-            'heartbeatInterval' => 30,
-            'workerId' => 1,
-            'processCmdGoroutineNum' => 1,
-        ],
-        //网关2
-        [
-            'host' => '127.0.0.1',
-            'port' => 7061,
-            'serverId' => 1,
             'heartbeatInterval' => 30,
             'workerId' => 1,
             'processCmdGoroutineNum' => 1,
@@ -46,8 +35,6 @@ run(function () {
         $main = new MainSocket($asyncSocket, $item['serverId'], $item['workerId'], $item['processCmdGoroutineNum']);
         $manager->add($main);
     }
-    //向网关发起注册
-    $manager->register();
     //监听三类系统信号
     $signal = false;
     foreach ([SIGINT, SIGTERM, SIGQUIT] as $item) {
@@ -60,6 +47,8 @@ run(function () {
             }
         });
     }
+    //向网关发起注册
+    $manager->register();
     //收到系统信号，开始关闭与网关的连接
     Swoole\Coroutine::create(function () use (&$signal, $manager) {
         $ch = new Coroutine\Channel();
@@ -69,22 +58,19 @@ run(function () {
         $manager->unregister();
         $manager->close();
     });
+//    Swoole\Coroutine::create(function () use (&$signal) {
+//        sleep(10);
+//        $signal = true;
+//    });
     //不断的从网关读取数据，并分发到对应的控制器
     while (true) {
-        $data = $manager->receive();
-        if ($data === false) {
-            //所有与网关的连接都断开了，这种情况是所有网关机器都挂了
+        $router = $manager->receive();
+        if ($router === false) {
             $signal = true;
             break;
         }
-        //收到心跳包，忽略它
-        if ($data == Constant::PONG_MESSAGE) {
-            continue;
-        }
         //收到新数据，开一个协程去处理
-        Coroutine::create(function () use ($manager, $main, $data) {
-            $router = new Router();
-            $router->mergeFromString($data);
+        Coroutine::create(function () use ($manager, $main, $router) {
             if ($router->getCmd() == Cmd::ConnOpen) {
                 //连接打开的信息
                 $connOpen = new ConnOpen();

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol.git",
-                "reference": "761801f2b7c1e514966846d025e91acdd0298c00"
+                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/761801f2b7c1e514966846d025e91acdd0298c00",
-                "reference": "761801f2b7c1e514966846d025e91acdd0298c00",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
+                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
                 "shasum": ""
             },
             "require": {
@@ -40,7 +40,7 @@
                 "issues": "https://github.com/buexplain/netsvr-protocol/issues",
                 "source": "https://github.com/buexplain/netsvr-protocol/tree/main"
             },
-            "time": "2023-03-22T15:01:27+00:00"
+            "time": "2023-03-25T05:31:30+00:00"
         },
         {
             "name": "buexplain/netsvr-protocol-php",
@@ -48,12 +48,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol-php.git",
-                "reference": "7086b29b1c45fb2a0cdacc83ded05a7e021b66ad"
+                "reference": "c8b7ded92c51b80154499b7c0006b63c9a90c23c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/7086b29b1c45fb2a0cdacc83ded05a7e021b66ad",
-                "reference": "7086b29b1c45fb2a0cdacc83ded05a7e021b66ad",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/c8b7ded92c51b80154499b7c0006b63c9a90c23c",
+                "reference": "c8b7ded92c51b80154499b7c0006b63c9a90c23c",
                 "shasum": ""
             },
             "require": {
@@ -82,7 +82,7 @@
                 "issues": "https://github.com/buexplain/netsvr-protocol-php/issues",
                 "source": "https://github.com/buexplain/netsvr-protocol-php/tree/main"
             },
-            "time": "2023-03-23T01:40:26+00:00"
+            "time": "2023-03-25T06:25:37+00:00"
         },
         {
             "name": "google/protobuf",
@@ -173,5 +173,5 @@
         "php": ">=8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

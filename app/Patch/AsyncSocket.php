@@ -29,11 +29,11 @@ class AsyncSocket
     /**
      * 写入
      * @param string $data
-     * @return void
+     * @return bool
      */
-    public function send(string $data): void
+    public function send(string $data): bool
     {
-        $this->sendCh->push($data);
+        return $this->sendCh->push($data);
     }
 
     /**
@@ -56,16 +56,24 @@ class AsyncSocket
             return;
         }
         $this->closed = true;
-        //不再从远端读入数据
-        $this->receiveCh->close();
         //关闭心跳
         $this->heartbeat->push(1);
-        //不再产生新数据，并发送数据到远端
-        $this->sendCh->close();
-        //当管子里面的数据都空了，则关闭连接
-        while ($grace) {
+        //强制关闭
+        if ($grace === false) {
+            $this->receiveCh->close();
+            $this->sendCh->close();
+            $this->socket->close();
+            return;
+        }
+        //当channel里面的数据都空了，则关闭连接
+        while (true) {
             Coroutine::sleep(0.1);
             if ($this->receiveCh->isEmpty() && $this->sendCh->isEmpty()) {
+                //不再从远端读入数据
+                $this->receiveCh->close();
+                //不再产生新数据，并发送数据到远端
+                $this->sendCh->close();
+                //关闭底层的连接
                 $this->socket->close();
                 break;
             }
@@ -122,9 +130,8 @@ class AsyncSocket
         Coroutine::create(function () {
             while (true) {
                 $data = $this->socket->receive();
-                if ($data === false) {
-                    break;
-                } else if ($data === '') {
+                if ($data === false || $data === '') {
+                    //底层连接挂了，强制关闭自己
                     $this->close(false);
                     break;
                 } else if ($this->receiveCh->push($data) === false) {
