@@ -26,6 +26,11 @@ class AsyncSocket
         $this->loopReceive();
     }
 
+    public function getHostPort(): array
+    {
+        return $this->socket->getHostPort();
+    }
+
     /**
      * 写入
      * @param string $data
@@ -95,6 +100,7 @@ class AsyncSocket
             while ($this->heartbeat->pop($heartbeatInterval) === false) {
                 $this->sendCh->push(Constant::PING_MESSAGE);
             }
+            echo date('Y-m-d H:i:s ') . 'Coroutine:loopHeartbeat exit' . PHP_EOL;
         });
     }
 
@@ -115,6 +121,7 @@ class AsyncSocket
                 }
                 $this->socket->send($data);
             }
+            echo date('Y-m-d H:i:s ') . 'Coroutine:loopSend exit' . PHP_EOL;
         });
     }
 
@@ -138,6 +145,7 @@ class AsyncSocket
                     break;
                 }
             }
+            echo date('Y-m-d H:i:s ') . 'Coroutine:loopReceive exit' . PHP_EOL;
         });
     }
 }

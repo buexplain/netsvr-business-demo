@@ -17,7 +17,15 @@ require 'vendor/autoload.php';
 run(function () {
     //这里可以配置多个网关机器
     $config = [
-        //网关1
+//        //网关1
+//        [
+//            'host' => '127.0.0.1',
+//            'port' => 7061,
+//            'serverId' => 0,
+//            'heartbeatInterval' => 30,
+//            'workerId' => 1,
+//            'processCmdGoroutineNum' => 1,
+//        ],
         [
             'host' => '127.0.0.1',
             'port' => 6061,
@@ -31,6 +39,7 @@ run(function () {
     $manager = new MainSocketManager();
     foreach ($config as $item) {
         $awaitSocket = new AwaitSocket($item['host'], $item['port']);
+        $awaitSocket->connect();
         $asyncSocket = new AsyncSocket($awaitSocket, $item['heartbeatInterval']);
         $main = new MainSocket($asyncSocket, $item['serverId'], $item['workerId'], $item['processCmdGoroutineNum']);
         $manager->add($main);
@@ -58,10 +67,10 @@ run(function () {
         $manager->unregister();
         $manager->close();
     });
-//    Swoole\Coroutine::create(function () use (&$signal) {
-//        sleep(10);
-//        $signal = true;
-//    });
+    Swoole\Coroutine::create(function () use (&$signal) {
+        sleep(3);
+        $signal = true;
+    });
     //不断的从网关读取数据，并分发到对应的控制器
     while (true) {
         $router = $manager->receive();

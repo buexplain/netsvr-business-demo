@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "c6375cde7a3eb8ed21146d5885d7d979",
+    "packages": [
+        {
+            "name": "buexplain/netsvr-protocol",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buexplain/netsvr-protocol.git",
+                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
+                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "buexplain",
+                    "email": "buexplain@qq.com"
+                }
+            ],
+            "description": "https://github.com/buexplain/netsvr的协议",
+            "support": {
+                "issues": "https://github.com/buexplain/netsvr-protocol/issues",
+                "source": "https://github.com/buexplain/netsvr-protocol/tree/main"
+            },
+            "time": "2023-03-25T05:31:30+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "buexplain/netsvr-protocol": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=8.0"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
+}

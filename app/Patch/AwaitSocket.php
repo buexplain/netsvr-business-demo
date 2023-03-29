@@ -12,9 +12,36 @@ use Swoole\Coroutine;
 class AwaitSocket
 {
     protected ?Coroutine\Socket $socket = null;
+    protected bool $closed = true;
+    protected string $host;
+    protected int $port;
+    protected int|float $timeout;
+
 
     public function __construct(string $host, int $port, float $timeout = 0)
     {
+        $this->host = $host;
+        $this->port = $port;
+        $this->timeout = $timeout;
+    }
+
+    public function close(): void
+    {
+        if ($this->closed) {
+            return;
+        }
+        $this->socket->close();
+        $this->closed = true;
+    }
+
+    /**
+     * @return void
+     */
+    public function connect(): void
+    {
+        if (!$this->closed) {
+            return;
+        }
         $socket = new Coroutine\Socket(2, 1, 0);
         $socket->setProtocol([
             'open_length_check' => true,
@@ -28,11 +55,18 @@ class AwaitSocket
             'package_body_offset' => 4,
             'package_max_length' => 1024 * 1024 * 2,
         ]);
-        $socket->connect($host, $port, $timeout);
+        $socket->connect($this->host, $this->port, $this->timeout);
         if ($socket->errCode != 0) {
             throw new RuntimeException($socket->errMsg, $socket->errCode);
         }
         $this->socket = $socket;
+        $this->closed = false;
+        echo date('Y-m-d H:i:s ') . sprintf('Socket %s:%s connect ok%s', $this->host, $this->port, PHP_EOL);
+    }
+
+    public function getHostPort(): array
+    {
+        return ['host' => $this->host, 'port' => $this->port];
     }
 
     /**
@@ -58,14 +92,5 @@ class AwaitSocket
             return substr($data, 4);
         }
         return false;
-    }
-
-    public function close(): void
-    {
-        if (!$this->socket) {
-            return;
-        }
-        $this->socket->close();
-        $this->socket = null;
     }
 }

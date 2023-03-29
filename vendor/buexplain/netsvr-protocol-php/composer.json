@@ -1,0 +1,20 @@
+{
+  "name": "buexplain/netsvr-protocol-php",
+  "description": "https://github.com/buexplain/netsvr-protocol生成的php版本",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "buexplain",
+      "email": "buexplain@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "buexplain/netsvr-protocol": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "Netsvr\\": "src/Netsvr/"
+    }
+  }
+}

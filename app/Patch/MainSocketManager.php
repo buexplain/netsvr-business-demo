@@ -34,6 +34,8 @@ class MainSocketManager
                 $data = $socket->receive();
                 if ($data === false) {
                     unset($this->sockets[$socket->getServerId()]);
+                    list($host, $port) = array_values($socket->getHostPort());
+                    echo date('Y-m-d H:i:s ') . sprintf('Socket %s:%s close ok%s', $host, $port, PHP_EOL);
                     if (count($this->sockets) == 0) {
                         $this->receiveCh->close();
                         $this->unregisterCh->close();
@@ -42,6 +44,7 @@ class MainSocketManager
                 }
                 $this->receiveCh->push($data);
             }
+            echo date('Y-m-d H:i:s ') . 'Coroutine:loopTransfer exit' . PHP_EOL;
         });
     }
 

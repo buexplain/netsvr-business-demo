@@ -33,6 +33,11 @@ class MainSocket
         return $this->socket->receive();
     }
 
+    public function getHostPort(): array
+    {
+        return $this->socket->getHostPort();
+    }
+
     public function getServerId(): int
     {
         return $this->serverId;

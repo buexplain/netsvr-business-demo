@@ -1,0 +1,63 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'b026e7d1d4d2e92df33ca3f5624ffb091d6afed4',
+        'name' => 'buexplain/netsvr-business-phpdemo',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'buexplain/netsvr-business-phpdemo' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'b026e7d1d4d2e92df33ca3f5624ffb091d6afed4',
+            'dev_requirement' => false,
+        ),
+        'buexplain/netsvr-protocol' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../buexplain/netsvr-protocol',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => '8a180eab5a4a97ce7ad2b3c64c42937e27260cfe',
+            'dev_requirement' => false,
+        ),
+        'buexplain/netsvr-protocol-php' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../buexplain/netsvr-protocol-php',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => 'c8b7ded92c51b80154499b7c0006b63c9a90c23c',
+            'dev_requirement' => false,
+        ),
+        'google/protobuf' => array(
+            'pretty_version' => 'v3.22.2',
+            'version' => '3.22.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../google/protobuf',
+            'aliases' => array(),
+            'reference' => 'ff28a64946708e13f2be627b5e5561f247ecf95c',
+            'dev_requirement' => false,
+        ),
+        'swoole/ide-helper' => array(
+            'pretty_version' => '5.0.2',
+            'version' => '5.0.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../swoole/ide-helper',
+            'aliases' => array(),
+            'reference' => '16cfee44a6ec92254228c39bcab2fb8ae74cc2ea',
+            'dev_requirement' => false,
+        ),
+    ),
+);

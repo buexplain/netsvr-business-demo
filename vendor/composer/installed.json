@@ -1,0 +1,172 @@
+{
+    "packages": [
+        {
+            "name": "buexplain/netsvr-protocol",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buexplain/netsvr-protocol.git",
+                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
+                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "time": "2023-03-25T05:31:30+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "buexplain",
+                    "email": "buexplain@qq.com"
+                }
+            ],
+            "description": "https://github.com/buexplain/netsvr的协议",
+            "support": {
+                "issues": "https://github.com/buexplain/netsvr-protocol/issues",
+                "source": "https://github.com/buexplain/netsvr-protocol/tree/main"
+            },
+            "install-path": "../buexplain/netsvr-protocol"
+        },
+        {
+            "name": "buexplain/netsvr-protocol-php",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buexplain/netsvr-protocol-php.git",
+                "reference": "c8b7ded92c51b80154499b7c0006b63c9a90c23c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/c8b7ded92c51b80154499b7c0006b63c9a90c23c",
+                "reference": "c8b7ded92c51b80154499b7c0006b63c9a90c23c",
+                "shasum": ""
+            },
+            "require": {
+                "buexplain/netsvr-protocol": "dev-main",
+                "php": ">=8.0"
+            },
+            "time": "2023-03-25T06:25:37+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Netsvr\\": "src/Netsvr/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "buexplain",
+                    "email": "buexplain@qq.com"
+                }
+            ],
+            "description": "https://github.com/buexplain/netsvr-protocol生成的php版本",
+            "support": {
+                "issues": "https://github.com/buexplain/netsvr-protocol-php/issues",
+                "source": "https://github.com/buexplain/netsvr-protocol-php/tree/main"
+            },
+            "install-path": "../buexplain/netsvr-protocol-php"
+        },
+        {
+            "name": "google/protobuf",
+            "version": "v3.22.2",
+            "version_normalized": "3.22.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/protocolbuffers/protobuf-php.git",
+                "reference": "ff28a64946708e13f2be627b5e5561f247ecf95c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/ff28a64946708e13f2be627b5e5561f247ecf95c",
+                "reference": "ff28a64946708e13f2be627b5e5561f247ecf95c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=5.0.0"
+            },
+            "suggest": {
+                "ext-bcmath": "Need to support JSON deserialization"
+            },
+            "time": "2023-03-10T17:52:03+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Google\\Protobuf\\": "src/Google/Protobuf",
+                    "GPBMetadata\\Google\\Protobuf\\": "src/GPBMetadata/Google/Protobuf"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "proto library for PHP",
+            "homepage": "https://developers.google.com/protocol-buffers/",
+            "keywords": [
+                "proto"
+            ],
+            "support": {
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.22.2"
+            },
+            "install-path": "../google/protobuf"
+        },
+        {
+            "name": "swoole/ide-helper",
+            "version": "5.0.2",
+            "version_normalized": "5.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swoole/ide-helper.git",
+                "reference": "16cfee44a6ec92254228c39bcab2fb8ae74cc2ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/16cfee44a6ec92254228c39bcab2fb8ae74cc2ea",
+                "reference": "16cfee44a6ec92254228c39bcab2fb8ae74cc2ea",
+                "shasum": ""
+            },
+            "time": "2023-03-20T06:05:55+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Team Swoole",
+                    "email": "team@swoole.com"
+                }
+            ],
+            "description": "IDE help files for Swoole.",
+            "support": {
+                "issues": "https://github.com/swoole/ide-helper/issues",
+                "source": "https://github.com/swoole/ide-helper/tree/5.0.2"
+            },
+            "install-path": "../swoole/ide-helper"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
