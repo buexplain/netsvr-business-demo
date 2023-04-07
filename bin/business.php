@@ -13,23 +13,23 @@ use App\Patch\AsyncSocket;
 use App\Patch\AwaitSocket;
 
 require 'vendor/autoload.php';
-
 run(function () {
     //这里可以配置多个网关机器
     $config = [
-//        //网关1
-//        [
-//            'host' => '127.0.0.1',
-//            'port' => 7061,
-//            'serverId' => 0,
-//            'heartbeatInterval' => 30,
-//            'workerId' => 1,
-//            'processCmdGoroutineNum' => 1,
-//        ],
+        //网关1
+        [
+            'host' => '127.0.0.1',
+            'port' => 7061,
+            'serverId' => 0,
+            'heartbeatInterval' => 30,
+            'workerId' => 1,
+            'processCmdGoroutineNum' => 1,
+        ],
+        //let ws = new WebSocket("ws://127.0.0.1:6060/netsvr?admin=1");setInterval(function() {ws.send("001dfsdfg")},100);
         [
             'host' => '127.0.0.1',
             'port' => 6061,
-            'serverId' => 0,
+            'serverId' => 1,
             'heartbeatInterval' => 30,
             'workerId' => 1,
             'processCmdGoroutineNum' => 1,
@@ -37,12 +37,24 @@ run(function () {
     ];
     //连接所有的网关机器
     $manager = new MainSocketManager();
-    foreach ($config as $item) {
-        $awaitSocket = new AwaitSocket($item['host'], $item['port']);
-        $awaitSocket->connect();
-        $asyncSocket = new AsyncSocket($awaitSocket, $item['heartbeatInterval']);
-        $main = new MainSocket($asyncSocket, $item['serverId'], $item['workerId'], $item['processCmdGoroutineNum']);
-        $manager->add($main);
+    try {
+        foreach ($config as $item) {
+            $awaitSocket = new AwaitSocket($item['host'], $item['port']);
+            $awaitSocket->connect();
+            $asyncSocket = new AsyncSocket($awaitSocket, $item['heartbeatInterval']);
+            $main = new MainSocket($asyncSocket, $item['serverId'], $item['workerId'], $item['processCmdGoroutineNum']);
+            $manager->add($main);
+        }
+    } catch (Throwable $throwable) {
+        echo sprintf(
+            "%d --> %s in %s on line %d%s",
+            $throwable->getCode(),
+            $throwable->getMessage(),
+            $throwable->getFile(),
+            $throwable->getLine(),
+            PHP_EOL
+        );
+        exit(1);
     }
     //监听三类系统信号
     $signal = false;
@@ -67,8 +79,10 @@ run(function () {
         $manager->unregister();
         $manager->close();
     });
+    //TODO 删除这个
     Swoole\Coroutine::create(function () use (&$signal) {
-        sleep(3);
+        sleep(10);
+        var_dump('开始关机');
         $signal = true;
     });
     //不断的从网关读取数据，并分发到对应的控制器
@@ -79,7 +93,7 @@ run(function () {
             break;
         }
         //收到新数据，开一个协程去处理
-        Coroutine::create(function () use ($manager, $main, $router) {
+        Coroutine::create(function () use ($manager, $router) {
             if ($router->getCmd() == Cmd::ConnOpen) {
                 //连接打开的信息
                 $connOpen = new ConnOpen();

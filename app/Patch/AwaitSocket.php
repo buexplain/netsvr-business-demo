@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Patch;
 
-use RuntimeException;
+use App\Patch\Exception\ConnectException;
 use Swoole\Coroutine;
 
 /**
@@ -12,11 +12,10 @@ use Swoole\Coroutine;
 class AwaitSocket
 {
     protected ?Coroutine\Socket $socket = null;
-    protected bool $closed = true;
+    protected bool $closed = false;
     protected string $host;
     protected int $port;
     protected int|float $timeout;
-
 
     public function __construct(string $host, int $port, float $timeout = 0)
     {
@@ -30,18 +29,20 @@ class AwaitSocket
         if ($this->closed) {
             return;
         }
-        $this->socket->close();
         $this->closed = true;
+        $this->socket?->close();
     }
 
     /**
      * @return void
+     * @throws ConnectException
      */
     public function connect(): void
     {
-        if (!$this->closed) {
+        if ($this->closed === true) {
             return;
         }
+        $this->socket?->close();
         $socket = new Coroutine\Socket(2, 1, 0);
         $socket->setProtocol([
             'open_length_check' => true,
@@ -57,10 +58,9 @@ class AwaitSocket
         ]);
         $socket->connect($this->host, $this->port, $this->timeout);
         if ($socket->errCode != 0) {
-            throw new RuntimeException($socket->errMsg, $socket->errCode);
+            throw new ConnectException($socket->errMsg, $socket->errCode);
         }
         $this->socket = $socket;
-        $this->closed = false;
         echo date('Y-m-d H:i:s ') . sprintf('Socket %s:%s connect ok%s', $this->host, $this->port, PHP_EOL);
     }
 
@@ -71,26 +71,48 @@ class AwaitSocket
 
     /**
      * 写入
-     * @param string $data
+     * @param string $data 发送的数据
+     * @param int $retry 发送失败后的重试次数 -1表示无限重试，大于0表示重试次数
      * @return void
      */
-    public function send(string $data): void
+    public function send(string $data, int $retry = 3): void
     {
         //大端序发送，包头只描述包体长度
-        $this->socket->send(pack('N', strlen($data)) . $data);
+        $data = pack('N', strlen($data)) . $data;
+        loop:
+        $ret = $this->socket->send($data);
+        if ($ret !== false) {
+            return;
+        }
+        while ($this->closed !== true && ($retry === -1 || $retry > 0)) {
+            if ($retry !== -1) {
+                $retry--;
+            }
+            Coroutine::sleep(3);
+            try {
+                $this->connect();
+                if ($this->closed === true) {
+                    $this->socket?->close();
+                } else {
+                    goto loop;
+                }
+            } catch (ConnectException) {
+                continue;
+            }
+        }
     }
 
     /**
      * 读取
-     * @return false|string
+     * @return string
      */
-    public function receive(): bool|string
+    public function receive(): string
     {
         $data = $this->socket->recvPacket();
         if (is_string($data)) {
             //收到一个完整的包后，丢弃掉前4个字节，因为这4个字节是包头，这里返回包体即可
             return substr($data, 4);
         }
-        return false;
+        return '';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Patch;
 
+use App\Patch\Exception\DuplicateServerIdException;
 use Netsvr\Cmd;
 use Netsvr\Constant;
 use Netsvr\Router;
@@ -27,22 +28,26 @@ class MainSocketManager
 
     public function add(MainSocket $socket): void
     {
+        if (isset($this->sockets[$socket->getServerId()])) {
+            throw new DuplicateServerIdException('Duplicate ServerId: ' . $socket->getServerId());
+        }
         $this->sockets[$socket->getServerId()] = $socket;
         //这里做一到中转，将每个socket发来的数据统一到一个channel里面
         Coroutine::create(function () use ($socket) {
             while (true) {
                 $data = $socket->receive();
-                if ($data === false) {
-                    unset($this->sockets[$socket->getServerId()]);
-                    list($host, $port) = array_values($socket->getHostPort());
-                    echo date('Y-m-d H:i:s ') . sprintf('Socket %s:%s close ok%s', $host, $port, PHP_EOL);
-                    if (count($this->sockets) == 0) {
-                        $this->receiveCh->close();
-                        $this->unregisterCh->close();
-                    }
-                    break;
+                if ($data !== false) {
+                    $this->receiveCh->push($data);
+                    continue;
                 }
-                $this->receiveCh->push($data);
+                unset($this->sockets[$socket->getServerId()]);
+                list($host, $port) = array_values($socket->getHostPort());
+                echo date('Y-m-d H:i:s ') . sprintf('Socket %s:%s close ok%s', $host, $port, PHP_EOL);
+                if (count($this->sockets) == 0) {
+                    $this->receiveCh->close();
+                    $this->unregisterCh->close();
+                }
+                break;
             }
             echo date('Y-m-d H:i:s ') . 'Coroutine:loopTransfer exit' . PHP_EOL;
         });

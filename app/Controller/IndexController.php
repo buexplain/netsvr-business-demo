@@ -51,7 +51,7 @@ class IndexController
         $router->setData($broadcast->serializeToString());
         $data = $router->serializeToString();
         $manager->send($data);
-        echo '收到消息：' . $transfer->getData(), PHP_EOL;
+//        echo '收到消息：' . $transfer->getData(), PHP_EOL;
     }
 
     /**
