@@ -1,31 +1,29 @@
 <?php
 
 use App\Controller\IndexController;
-use App\Patch\MainSocket;
-use App\Patch\MainSocketManager;
+use App\Patch\WorkerSocket;
+use App\Patch\WorkerSocketManager;
 use Netsvr\Cmd;
 use Netsvr\ConnClose;
 use Netsvr\ConnOpen;
 use Netsvr\Transfer;
 use Swoole\Coroutine;
 use function Swoole\Coroutine\run;
-use App\Patch\AsyncSocket;
-use App\Patch\AwaitSocket;
 
 require 'vendor/autoload.php';
 run(function () {
     //这里可以配置多个网关机器
     $config = [
         //网关1
-        [
-            'host' => '127.0.0.1',
-            'port' => 7061,
-            'serverId' => 0,
-            'heartbeatInterval' => 30,
-            'workerId' => 1,
-            'processCmdGoroutineNum' => 1,
-        ],
-        //let ws = new WebSocket("ws://127.0.0.1:6060/netsvr?admin=1");setInterval(function() {ws.send("001dfsdfg")},100);
+//        [
+//            'host' => '127.0.0.1',
+//            'port' => 7061,
+//            'serverId' => 0,
+//            'heartbeatInterval' => 30,
+//            'workerId' => 1,
+//            'processCmdGoroutineNum' => 1,
+//        ],
+        //let ws = new WebSocket("ws://127.0.0.1:6060/netsvr?admin=1");ws.onmessage = function() {};let setIntervalIndex = 0;ws.onclose = function() {clearInterval(setIntervalIndex)};setIntervalIndex = setInterval(function() {ws.send("001dfsdfg")}, 100);
         [
             'host' => '127.0.0.1',
             'port' => 6061,
@@ -36,14 +34,21 @@ run(function () {
         ],
     ];
     //连接所有的网关机器
-    $manager = new MainSocketManager();
+    $manager = new WorkerSocketManager();
     try {
         foreach ($config as $item) {
-            $awaitSocket = new AwaitSocket($item['host'], $item['port']);
-            $awaitSocket->connect();
-            $asyncSocket = new AsyncSocket($awaitSocket, $item['heartbeatInterval']);
-            $main = new MainSocket($asyncSocket, $item['serverId'], $item['workerId'], $item['processCmdGoroutineNum']);
-            $manager->add($main);
+            $socket = new WorkerSocket(
+                $item['host'],
+                $item['port'],
+                1,
+                $item['serverId'],
+                $item['workerId'],
+                $item['processCmdGoroutineNum'],
+                30,
+                2 * 2 * 1024
+            );
+            $socket->connect();
+            $manager->add($socket);
         }
     } catch (Throwable $throwable) {
         echo sprintf(
@@ -76,13 +81,15 @@ run(function () {
         while ($signal === false) {
             $ch->pop(1);
         }
+        var_dump('开始取消注册');
         $manager->unregister();
+        var_dump('开始关闭');
         $manager->close();
     });
     //TODO 删除这个
     Swoole\Coroutine::create(function () use (&$signal) {
-        sleep(10);
-        var_dump('开始关机');
+        sleep(30);
+        var_dump('发出关闭信号');
         $signal = true;
     });
     //不断的从网关读取数据，并分发到对应的控制器

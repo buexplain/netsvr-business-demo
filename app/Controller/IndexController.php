@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Patch\MainSocketManager;
+use App\Patch\WorkerSocketManager;
 use Netsvr\Broadcast;
 use Netsvr\Cmd;
 use Netsvr\ConnOpen;
@@ -15,11 +15,11 @@ class IndexController
 {
     /**
      * 处理用户连接打开信息
-     * @param MainSocketManager $manager
+     * @param WorkerSocketManager $manager
      * @param ConnOpen $connOpen
      * @return void
      */
-    public static function onOpen(MainSocketManager $manager, ConnOpen $connOpen): void
+    public static function onOpen(WorkerSocketManager $manager, ConnOpen $connOpen): void
     {
         //构造一个广播对象
         $broadcast = new Broadcast();
@@ -38,11 +38,11 @@ class IndexController
 
     /**
      * 处理用户发来的信息
-     * @param MainSocketManager $manager
+     * @param WorkerSocketManager $manager
      * @param Transfer $transfer
      * @return void
      */
-    public static function onMessage(MainSocketManager $manager, Transfer $transfer): void
+    public static function onMessage(WorkerSocketManager $manager, Transfer $transfer): void
     {
         $broadcast = new Broadcast();
         $broadcast->setData($transfer->getUniqId() . '：' . $transfer->getData());
@@ -56,11 +56,11 @@ class IndexController
 
     /**
      * 处理用户连接关闭的信息
-     * @param MainSocketManager $manager
+     * @param WorkerSocketManager $manager
      * @param ConnClose $connClose
      * @return void
      */
-    public static function onClose(MainSocketManager $manager, ConnClose $connClose): void
+    public static function onClose(WorkerSocketManager $manager, ConnClose $connClose): void
     {
         $broadcast = new Broadcast();
         $broadcast->setData("有用户退出 --> " . $connClose->getUniqId());

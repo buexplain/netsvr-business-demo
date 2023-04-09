@@ -3,18 +3,14 @@
 namespace App\Patch;
 
 use App\Patch\Exception\DuplicateServerIdException;
-use Netsvr\Cmd;
-use Netsvr\Constant;
 use Netsvr\Router;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Channel;
 use Throwable;
 
-class MainSocketManager
+class WorkerSocketManager
 {
     protected ?Channel $receiveCh = null;
-    protected ?Channel $unregisterCh = null;
-    protected int $registerCount = 0;
 
     public function __construct()
     {
@@ -22,17 +18,17 @@ class MainSocketManager
     }
 
     /**
-     * @var array |MainSocket[]
+     * @var WorkerSocket[]
      */
     protected array $sockets = [];
 
-    public function add(MainSocket $socket): void
+    public function add(WorkerSocket $socket): void
     {
         if (isset($this->sockets[$socket->getServerId()])) {
             throw new DuplicateServerIdException('Duplicate ServerId: ' . $socket->getServerId());
         }
         $this->sockets[$socket->getServerId()] = $socket;
-        //这里做一到中转，将每个socket发来的数据统一到一个channel里面
+        //这里做一到中转，将每个socket发来的数据统一转发到一个channel里面
         Coroutine::create(function () use ($socket) {
             while (true) {
                 $data = $socket->receive();
@@ -41,11 +37,8 @@ class MainSocketManager
                     continue;
                 }
                 unset($this->sockets[$socket->getServerId()]);
-                list($host, $port) = array_values($socket->getHostPort());
-                echo date('Y-m-d H:i:s ') . sprintf('Socket %s:%s close ok%s', $host, $port, PHP_EOL);
                 if (count($this->sockets) == 0) {
                     $this->receiveCh->close();
-                    $this->unregisterCh->close();
                 }
                 break;
             }
@@ -53,27 +46,52 @@ class MainSocketManager
         });
     }
 
+    /**
+     * @return void
+     * @throws Throwable
+     */
     public function register(): void
     {
+        $wg = new Coroutine\WaitGroup();
+        $e = null;
         foreach ($this->sockets as $socket) {
-            if ($socket->register()) {
-                $this->registerCount++;
-            }
+            $wg->add();
+            Coroutine::create(function () use ($wg, $socket, &$e) {
+                try {
+                    $socket->register();
+                } catch (Throwable $throwable) {
+                    $e = $throwable;
+                } finally {
+                    $wg->done();
+                }
+            });
         }
-        if ($this->registerCount > 0) {
-            $this->unregisterCh = new Channel($this->registerCount);
+        $wg->wait();
+        if ($e) {
+            throw $e;
+        }
+        foreach ($this->sockets as $socket) {
+            $socket->loopSend();
+            $socket->loopHeartbeat();
         }
     }
 
     public function unregister(): void
     {
+        $wg = new Coroutine\WaitGroup();
         foreach ($this->sockets as $socket) {
-            $socket->unregister();
+            $wg->add();
+            Coroutine::create(function () use ($wg, $socket) {
+                try {
+                    $socket->unregister();
+                    $socket->waitUnregisterOk();
+                } catch (Throwable) {
+                } finally {
+                    $wg->done();
+                }
+            });
         }
-        //等待所有已经注册连接返回取消注册的信息
-        for ($i = 0; $i < $this->registerCount; $i++) {
-            $this->unregisterCh->pop();
-        }
+        $wg->wait();
     }
 
     /**
@@ -82,35 +100,24 @@ class MainSocketManager
      */
     public function receive(): Router|bool
     {
-        loop:
-        $data = $this->receiveCh->pop();
-        //收到心跳包，忽略它，继续读取数据
-        if ($data == Constant::PONG_MESSAGE) {
-            goto loop;
-        }
-        //channel关闭后返回false，只有当所有与网关的连接都断开了，才会关闭channel
-        if ($data === false) {
-            return false;
-        }
-        try {
-            $router = new Router();
-            $router->mergeFromString($data);
-            //如果是收到取消注册成功的信息，则把这个消息填充到取消注册的等待channel上
-            if ($router->getCmd() === Cmd::Unregister) {
-                $this->unregisterCh->push(1);
-                goto loop;
-            }
-            return $router;
-        } catch (Throwable) {
-            return false;
-        }
+        return $this->receiveCh->pop();
     }
 
     public function close(): void
     {
+        $wg = new Coroutine\WaitGroup();
         foreach ($this->sockets as $socket) {
-            $socket->close();
+            $wg->add();
+            Coroutine::create(function () use ($wg, $socket) {
+                try {
+                    $socket->close();
+                } catch (Throwable) {
+                } finally {
+                    $wg->done();
+                }
+            });
         }
+        $wg->wait();
     }
 
     /**
