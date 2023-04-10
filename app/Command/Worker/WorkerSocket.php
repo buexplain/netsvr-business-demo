@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Command\Business;
+namespace App\Command\Worker;
 
-use App\Command\Business\Exception\ConnectException;
+use App\Command\Worker\Exception\ConnectException;
 use Exception;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
@@ -151,7 +151,8 @@ class WorkerSocket
 
     private function _send(string $data): int|false
     {
-        Coroutine::sleep(1);
+        //TODO 模拟消费慢的情况
+        Coroutine::sleep(0.2);
         return $this->socket->send(pack('N', strlen($data)) . $data);
     }
 

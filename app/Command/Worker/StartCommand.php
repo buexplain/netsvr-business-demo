@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Command\Business;
+namespace App\Command\Worker;
 
+use App\Command\Worker\Exception\ConnectException;
 use App\Controller\IndexController;
 use Hyperf\Command\Annotation\Command;
 use Hyperf\Command\Command as HyperfCommand;
@@ -17,6 +18,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Swoole\Coroutine;
+use Swoole\ExitException;
 use Throwable;
 
 #[Command]
@@ -48,30 +50,25 @@ class StartCommand extends HyperfCommand
         $config = config('business', []);
         //连接所有的网关机器
         $manager = new WorkerSocketManager();
-        try {
-            foreach ($config as $item) {
-                $socket = new WorkerSocket(
-                    $item['host'],
-                    $item['port'],
-                    3,
-                    $item['serverId'],
-                    $item['workerId'],
-                    $item['processCmdGoroutineNum'],
-                    $item['heartbeatInterval'],
-                    $item['packageMaxLength'],
-                );
+        foreach ($config as $item) {
+            $socket = new WorkerSocket(
+                $item['host'],
+                $item['port'],
+                3,
+                $item['serverId'],
+                $item['workerId'],
+                $item['processCmdGoroutineNum'],
+                $item['heartbeatInterval'],
+                $item['packageMaxLength'],
+            );
+            try {
                 $socket->connect();
                 $manager->add($socket);
+            } catch (ConnectException $connectException) {
+                $message = sprintf('Socket %s:%s %s', $item['host'], $item['port'], $connectException->getMessage());
+                $this->logger->error($message);
+                throw new ExitException($message, $connectException->getCode());
             }
-        } catch (Throwable $throwable) {
-            $this->logger->error(sprintf(
-                "%d --> %s in %s on line %d",
-                $throwable->getCode(),
-                $throwable->getMessage(),
-                $throwable->getFile(),
-                $throwable->getLine(),
-            ));
-            return;
         }
         //监听三类系统信号
         $signal = false;
@@ -97,11 +94,10 @@ class StartCommand extends HyperfCommand
             $manager->unregister();
             $this->logger->notice('Unregister success, starting to close of the worker process');
             $manager->close();
-            $this->logger->notice('Worker process stopped');
         });
         //TODO 删除这个
         Coroutine::create(function () use (&$signal) {
-            sleep(30);
+            sleep(5);
             var_dump('发出关闭信号');
             $signal = true;
         });
@@ -139,5 +135,6 @@ class StartCommand extends HyperfCommand
                 }
             });
         }
+        $this->logger->notice('Worker process stopped');
     }
 }

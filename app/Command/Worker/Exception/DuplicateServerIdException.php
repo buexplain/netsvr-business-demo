@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command\Business\Exception;
+namespace App\Command\Worker\Exception;
 
 use InvalidArgumentException;
 

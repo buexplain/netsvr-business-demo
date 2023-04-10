@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Command\Business;
+namespace App\Command\Worker;
 
-use App\Command\Business\Exception\DuplicateServerIdException;
+use App\Command\Worker\Exception\DuplicateServerIdException;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Netsvr\Router;
@@ -46,13 +46,13 @@ class WorkerSocketManager
                     $this->receiveCh->push($data);
                     continue;
                 }
+                $this->logger->debug('Coroutine:loopTransfer exit');
                 unset($this->sockets[$socket->getServerId()]);
                 if (count($this->sockets) == 0) {
                     $this->receiveCh->close();
                 }
                 break;
             }
-            $this->logger->debug('Coroutine:loopTransfer exit');
         });
     }
 
@@ -131,7 +131,7 @@ class WorkerSocketManager
     }
 
     /**
-     * 写入
+     * 写入到当前所有网关连接中
      * @param string $data
      * @return void
      */
@@ -140,5 +140,15 @@ class WorkerSocketManager
         foreach ($this->sockets as $socket) {
             $socket->send($data);
         }
+    }
+
+    /**
+     * 返回某个网关连接
+     * @param int $serverId
+     * @return WorkerSocket|null
+     */
+    public function getSocket(int $serverId): ?WorkerSocket
+    {
+        return $this->sockets[$serverId] ?? null;
     }
 }

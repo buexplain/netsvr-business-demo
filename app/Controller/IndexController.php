@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Command\Business\WorkerSocketManager;
+use App\Command\Worker\WorkerSocketManager;
 use Netsvr\Broadcast;
 use Netsvr\Cmd;
 use Netsvr\ConnClose;
@@ -51,7 +51,7 @@ class IndexController
         $router->setData($broadcast->serializeToString());
         $data = $router->serializeToString();
         $manager->send($data);
-        echo '收到消息：' . $transfer->getData(), PHP_EOL;
+//        echo '收到消息：' . $transfer->getData(), PHP_EOL;
     }
 
     /**

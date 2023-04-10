@@ -10,5 +10,5 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
-    \App\Command\Business\StartCommand::class,
+    \App\Command\Worker\StartCommand::class,
 ];
