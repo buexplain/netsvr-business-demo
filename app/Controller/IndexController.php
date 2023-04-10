@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Patch\WorkerSocketManager;
+use App\Command\Business\WorkerSocketManager;
 use Netsvr\Broadcast;
 use Netsvr\Cmd;
-use Netsvr\ConnOpen;
 use Netsvr\ConnClose;
+use Netsvr\ConnOpen;
 use Netsvr\Router;
 use Netsvr\Transfer;
 
@@ -51,7 +51,7 @@ class IndexController
         $router->setData($broadcast->serializeToString());
         $data = $router->serializeToString();
         $manager->send($data);
-//        echo '收到消息：' . $transfer->getData(), PHP_EOL;
+        echo '收到消息：' . $transfer->getData(), PHP_EOL;
     }
 
     /**

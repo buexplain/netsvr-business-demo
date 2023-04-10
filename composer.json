@@ -10,9 +10,15 @@
   "license": "Apache-2.0",
   "require": {
     "php": ">=8.0",
-    "swoole/ide-helper": "^5.0",
+    "swoole/ide-helper": "dev-master",
     "google/protobuf": "^3.22",
-    "buexplain/netsvr-protocol-php": "dev-main"
+    "buexplain/netsvr-protocol-php": "dev-main",
+    "hyperf/command": "3.0.x-dev",
+    "hyperf/di": "3.0.x-dev",
+    "hyperf/devtool": "3.0.x-dev",
+    "hyperf/config": "3.0.x-dev",
+    "hyperf/logger": "3.0.x-dev",
+    "hyperf/framework": "3.0.x-dev"
   },
   "minimum-stability": "dev",
   "autoload": {
