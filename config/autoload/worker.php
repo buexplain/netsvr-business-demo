@@ -10,4 +10,13 @@ return [
         'heartbeatInterval' => 60,
         'packageMaxLength' => 2 * 2 * 1024,
     ],
+    [
+        'host' => '127.0.0.1',
+        'port' => 7061,
+        'serverId' => 2,
+        'workerId' => 1,
+        'processCmdGoroutineNum' => 1,
+        'heartbeatInterval' => 60,
+        'packageMaxLength' => 2 * 2 * 1024,
+    ],
 ];

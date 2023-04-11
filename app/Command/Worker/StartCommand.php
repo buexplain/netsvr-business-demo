@@ -47,7 +47,7 @@ class StartCommand extends HyperfCommand
      */
     public function handle()
     {
-        $config = config('business', []);
+        $config = config('worker', []);
         //连接所有的网关机器
         $manager = new WorkerSocketManager();
         foreach ($config as $item) {
