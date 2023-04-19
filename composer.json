@@ -3,24 +3,27 @@
   "type": "project",
   "keywords": [
     "php",
-    "netsvr",
-    "demo"
+    "websocket",
+    "netsvr"
   ],
   "description": "网关 https://github.com/buexplain/netsvr的business演示程序",
   "license": "Apache-2.0",
   "require": {
     "php": ">=8.0",
-    "swoole/ide-helper": "dev-master",
     "google/protobuf": "^3.22",
-    "buexplain/netsvr-protocol-php": "dev-main",
-    "hyperf/command": "3.0.x-dev",
-    "hyperf/di": "3.0.x-dev",
-    "hyperf/devtool": "3.0.x-dev",
-    "hyperf/config": "3.0.x-dev",
-    "hyperf/logger": "3.0.x-dev",
-    "hyperf/framework": "3.0.x-dev"
+    "hyperf/command": "3.0.*",
+    "hyperf/di": "3.0.*",
+    "hyperf/devtool": "3.0.*",
+    "hyperf/config": "3.0.*",
+    "hyperf/logger": "3.0.*",
+    "buexplain/netsvr-business": "dev-main",
+    "hyperf/framework": "3.0.*"
+  },
+  "require-dev": {
+    "swoole/ide-helper": "*"
   },
   "minimum-stability": "dev",
+  "prefer-stable": false,
   "autoload": {
     "psr-4": {
       "App\\": "app/"

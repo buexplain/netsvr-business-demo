@@ -7,10 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '9c7a683baffd24f5595c1dc5f5273030' => __DIR__ . '/..' . '/hyperf/engine/src/Functions.php',
         'f0334cce41da231af374e1df9dc548c9' => __DIR__ . '/..' . '/hyperf/collection/src/Functions.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '3ac0459b8c20ccf3a7319b7cba59c914' => __DIR__ . '/..' . '/hyperf/tappable/src/Functions.php',
+        '6c17036e92b20070dc14f563311a06a3' => __DIR__ . '/..' . '/hyperf/coroutine/src/Functions.php',
+        'e45471c4161dad9820dfacbc5735c3f5' => __DIR__ . '/..' . '/hyperf/stringable/src/Functions.php',
         'bbeb7603826cb9296dde3ca1a840af47' => __DIR__ . '/..' . '/hyperf/utils/src/Functions.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -43,6 +47,7 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'N' => 
         array (
             'Netsvr\\' => 7,
+            'NetsvrBusiness\\' => 15,
         ),
         'M' => 
         array (
@@ -51,17 +56,22 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'H' => 
         array (
             'Hyperf\\Utils\\' => 13,
+            'Hyperf\\Tappable\\' => 16,
+            'Hyperf\\Stringable\\' => 18,
             'Hyperf\\Pipeline\\' => 16,
             'Hyperf\\Macroable\\' => 17,
             'Hyperf\\Logger\\' => 14,
             'Hyperf\\Framework\\' => 17,
+            'Hyperf\\Engine\\Contract\\' => 23,
             'Hyperf\\Engine\\' => 14,
             'Hyperf\\Di\\' => 10,
             'Hyperf\\Devtool\\' => 15,
+            'Hyperf\\Coroutine\\' => 17,
             'Hyperf\\Coordinator\\' => 19,
             'Hyperf\\Contract\\' => 16,
             'Hyperf\\Context\\' => 15,
             'Hyperf\\Config\\' => 14,
+            'Hyperf\\Conditionable\\' => 21,
             'Hyperf\\Command\\' => 15,
             'Hyperf\\Collection\\' => 18,
         ),
@@ -152,6 +162,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         array (
             0 => __DIR__ . '/..' . '/buexplain/netsvr-protocol-php/src/Netsvr',
         ),
+        'NetsvrBusiness\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/buexplain/netsvr-business/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -159,6 +173,14 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'Hyperf\\Utils\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/utils/src',
+        ),
+        'Hyperf\\Tappable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/tappable/src',
+        ),
+        'Hyperf\\Stringable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/stringable/src',
         ),
         'Hyperf\\Pipeline\\' => 
         array (
@@ -176,6 +198,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         array (
             0 => __DIR__ . '/..' . '/hyperf/framework/src',
         ),
+        'Hyperf\\Engine\\Contract\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/engine-contract/src',
+        ),
         'Hyperf\\Engine\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/engine/src',
@@ -187,6 +213,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'Hyperf\\Devtool\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/devtool/src',
+        ),
+        'Hyperf\\Coroutine\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/coroutine/src',
         ),
         'Hyperf\\Coordinator\\' => 
         array (
@@ -203,6 +233,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'Hyperf\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/config/src',
+        ),
+        'Hyperf\\Conditionable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/conditionable/src',
         ),
         'Hyperf\\Command\\' => 
         array (

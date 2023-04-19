@@ -6,10 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
+    '9c7a683baffd24f5595c1dc5f5273030' => $vendorDir . '/hyperf/engine/src/Functions.php',
     'f0334cce41da231af374e1df9dc548c9' => $vendorDir . '/hyperf/collection/src/Functions.php',
-    '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
+    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
+    '3ac0459b8c20ccf3a7319b7cba59c914' => $vendorDir . '/hyperf/tappable/src/Functions.php',
+    '6c17036e92b20070dc14f563311a06a3' => $vendorDir . '/hyperf/coroutine/src/Functions.php',
+    'e45471c4161dad9820dfacbc5735c3f5' => $vendorDir . '/hyperf/stringable/src/Functions.php',
     'bbeb7603826cb9296dde3ca1a840af47' => $vendorDir . '/hyperf/utils/src/Functions.php',
+    '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
     '8825ede83f2f289127722d4e842cf7e8' => $vendorDir . '/symfony/polyfill-intl-grapheme/bootstrap.php',
     'e69f7f6ee287b969198c3c9d6777bd38' => $vendorDir . '/symfony/polyfill-intl-normalizer/bootstrap.php',
     'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',

@@ -1,2 +1,5 @@
 .idea
+.env
 runtime/container/*.cache
+runtime/business.pid
+runtime/hyperf.pid

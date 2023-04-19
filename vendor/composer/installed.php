@@ -5,29 +5,29 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'cb5c5c8cbfcdc40a6bc14888c56fbfcef324e769',
+        'reference' => 'd5993d247b4f196e50e2fa91499045049c759cbb',
         'name' => 'buexplain/netsvr-business-phpdemo',
         'dev' => true,
     ),
     'versions' => array(
+        'buexplain/netsvr-business' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../buexplain/netsvr-business',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => 'd95a3ee1a28bea87e398d10270ba1423d845338c',
+            'dev_requirement' => false,
+        ),
         'buexplain/netsvr-business-phpdemo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'cb5c5c8cbfcdc40a6bc14888c56fbfcef324e769',
-            'dev_requirement' => false,
-        ),
-        'buexplain/netsvr-protocol' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../buexplain/netsvr-protocol',
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
-            'reference' => '8a180eab5a4a97ce7ad2b3c64c42937e27260cfe',
+            'reference' => 'd5993d247b4f196e50e2fa91499045049c759cbb',
             'dev_requirement' => false,
         ),
         'buexplain/netsvr-protocol-php' => array(
@@ -38,7 +38,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'c8b7ded92c51b80154499b7c0006b63c9a90c23c',
+            'reference' => 'bae21856e5a43e239f56d36c822500b594e58c8c',
             'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
@@ -71,12 +71,12 @@
             'dev_requirement' => false,
         ),
         'google/protobuf' => array(
-            'pretty_version' => 'v3.22.2',
-            'version' => '3.22.2.0',
+            'pretty_version' => 'v3.22.3',
+            'version' => '3.22.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../google/protobuf',
             'aliases' => array(),
-            'reference' => 'ff28a64946708e13f2be627b5e5561f247ecf95c',
+            'reference' => '0edeee0cc2e2991706e16ab60c7d224e5c0241ba',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
@@ -107,7 +107,18 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => 'a7c5f08b6fc2f0218820dcf85549acba28dd333f',
+            'reference' => 'dffd5f7030e44f68f0ddb40d9b800fa00e25e467',
+            'dev_requirement' => false,
+        ),
+        'hyperf/conditionable' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/conditionable',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
+            'reference' => '4222cdc512e9e48e4375a480161c6365276ff803',
             'dev_requirement' => false,
         ),
         'hyperf/config' => array(
@@ -118,7 +129,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '40421f3f4b07e6069a59d4018636471f4e7954bf',
+            'reference' => '38696805de90b5aa05033d57b1eb10be3be8aba6',
             'dev_requirement' => false,
         ),
         'hyperf/context' => array(
@@ -129,7 +140,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '7af6282d66f6fe494405d7d3ac1204f995371dfb',
+            'reference' => '3dd24331c046911c05176edd009ed9be7c4f6b5a',
             'dev_requirement' => false,
         ),
         'hyperf/contract' => array(
@@ -151,7 +162,18 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '802b36595eae15eb30a5ee8e2906702628deed94',
+            'reference' => '7a0cb83e544b4e4fa4723741b67607832640bf71',
+            'dev_requirement' => false,
+        ),
+        'hyperf/coroutine' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/coroutine',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
+            'reference' => '4944ce69d5f35407e5dbcf7e9991f1db3366f254',
             'dev_requirement' => false,
         ),
         'hyperf/devtool' => array(
@@ -162,7 +184,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '735641adf8c70f32fa2cf7f8538eb2b86e21f2f3',
+            'reference' => 'fb6d9cc55fa5a09dc9496b541261db70a9457bec',
             'dev_requirement' => false,
         ),
         'hyperf/di' => array(
@@ -173,16 +195,29 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => 'bee83c74929aa37269ac00446c62360f552bf9e4',
+            'reference' => '14645a87be5686ac10af7bba03c4b76ea74cc5c8',
             'dev_requirement' => false,
         ),
         'hyperf/engine' => array(
-            'pretty_version' => '1.x-dev',
-            'version' => '1.9999999.9999999.9999999-dev',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/engine',
-            'aliases' => array(),
-            'reference' => 'da38c8708f3d78d1490331e432d385489720568f',
+            'aliases' => array(
+                0 => '2.8.x-dev',
+            ),
+            'reference' => 'a9fa2c7432a502ea8a40a84c63233730eb4ca33e',
+            'dev_requirement' => false,
+        ),
+        'hyperf/engine-contract' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/engine-contract',
+            'aliases' => array(
+                0 => '1.7.x-dev',
+            ),
+            'reference' => '69b64d723271351ab549c5204a9caef35d9d68df',
             'dev_requirement' => false,
         ),
         'hyperf/framework' => array(
@@ -193,7 +228,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '20e0fd40e200285cb5da73c9c8da6669efd7c789',
+            'reference' => '9eb957590ea501534870539d3d68f42af72c1ffd',
             'dev_requirement' => false,
         ),
         'hyperf/logger' => array(
@@ -204,7 +239,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => 'f63619786d33682a825d784b536b13a40b6d95a2',
+            'reference' => 'eaa4c382b14791319cab6a31798610c9f6cc77ad',
             'dev_requirement' => false,
         ),
         'hyperf/macroable' => array(
@@ -226,7 +261,29 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => 'bdf327f44ff136a8ea70cd6d6e1f1c8b5af73f13',
+            'reference' => 'a3f48561f5cfef5f697e7005446e16560024a443',
+            'dev_requirement' => false,
+        ),
+        'hyperf/stringable' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/stringable',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
+            'reference' => '509c4686edf07b9ecd7b3e23521e6727c5aedcc0',
+            'dev_requirement' => false,
+        ),
+        'hyperf/tappable' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/tappable',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
+            'reference' => '4f90b9026a5bdce5b3e6be29a2ab7a86c54f372a',
             'dev_requirement' => false,
         ),
         'hyperf/utils' => array(
@@ -237,7 +294,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '2e4d8ea7a821812e8b9d8bacb2caebf2a523a828',
+            'reference' => '2b8d4497d094ca1406cbd7fdf58383a585fc356b',
             'dev_requirement' => false,
         ),
         'monolog/monolog' => array(
@@ -327,7 +384,7 @@
                 0 => '9999999-dev',
             ),
             'reference' => 'c043cb5597ce80d7d1e6f8f07346123c3065ae2f',
-            'dev_requirement' => false,
+            'dev_requirement' => true,
         ),
         'symfony/console' => array(
             'pretty_version' => '6.0.x-dev',

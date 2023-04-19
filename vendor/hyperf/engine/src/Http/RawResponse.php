@@ -11,37 +11,34 @@ declare(strict_types=1);
  */
 namespace Hyperf\Engine\Http;
 
-final class RawResponse
+use Hyperf\Engine\Contract\Http\RawResponseInterface;
+
+final class RawResponse implements RawResponseInterface
 {
-    /**
-     * @var int
-     */
-    public $statusCode = 0;
-
-    /**
-     * @var string[][]
-     */
-    public $headers = [];
-
-    /**
-     * @var string
-     */
-    public $body = '';
-
-    /**
-     * Protocol version.
-     * @var string
-     */
-    public $version = '';
-
     /**
      * @param string[][] $headers
      */
-    public function __construct(int $statusCode, array $headers, string $body, string $version)
+    public function __construct(public int $statusCode, public array $headers, public string $body, public string $version)
     {
-        $this->statusCode = $statusCode;
-        $this->headers = $headers;
-        $this->body = $body;
-        $this->version = $version;
+    }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    public function getBody(): string
+    {
+        return $this->body;
+    }
+
+    public function getVersion(): string
+    {
+        return $this->version;
     }
 }

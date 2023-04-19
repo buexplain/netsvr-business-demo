@@ -26,9 +26,11 @@ class Client implements ClientInterface
     public function __construct(string $host, int $port = 80, bool $ssl = false, array $settings = [])
     {
         $this->client = new HTTP2Client($host, $port, $ssl);
+
         if ($settings) {
             $this->client->set($settings);
         }
+
         $this->client->connect();
     }
 
@@ -49,7 +51,17 @@ class Client implements ClientInterface
 
     public function recv(float $timeout = 0): ResponseInterface
     {
-        return $this->transformResponse($this->client->recv($timeout));
+        $response = $this->client->recv($timeout);
+        if ($response === false) {
+            throw new HttpClientException($this->client->errMsg, $this->client->errCode);
+        }
+
+        return $this->transformResponse($response);
+    }
+
+    public function write(int $streamId, mixed $data, bool $end = false): bool
+    {
+        return $this->client->write($streamId, $data, $end);
     }
 
     public function ping(): bool
@@ -65,11 +77,6 @@ class Client implements ClientInterface
     public function isConnected(): bool
     {
         return $this->client->connected;
-    }
-
-    public function write(int $streamId, mixed $data, bool $end = false): bool
-    {
-        return $this->client->write($streamId, $data, $end);
     }
 
     private function transformResponse(SwResponse $request): ResponseInterface
@@ -89,7 +96,6 @@ class Client implements ClientInterface
         $req->path = $request->getPath();
         $req->headers = $request->getHeaders();
         $req->data = $request->getBody();
-        $req->pipeline = $request->isPipeline();
         $req->pipeline = $request->isPipeline();
         $req->usePipelineRead = $request->isPipeline();
         return $req;

@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6375cde7a3eb8ed21146d5885d7d979",
-    "packages": [
+    "content-hash": "9718cb789796e3ce91793d26e57a55de",
+    "packages": [],
+    "packages-dev": [
         {
             "name": "buexplain/netsvr-protocol",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol.git",
-                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe"
+                "reference": "b4df180f9e5afe86de33f080dc86770bdde13291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
-                "reference": "8a180eab5a4a97ce7ad2b3c64c42937e27260cfe",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/b4df180f9e5afe86de33f080dc86770bdde13291",
+                "reference": "b4df180f9e5afe86de33f080dc86770bdde13291",
                 "shasum": ""
             },
             "require": {
@@ -40,10 +41,9 @@
                 "issues": "https://github.com/buexplain/netsvr-protocol/issues",
                 "source": "https://github.com/buexplain/netsvr-protocol/tree/main"
             },
-            "time": "2023-03-25T05:31:30+00:00"
+            "time": "2023-04-18T05:45:06+00:00"
         }
     ],
-    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
@@ -55,5 +55,5 @@
         "php": ">=8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

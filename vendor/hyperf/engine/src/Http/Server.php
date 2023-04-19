@@ -40,7 +40,7 @@ class Server implements ServerInterface
         $this->host = $name;
         $this->port = $port;
 
-        $this->server = new HttpServer($name, $port, false, true);
+        $this->server = new HttpServer($name, $port, reuse_port: true);
         return $this;
     }
 

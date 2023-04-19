@@ -43,6 +43,8 @@ class SafeSocket implements SocketInterface
             if ($this->channel->isTimeout()) {
                 $this->throw && throw new SocketTimeoutException('The channel is full.');
             }
+
+            return false;
         }
         return strlen($data);
     }

@@ -1,0 +1,44 @@
+{
+  "name": "buexplain/netsvr-business",
+  "description": "这是一个可以快速开发websocket业务的包，它基于https://github.com/buexplain/netsvr进行工作。",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "buexplain",
+      "email": "buexplain@qq.com"
+    }
+  ],
+  "keywords": [
+    "php",
+    "swoole",
+    "hyperf",
+    "websocket",
+    "netsvr"
+  ],
+  "require": {
+    "php": ">=8.0",
+    "buexplain/netsvr-protocol-php": "dev-main",
+    "hyperf/command": "3.0.*",
+    "hyperf/di": "3.0.*",
+    "hyperf/devtool": "3.0.*",
+    "hyperf/config": "3.0.*",
+    "hyperf/logger": "3.0.*"
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "NetsvrBusiness\\": "src/"
+    }
+  },
+  "require-dev": {
+    "swoole/ide-helper": "*",
+    "friendsofphp/php-cs-fixer": "*",
+    "hyperf/signal": "@dev",
+    "google/protobuf": "^3.22"
+  },
+  "extra": {
+    "hyperf": {
+      "config": "NetsvrBusiness\\ConfigProvider"
+    }
+  }
+}
