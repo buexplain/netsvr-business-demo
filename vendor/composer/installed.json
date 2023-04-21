@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-business.git",
-                "reference": "d95a3ee1a28bea87e398d10270ba1423d845338c"
+                "reference": "bb1270974a9c5d3e051d27cb78a6d95bf25b2be9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/d95a3ee1a28bea87e398d10270ba1423d845338c",
-                "reference": "d95a3ee1a28bea87e398d10270ba1423d845338c",
+                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/bb1270974a9c5d3e051d27cb78a6d95bf25b2be9",
+                "reference": "bb1270974a9c5d3e051d27cb78a6d95bf25b2be9",
                 "shasum": ""
             },
             "require": {
@@ -30,7 +30,7 @@
                 "hyperf/signal": "@dev",
                 "swoole/ide-helper": "*"
             },
-            "time": "2023-04-19T10:22:13+00:00",
+            "time": "2023-04-21T12:40:30+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -75,12 +75,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol-php.git",
-                "reference": "bae21856e5a43e239f56d36c822500b594e58c8c"
+                "reference": "ae1ffcd29c6d24dd78a54898f8949d20595212f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/bae21856e5a43e239f56d36c822500b594e58c8c",
-                "reference": "bae21856e5a43e239f56d36c822500b594e58c8c",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/ae1ffcd29c6d24dd78a54898f8949d20595212f3",
+                "reference": "ae1ffcd29c6d24dd78a54898f8949d20595212f3",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
             "require-dev": {
                 "buexplain/netsvr-protocol": "dev-main"
             },
-            "time": "2023-04-18T05:50:01+00:00",
+            "time": "2023-04-21T05:27:31+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",

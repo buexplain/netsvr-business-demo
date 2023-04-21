@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol.git",
-                "reference": "b4df180f9e5afe86de33f080dc86770bdde13291"
+                "reference": "957a50173a320954409a40aaec31f67fa9c42d49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/b4df180f9e5afe86de33f080dc86770bdde13291",
-                "reference": "b4df180f9e5afe86de33f080dc86770bdde13291",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol/zipball/957a50173a320954409a40aaec31f67fa9c42d49",
+                "reference": "957a50173a320954409a40aaec31f67fa9c42d49",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 "issues": "https://github.com/buexplain/netsvr-protocol/issues",
                 "source": "https://github.com/buexplain/netsvr-protocol/tree/main"
             },
-            "time": "2023-04-18T05:45:06+00:00"
+            "time": "2023-04-21T05:25:27+00:00"
         }
     ],
     "aliases": [],

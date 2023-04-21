@@ -1,10 +1,12 @@
 {
-  "name": "buexplain/netsvr-business-phpdemo",
+  "name": "buexplain/netsvr-business-demo",
   "type": "project",
   "keywords": [
     "php",
     "websocket",
-    "netsvr"
+    "netsvr",
+    "hyperf",
+    "swoole"
   ],
   "description": "网关 https://github.com/buexplain/netsvr的business演示程序",
   "license": "Apache-2.0",

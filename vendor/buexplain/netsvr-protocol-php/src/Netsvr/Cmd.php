@@ -40,148 +40,147 @@ class Cmd
     /**
      *--------------------------------business单向请求worker的指令，worker不会响应business 开始--------------------------------
      *
-     * Generated from protobuf enum <code>Register = 90002001;</code>
+     * Generated from protobuf enum <code>InfoUpdate = 90002001;</code>
      */
-    const Register = 90002001;
-    /**
-     *更新连接的info信息
-     *
-     * Generated from protobuf enum <code>InfoUpdate = 90002002;</code>
-     */
-    const InfoUpdate = 90002002;
+    const InfoUpdate = 90002001;
     /**
      *删除连接的info信息
      *
-     * Generated from protobuf enum <code>InfoDelete = 90002003;</code>
+     * Generated from protobuf enum <code>InfoDelete = 90002002;</code>
      */
-    const InfoDelete = 90002003;
+    const InfoDelete = 90002002;
     /**
      *广播
      *
-     * Generated from protobuf enum <code>Broadcast = 90002004;</code>
+     * Generated from protobuf enum <code>Broadcast = 90002003;</code>
      */
-    const Broadcast = 90002004;
+    const Broadcast = 90002003;
     /**
      *组播
      *
-     * Generated from protobuf enum <code>Multicast = 90002005;</code>
+     * Generated from protobuf enum <code>Multicast = 90002004;</code>
      */
-    const Multicast = 90002005;
+    const Multicast = 90002004;
     /**
      *单播
      *
-     * Generated from protobuf enum <code>SingleCast = 90002006;</code>
+     * Generated from protobuf enum <code>SingleCast = 90002005;</code>
      */
-    const SingleCast = 90002006;
+    const SingleCast = 90002005;
     /**
      *订阅
      *
-     * Generated from protobuf enum <code>TopicSubscribe = 90002007;</code>
+     * Generated from protobuf enum <code>TopicSubscribe = 90002006;</code>
      */
-    const TopicSubscribe = 90002007;
+    const TopicSubscribe = 90002006;
     /**
      *取消订阅
      *
-     * Generated from protobuf enum <code>TopicUnsubscribe = 90002008;</code>
+     * Generated from protobuf enum <code>TopicUnsubscribe = 90002007;</code>
      */
-    const TopicUnsubscribe = 90002008;
+    const TopicUnsubscribe = 90002007;
     /**
      *删除主题
      *
-     * Generated from protobuf enum <code>TopicDelete = 9000209;</code>
+     * Generated from protobuf enum <code>TopicDelete = 9000208;</code>
      */
-    const TopicDelete = 9000209;
+    const TopicDelete = 9000208;
     /**
      *发布
      *
-     * Generated from protobuf enum <code>TopicPublish = 90002010;</code>
+     * Generated from protobuf enum <code>TopicPublish = 9000209;</code>
      */
-    const TopicPublish = 90002010;
+    const TopicPublish = 9000209;
     /**
      *强制关闭某个连接
      *
-     * Generated from protobuf enum <code>ForceOffline = 90002011;</code>
+     * Generated from protobuf enum <code>ForceOffline = 90002010;</code>
      */
-    const ForceOffline = 90002011;
+    const ForceOffline = 90002010;
     /**
      *强制关闭某个空session值的连接
      *
-     * Generated from protobuf enum <code>ForceOfflineGuest = 90002012;</code>
+     * Generated from protobuf enum <code>ForceOfflineGuest = 90002011;</code>
      */
-    const ForceOfflineGuest = 90002012;
+    const ForceOfflineGuest = 90002011;
     /**
      *--------------------------------business请求worker的指令，worker会响应business，响应的指令是worker通过routerCmd自定义的 开始--------------------------------
      *
-     * Generated from protobuf enum <code>Unregister = 90003001;</code>
+     * Generated from protobuf enum <code>Register = 90003001;</code>
      */
-    const Unregister = 90003001;
+    const Register = 90003001;
+    /**
+     *取消注册，取消后不会再收到客户信息
+     *
+     * Generated from protobuf enum <code>Unregister = 90003002;</code>
+     */
+    const Unregister = 90003002;
     /**
      *判断uniqId是否在网关中
      *
-     * Generated from protobuf enum <code>CheckOnline = 90003002;</code>
+     * Generated from protobuf enum <code>CheckOnline = 90003003;</code>
      */
-    const CheckOnline = 90003002;
+    const CheckOnline = 90003003;
     /**
      *获取网关中全部的uniqId
      *
-     * Generated from protobuf enum <code>UniqIdList = 90003003;</code>
+     * Generated from protobuf enum <code>UniqIdList = 90003004;</code>
      */
-    const UniqIdList = 90003003;
+    const UniqIdList = 90003004;
     /**
      *获取网关中uniqId的数量
      *
-     * Generated from protobuf enum <code>UniqIdCount = 90003004;</code>
+     * Generated from protobuf enum <code>UniqIdCount = 90003005;</code>
      */
-    const UniqIdCount = 90003004;
+    const UniqIdCount = 90003005;
     /**
      *获取网关中的主题数量
      *
-     * Generated from protobuf enum <code>TopicCount = 90003005;</code>
+     * Generated from protobuf enum <code>TopicCount = 90003006;</code>
      */
-    const TopicCount = 90003005;
+    const TopicCount = 90003006;
     /**
      *获取网关中的主题
      *
-     * Generated from protobuf enum <code>TopicList = 90003006;</code>
+     * Generated from protobuf enum <code>TopicList = 90003007;</code>
      */
-    const TopicList = 90003006;
+    const TopicList = 90003007;
     /**
      *获取网关中某个主题包含的uniqId
      *
-     * Generated from protobuf enum <code>TopicUniqIdList = 90003007;</code>
+     * Generated from protobuf enum <code>TopicUniqIdList = 90003008;</code>
      */
-    const TopicUniqIdList = 90003007;
+    const TopicUniqIdList = 90003008;
     /**
      *获取网关中的主题包含的连接数
      *
-     * Generated from protobuf enum <code>TopicUniqIdCount = 90003008;</code>
+     * Generated from protobuf enum <code>TopicUniqIdCount = 90003009;</code>
      */
-    const TopicUniqIdCount = 90003008;
+    const TopicUniqIdCount = 90003009;
     /**
      *获取连接的信息
      *
-     * Generated from protobuf enum <code>Info = 90003009;</code>
+     * Generated from protobuf enum <code>Info = 90003010;</code>
      */
-    const Info = 90003009;
+    const Info = 90003010;
     /**
      *获取网关统计的服务状态
      *
-     * Generated from protobuf enum <code>Metrics = 900030010;</code>
+     * Generated from protobuf enum <code>Metrics = 900030011;</code>
      */
-    const Metrics = 900030010;
+    const Metrics = 900030011;
     /**
      *更新限流配置、获取网关中的限流配置的真实情况
      *
-     * Generated from protobuf enum <code>Limit = 90003011;</code>
+     * Generated from protobuf enum <code>Limit = 90003012;</code>
      */
-    const Limit = 90003011;
+    const Limit = 90003012;
 
     private static $valueToName = [
         self::Placeholder => 'Placeholder',
         self::ConnOpen => 'ConnOpen',
         self::ConnClose => 'ConnClose',
         self::Transfer => 'Transfer',
-        self::Register => 'Register',
         self::InfoUpdate => 'InfoUpdate',
         self::InfoDelete => 'InfoDelete',
         self::Broadcast => 'Broadcast',
@@ -193,6 +192,7 @@ class Cmd
         self::TopicPublish => 'TopicPublish',
         self::ForceOffline => 'ForceOffline',
         self::ForceOfflineGuest => 'ForceOfflineGuest',
+        self::Register => 'Register',
         self::Unregister => 'Unregister',
         self::CheckOnline => 'CheckOnline',
         self::UniqIdList => 'UniqIdList',

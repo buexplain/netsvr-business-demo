@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd5993d247b4f196e50e2fa91499045049c759cbb',
+        'reference' => 'bfb24e67cb01f1a9b3d4f87cd987087777aa8aef',
         'name' => 'buexplain/netsvr-business-phpdemo',
         'dev' => true,
     ),
@@ -18,7 +18,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'd95a3ee1a28bea87e398d10270ba1423d845338c',
+            'reference' => 'bb1270974a9c5d3e051d27cb78a6d95bf25b2be9',
             'dev_requirement' => false,
         ),
         'buexplain/netsvr-business-phpdemo' => array(
@@ -27,7 +27,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd5993d247b4f196e50e2fa91499045049c759cbb',
+            'reference' => 'bfb24e67cb01f1a9b3d4f87cd987087777aa8aef',
             'dev_requirement' => false,
         ),
         'buexplain/netsvr-protocol-php' => array(
@@ -38,7 +38,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'bae21856e5a43e239f56d36c822500b594e58c8c',
+            'reference' => 'ae1ffcd29c6d24dd78a54898f8949d20595212f3',
             'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(

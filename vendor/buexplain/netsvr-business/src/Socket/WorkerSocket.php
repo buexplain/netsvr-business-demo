@@ -19,6 +19,9 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness\Socket;
 
+use Netsvr\RegisterReq;
+use Netsvr\RegisterResp;
+use Netsvr\RegisterRespCode;
 use NetsvrBusiness\Contract\WorkerSocketInterface;
 use NetsvrBusiness\Exception\ConnectException;
 use Exception;
@@ -26,7 +29,6 @@ use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Netsvr\Cmd;
 use Netsvr\Constant;
-use Netsvr\Register;
 use Netsvr\Router;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -86,7 +88,7 @@ class WorkerSocket implements WorkerSocketInterface
     {
         $router = new Router();
         $router->setCmd(Cmd::Register);
-        $reg = new Register();
+        $reg = new RegisterReq();
         $reg->setWorkerId($this->workerId);
         $reg->setServerId($this->serverId);
         $reg->setProcessCmdGoroutineNum($this->processCmdGoroutineNum);
@@ -145,6 +147,12 @@ class WorkerSocket implements WorkerSocketInterface
                     break;
                 }
                 if ($socket->send($data) !== false) {
+                    $resp = $socket->recvPacket();
+                    if ($resp === '' || $resp === false) {
+                        Coroutine::sleep(3);
+                        $socket->close();
+                        continue;
+                    }
                     $this->socket = $socket;
                     $this->logger->notice(sprintf($this->loggerPrefix . 'repair socket %s:%s connect and register ok.', $this->host, $this->port));
                     break;
@@ -181,24 +189,74 @@ class WorkerSocket implements WorkerSocketInterface
      */
     public function register(): bool
     {
-        if ($this->_send($this->makeRegisterProtocol()) !== false) {
-            Coroutine::sleep(1);
-            if ($this->socket->checkLiveness() === false) {
+        if ($this->_send($this->makeRegisterProtocol()) === false) {
+            return false;
+        }
+        //发送成功后，接收注册结果
+        $data = $this->socket->recvPacket();
+        if ($data === '' || $data === false) {
+            //读取失败
+            return false;
+        }
+        try {
+            //解码路由，丢弃掉前4个字节，因为这4个字节是包头
+            $data = substr($data, 4);
+            $router = new Router();
+            $router->mergeFromString($data);
+            //网关服务返回了其它的命令
+            if ($router->getCmd() != Cmd::Register) {
                 $this->logger->error(sprintf(
-                    $this->loggerPrefix . 'register socket %s:%s failed, because: %s, may be the serverId option in file business.php is incorrect.',
+                    $this->loggerPrefix . 'register socket %s:%s failed, expecting the netsvr to return a response to the register cmd.',
                     $this->host,
                     $this->port,
-                    $this->socket->errMsg,
-                    $this->serverId
                 ));
                 return false;
             }
-            if (!$this->waitUnregisterOk) {
-                $this->waitUnregisterOk = new Channel(1);
+            //解码注册结果
+            $payload = new RegisterResp();
+            $payload->mergeFromString($router->getData());
+            if ($payload->getCode() === RegisterRespCode::Success) {
+                //注册成功
+                if (!$this->waitUnregisterOk) {
+                    $this->waitUnregisterOk = new Channel(1);
+                }
+                return true;
             }
-            return true;
+            //注册失败
+            if ($payload->getCode() === RegisterRespCode::WorkerIdOverflow) {
+                $this->logger->error(sprintf(
+                    $this->loggerPrefix . 'register socket %s:%s failed, workerId option in file business.php is overflow of range.',
+                    $this->host,
+                    $this->port,
+                ));
+            } else if ($payload->getCode() === RegisterRespCode::ServerIdInconsistent) {
+                $this->logger->error(sprintf(
+                    $this->loggerPrefix . 'register socket %s:%s failed, serverId option in file business.php is incorrect.',
+                    $this->host,
+                    $this->port,
+                    $this->serverId
+                ));
+            } else {
+                $this->logger->error(sprintf(
+                    $this->loggerPrefix . 'register socket %s:%s failed, because: %s.',
+                    $this->host,
+                    $this->port,
+                    $payload->getMessage()
+                ));
+            }
+            return false;
+        } catch (Throwable $throwable) {
+            $message = sprintf(
+                "%d --> %s in %s on line %d\nThrowable: %s",
+                $throwable->getCode(),
+                $throwable->getMessage(),
+                $throwable->getFile(),
+                $throwable->getLine(),
+                get_class($throwable)
+            );
+            $this->logger->error($this->loggerPrefix . $message);
+            return false;
         }
-        return false;
     }
 
     /**

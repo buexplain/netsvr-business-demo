@@ -57,22 +57,6 @@ class WorkerSocketManager implements WorkerSocketManagerInterface
             throw new DuplicateServerIdException('serverId option in file business.php is duplicate: ' . $socket->getServerId());
         }
         $this->sockets[$socket->getServerId()] = $socket;
-        //这里做一到中转，将每个socket发来的数据统一转发到一个channel里面
-        Coroutine::create(function () use ($socket) {
-            while (true) {
-                $data = $socket->receive();
-                if ($data !== false) {
-                    $this->receiveCh->push($data);
-                    continue;
-                }
-                $this->logger->debug($this->loggerPrefix . 'coroutine:loopTransfer exit.');
-                unset($this->sockets[$socket->getServerId()]);
-                if (count($this->sockets) == 0) {
-                    $this->receiveCh->close();
-                }
-                break;
-            }
-        });
     }
 
     /**
@@ -110,9 +94,26 @@ class WorkerSocketManager implements WorkerSocketManagerInterface
         if ($ok === false) {
             return false;
         }
+        //所有连接注册成功，开始异步读写数据
         foreach ($this->sockets as $socket) {
             $socket->loopSend();
             $socket->loopHeartbeat();
+            //这里做一到中转，将每个socket发来的数据统一转发到一个channel里面
+            Coroutine::create(function () use ($socket) {
+                while (true) {
+                    $data = $socket->receive();
+                    if ($data !== false) {
+                        $this->receiveCh->push($data);
+                        continue;
+                    }
+                    $this->logger->debug($this->loggerPrefix . 'coroutine:loopTransfer exit.');
+                    unset($this->sockets[$socket->getServerId()]);
+                    if (count($this->sockets) == 0) {
+                        $this->receiveCh->close();
+                    }
+                    break;
+                }
+            });
         }
         return true;
     }
