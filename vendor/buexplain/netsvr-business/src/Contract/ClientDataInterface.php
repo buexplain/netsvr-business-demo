@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness\Contract;
 
-interface ClientRouterInterface
+interface ClientDataInterface
 {
     /**
      * 编码
@@ -33,30 +33,4 @@ interface ClientRouterInterface
      * @return void
      */
     public function mergeFromString(string $data): void;
-
-    /**
-     * 获取命令
-     * @return int
-     */
-    public function getCmd(): int;
-
-    /**
-     * 设置命令
-     * @param int $cmd
-     * @return void
-     */
-    public function setCmd(int $cmd): void;
-
-    /**
-     * 获取命令携带的数据
-     * @return string
-     */
-    public function getData(): string;
-
-    /**
-     * 设置命令携带的数据
-     * @param string $data
-     * @return void
-     */
-    public function setData(string $data): void;
 }

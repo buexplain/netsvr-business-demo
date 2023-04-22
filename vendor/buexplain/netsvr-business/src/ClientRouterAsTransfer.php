@@ -28,19 +28,35 @@ use Netsvr\Transfer;
  */
 class ClientRouterAsTransfer implements ClientRouterInterface
 {
-    /**
-     * @return int
-     */
-    public function getCmd(): int
+    protected int $cmd = Cmd::Transfer;
+    protected string $data = '';
+
+    public function serializeToString(): string
     {
-        return Cmd::Transfer;
+        return $this->data;
     }
 
-    /**
-     * @param Transfer $transfer
-     * @return void
-     */
-    public function decode(Transfer $transfer): void
+    public function mergeFromString(string $data): void
     {
+        $this->data = $data;
+    }
+
+    public function getCmd(): int
+    {
+        return $this->cmd;
+    }
+
+    public function setCmd(int $cmd): void
+    {
+    }
+
+    public function getData(): string
+    {
+        return $this->data;
+    }
+
+    public function setData(string $data): void
+    {
+        $this->data = $data;
     }
 }

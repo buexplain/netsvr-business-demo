@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness;
 
+use NetsvrBusiness\Contract\ClientDataInterface;
 use NetsvrBusiness\Contract\ClientRouterInterface;
 use NetsvrBusiness\Contract\DispatcherInterface;
 use Exception;
@@ -104,14 +105,14 @@ class Dispatcher implements DispatcherInterface
     {
         $arguments = [];
         if ($router->getCmd() == Cmd::Transfer) {
-            //网关转发过来的客户消息，需要解码出里面的cmd
+            //网关转发过来的客户消息，需要解码出客户消息的cmd
             $tf = new Transfer();
             $tf->mergeFromString($router->getData());
             /**
              * @var $clientRouter ClientRouterInterface
              */
             $clientRouter = make(ClientRouterInterface::class);
-            $clientRouter->decode($tf);
+            $clientRouter->mergeFromString($tf->getData());
             $cmd = $clientRouter->getCmd();
             $arguments[ClientRouterInterface::class] = $clientRouter;
             $arguments[$clientRouter::class] = $clientRouter;
@@ -127,7 +128,22 @@ class Dispatcher implements DispatcherInterface
         $container = ApplicationContext::getContainer();
         $methodDefinitionCollector = $container->get(MethodDefinitionCollectorInterface::class);
         $definitions = $methodDefinitionCollector->getParameters($handler[0], $handler[1]);
-        if ($router->getCmd() != Cmd::Transfer) {
+        if ($router->getCmd() === Cmd::Transfer) {
+            //网关转发的非客户消息，需要解码出客户消息携带的数据
+            $clientRouter->getData();
+            foreach ($definitions as $definition) {
+                if (is_subclass_of($definition->getName(), ClientDataInterface::class)) {
+                    /**
+                     * @var $clientData ClientDataInterface
+                     */
+                    $clientData = make($definition->getName());
+                    $clientData->mergeFromString($clientRouter->getData());
+                    $arguments[$clientData::class] = $clientData;
+                    $arguments[ClientDataInterface::class] = $clientData;
+                    break;
+                }
+            }
+        } else {
             //网关转发的非客户消息，需要解码出网关组件下的具体对象
             foreach ($definitions as $definition) {
                 if (str_starts_with($definition->getName(), 'Netsvr\\') && class_exists($definition->getName())) {

@@ -24,45 +24,48 @@ use Netsvr\Transfer;
 use NetsvrBusiness\Exception\ClientRouterDecodeException;
 
 /**
- * 客户端发消息的路由，这个路由实现是解析json，json格式为：{"cmd":int, "data":mixed}
+ * 客户端发消息的路由，这个路由实现是解析json，json格式为：{"cmd":int, "data":"string"}
  */
 class ClientRouterAsJson implements ClientRouterInterface
 {
     protected int $cmd = 0;
-    protected mixed $data = null;
+    protected string $data = '';
 
-    /**
-     * 返回客户发送过来的消息携带的cmd
-     * @return int
-     */
+    public function serializeToString(): string
+    {
+        return json_encode(['cmd' => $this->cmd, 'data' => $this->data], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    public function mergeFromString(string $data): void
+    {
+        $tmp = json_decode($data, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new ClientRouterDecodeException(json_last_error_msg(), 1);
+        }
+        if (!is_array($tmp) || !isset($tmp['cmd']) || !is_int($tmp['cmd']) || !isset($tmp['data']) || !is_string($tmp['data'])) {
+            throw new ClientRouterDecodeException('expected package format is: {"cmd":int, "data":"string"}', 2);
+        }
+        $this->cmd = $tmp['cmd'];
+        $this->data = $tmp['data'];
+    }
+
     public function getCmd(): int
     {
         return $this->cmd;
     }
 
-    /**
-     * 解析客户发送过来的消息
-     * @param Transfer $transfer
-     * @return void
-     */
-    public function decode(Transfer $transfer): void
+    public function setCmd(int $cmd): void
     {
-        $tmp = json_decode($transfer->getData(), true);
-        if (is_array($tmp) && isset($tmp['cmd']) && is_int($tmp['cmd'])) {
-            $this->cmd = $tmp['cmd'];
-            if (isset($tmp['data'])) {
-                $this->data = $tmp['data'];
-            }
-            return;
-        }
-        if (json_last_error() === JSON_ERROR_NONE) {
-            throw new ClientRouterDecodeException(json_last_error_msg(), 1);
-        }
-        throw new ClientRouterDecodeException('Unable to find the cmd field, expected package format is: {"cmd":int, "data":mixed}', 1);
+        $this->cmd = $cmd;
     }
 
-    public function getData(): mixed
+    public function getData(): string
     {
         return $this->data;
+    }
+
+    public function setData(string $data): void
+    {
+        $this->data = $data;
     }
 }

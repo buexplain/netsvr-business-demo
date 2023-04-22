@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Protocol\BroadcastProtocol;
+use App\Protocol\SingleCastProtocol;
 use Netsvr\SingleCast;
 use NetsvrBusiness\ClientRouterAsJson;
 use NetsvrBusiness\Contract\WorkerSocketManagerInterface;
@@ -61,42 +63,47 @@ class WebsocketController
      * 广播消息
      * @param WorkerSocketManagerInterface $manager
      * @param Transfer $transfer
-     * @param ClientRouterAsJson $clientRouter
+     * @param BroadcastProtocol $clientData
      * @return void
      */
-    public function broadcast(WorkerSocketManagerInterface $manager, Transfer $transfer, ClientRouterAsJson $clientRouter): void
+    public function broadcast(WorkerSocketManagerInterface $manager, Transfer $transfer, BroadcastProtocol $clientData): void
     {
-        $message = (string)$clientRouter->getData();
+        //构造一个客户端需要的广播数据结构
+        $clientData->setFromUser($transfer->getUniqId());
+        $clientRouter = new ClientRouterAsJson();
+        $clientRouter->setCmd($clientData::CMD);
+        $clientRouter->setData($clientData->serializeToString());
+        //构造一个网关服务需要的广播结构
         $broadcast = new Broadcast();
-        $broadcast->setData($transfer->getUniqId() . '：' . $message);
+        $broadcast->setData($clientRouter->serializeToString());
         $router = new Router();
         $router->setCmd(Cmd::Broadcast);
         $router->setData($broadcast->serializeToString());
+        //发给网关
         $manager->send($router->serializeToString());
-        echo '收到广播消息：' . $transfer->getUniqId() . ' --> ' . $message, PHP_EOL;
+        echo '收到广播消息：' . $clientData->getMessage(), PHP_EOL;
     }
 
     /**
      * 单播消息给某个用户
      * @param WorkerSocketManagerInterface $manager
      * @param Transfer $transfer
-     * @param ClientRouterAsJson $clientRouter
+     * @param SingleCastProtocol $clientData
      * @return void
      */
-    public function singleCast(WorkerSocketManagerInterface $manager, Transfer $transfer, ClientRouterAsJson $clientRouter): void
+    public function singleCast(WorkerSocketManagerInterface $manager, Transfer $transfer, SingleCastProtocol $clientData): void
     {
-        //获取用户发的单播的数据
-        $data = (array)$clientRouter->getData();
-        //发送的消息
-        $message = $data['message'];
-        //发送给谁
-        $to = $data['to'];
+        //构造一个客户端需要的单播数据结构
+        $clientData->setFromUser($transfer->getUniqId());
+        $clientRouter = new ClientRouterAsJson();
+        $clientRouter->setCmd($clientData::CMD);
+        $clientRouter->setData($clientData->serializeToString());
         //构造一个网关服务需要的单播对象
         $singleCast = new SingleCast();
         //设置目标用户
-        $singleCast->setUniqId($to);
+        $singleCast->setUniqId($clientData->getToUser());
         //设置消息
-        $singleCast->setData($transfer->getUniqId() . '：' . $message);
+        $singleCast->setData($clientRouter->serializeToString());
         //构造一个网关服务需要的路由对象
         $router = new Router();
         //设置路由的命令为单播，网关收到该命令会执行单播的逻辑
@@ -104,7 +111,7 @@ class WebsocketController
         //设置单播的数据
         $router->setData($singleCast->serializeToString());
         //根据目标用户的id，获取目标用户所在的网关服务的socket，并将数据发送给该socket
-        $manager->getSocketByPrefixUniqId($to)?->send($router->serializeToString());
-        echo '收到单播消息：from --> ' . $transfer->getUniqId() . ' to --> ' . $to . ' --> ' . $message, PHP_EOL;
+        $manager->getSocketByPrefixUniqId($clientData->getToUser())?->send($router->serializeToString());
+        echo '收到单播消息：from --> ' . $transfer->getUniqId() . ' to --> ' . $clientData->getToUser() . ' --> ' . $clientData->getMessage(), PHP_EOL;
     }
 }
