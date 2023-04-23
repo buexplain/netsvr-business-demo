@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-namespace NetsvrBusiness;
-
+namespace NetsvrBusiness\Dispatcher;
 
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;

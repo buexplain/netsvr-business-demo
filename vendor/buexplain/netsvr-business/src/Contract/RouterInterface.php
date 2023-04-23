@@ -19,18 +19,47 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness\Contract;
 
-interface ClientDataInterface
+/**
+ * 客户数据的路由的编解码接口
+ */
+interface RouterInterface
 {
     /**
      * 编码
      * @return string
      */
-    public function serializeToString(): string;
+    public function encode(): string;
 
     /**
      * 解码
-     * @param string $param
+     * @param string $data
      * @return void
      */
-    public function mergeFromString(string $data): void;
+    public function decode(string $data): void;
+
+    /**
+     * 获取命令
+     * @return int
+     */
+    public function getCmd(): int;
+
+    /**
+     * 设置命令
+     * @param int $cmd
+     * @return void
+     */
+    public function setCmd(int $cmd): void;
+
+    /**
+     * 获取命令携带的数据
+     * @return string
+     */
+    public function getData(): string;
+
+    /**
+     * 设置命令携带的数据
+     * @param string $data
+     * @return void
+     */
+    public function setData(string $data): void;
 }

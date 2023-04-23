@@ -21,6 +21,9 @@ namespace NetsvrBusiness\Exception;
 
 use InvalidArgumentException;
 
+/**
+ * business.php的serverId配置重复的异常
+ */
 class DuplicateServerIdException extends InvalidArgumentException
 {
 

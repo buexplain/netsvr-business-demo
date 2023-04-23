@@ -17,11 +17,8 @@
 
 declare(strict_types=1);
 
-namespace NetsvrBusiness;
+namespace NetsvrBusiness\Dispatcher;
 
-use NetsvrBusiness\Contract\ClientDataInterface;
-use NetsvrBusiness\Contract\ClientRouterInterface;
-use NetsvrBusiness\Contract\DispatcherInterface;
 use Exception;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\NormalizerInterface;
@@ -31,6 +28,9 @@ use InvalidArgumentException;
 use Netsvr\Cmd;
 use Netsvr\Router;
 use Netsvr\Transfer;
+use NetsvrBusiness\Contract\DataInterface;
+use NetsvrBusiness\Contract\RouterInterface;
+use NetsvrBusiness\Contract\DispatcherInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -74,7 +74,7 @@ class Dispatcher implements DispatcherInterface
     {
         $injections = [];
         foreach ($definitions as $pos => $definition) {
-            $value = $arguments[$pos] ?? $arguments[$definition->getMeta('name')] ?? $arguments[$definition->getName()] ?? null;
+            $value = $arguments[$pos] ?? $arguments[$definition->getName()] ?? $arguments[$definition->getMeta('name')] ?? null;
             if ($value === null) {
                 if ($definition->getMeta('defaultValueAvailable')) {
                     $injections[] = $definition->getMeta('defaultValue');
@@ -109,12 +109,12 @@ class Dispatcher implements DispatcherInterface
             $tf = new Transfer();
             $tf->mergeFromString($router->getData());
             /**
-             * @var $clientRouter ClientRouterInterface
+             * @var $clientRouter RouterInterface
              */
-            $clientRouter = make(ClientRouterInterface::class);
-            $clientRouter->mergeFromString($tf->getData());
+            $clientRouter = make(RouterInterface::class);
+            $clientRouter->decode($tf->getData());
             $cmd = $clientRouter->getCmd();
-            $arguments[ClientRouterInterface::class] = $clientRouter;
+            $arguments[RouterInterface::class] = $clientRouter;
             $arguments[$clientRouter::class] = $clientRouter;
             $arguments[Transfer::class] = $tf;
         } else {
@@ -129,17 +129,16 @@ class Dispatcher implements DispatcherInterface
         $methodDefinitionCollector = $container->get(MethodDefinitionCollectorInterface::class);
         $definitions = $methodDefinitionCollector->getParameters($handler[0], $handler[1]);
         if ($router->getCmd() === Cmd::Transfer) {
-            //网关转发的非客户消息，需要解码出客户消息携带的数据
-            $clientRouter->getData();
+            //网关转发的客户消息，需要解码出客户消息携带的数据
             foreach ($definitions as $definition) {
-                if (is_subclass_of($definition->getName(), ClientDataInterface::class)) {
+                if (isset($clientRouter) && is_subclass_of($definition->getName(), DataInterface::class)) {
                     /**
-                     * @var $clientData ClientDataInterface
+                     * @var $clientData DataInterface
                      */
                     $clientData = make($definition->getName());
-                    $clientData->mergeFromString($clientRouter->getData());
+                    $clientData->decode($clientRouter->getData());
                     $arguments[$clientData::class] = $clientData;
-                    $arguments[ClientDataInterface::class] = $clientData;
+                    $arguments[DataInterface::class] = $clientData;
                     break;
                 }
             }

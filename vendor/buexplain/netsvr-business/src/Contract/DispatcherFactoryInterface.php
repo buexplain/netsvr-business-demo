@@ -19,6 +19,9 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness\Contract;
 
+/**
+ * 网关服务转发消息过来后的调度器工厂方法，负责构造出调度器实例
+ */
 interface DispatcherFactoryInterface
 {
     public function get(): DispatcherInterface;

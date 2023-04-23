@@ -1,4 +1,3 @@
-<?php
 /**
  * Copyright 2023 buexplain@qq.com
  *
@@ -15,16 +14,17 @@
  * limitations under the License.
  */
 
-declare(strict_types=1);
+syntax = "proto3";
 
-namespace NetsvrBusiness\Exception;
+package netsvrBusiness.router;
 
-use RuntimeException;
+option php_namespace = "NetsvrBusiness\\Router\\Proto";
+option php_metadata_namespace = "NetsvrBusiness\\Router\\Proto\\GPBMetadata";
 
-/**
- * 连接到网关的异常
- */
-class ConnectException extends RuntimeException
-{
-
+//路由
+message Router {
+  //命令
+  int32 cmd = 1;
+  //命令携带的数据
+  bytes data = 2;
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd60d9fe88a6e9980d4d30208582f83d",
+    "content-hash": "57052436c314b88b07962bec4aa2d41a",
     "packages": [
         {
             "name": "buexplain/netsvr-business",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-business.git",
-                "reference": "bb1270974a9c5d3e051d27cb78a6d95bf25b2be9"
+                "reference": "c0c257b6ec0c4f21ee3cf866f367352b84ee20fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/bb1270974a9c5d3e051d27cb78a6d95bf25b2be9",
-                "reference": "bb1270974a9c5d3e051d27cb78a6d95bf25b2be9",
+                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/c0c257b6ec0c4f21ee3cf866f367352b84ee20fb",
+                "reference": "c0c257b6ec0c4f21ee3cf866f367352b84ee20fb",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +69,7 @@
                 "issues": "https://github.com/buexplain/netsvr-business/issues",
                 "source": "https://github.com/buexplain/netsvr-business/tree/main"
             },
-            "time": "2023-04-21T12:40:30+00:00"
+            "time": "2023-04-23T06:21:08+00:00"
         },
         {
             "name": "buexplain/netsvr-protocol-php",

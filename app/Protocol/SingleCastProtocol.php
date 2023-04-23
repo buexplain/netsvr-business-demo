@@ -2,13 +2,13 @@
 
 namespace App\Protocol;
 
-use NetsvrBusiness\Contract\ClientDataInterface;
-use NetsvrBusiness\Exception\ClientDataDecodeException;
+use NetsvrBusiness\Contract\DataInterface;
+use NetsvrBusiness\Exception\DataDecodeException;
 
 /**
- * 单播消息给某个用户，客户端发送时的格式示例：{"cmd":2, "data":"{\"message\": \"你好\",\"toUser\":\"016443D1DF1BC6C722\"}"}
+ * 单播消息给某个用户，客户端发送时的格式示例：001{"cmd":2, "data":"{\"message\": \"你好\",\"toUser\":\"016444C542140625DC\"}"}
  */
-class SingleCastProtocol implements ClientDataInterface
+class SingleCastProtocol implements DataInterface
 {
     public const CMD = 2;
 
@@ -59,19 +59,19 @@ class SingleCastProtocol implements ClientDataInterface
         $this->fromUser = $uniqId;
     }
 
-    public function serializeToString(): string
+    public function encode(): string
     {
         return json_encode(['message' => $this->message, 'toUser' => $this->toUser, 'fromUser' => $this->fromUser], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
-    public function mergeFromString(string $data): void
+    public function decode(string $data): void
     {
         $tmp = json_decode($data, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new ClientDataDecodeException(json_last_error_msg(), 1);
+            throw new DataDecodeException(json_last_error_msg(), 1);
         }
         if (!is_array($tmp) || !isset($tmp['message']) || !isset($tmp['toUser'])) {
-            throw new ClientDataDecodeException('expected package format is: {"message":"string","toUser":"string"}', 2);
+            throw new DataDecodeException('expected package format is: {"message":"string","toUser":"string"}', 2);
         }
         $this->message = $tmp['message'];
         $this->toUser = $tmp['toUser'];

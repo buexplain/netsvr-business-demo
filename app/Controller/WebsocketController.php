@@ -7,7 +7,7 @@ namespace App\Controller;
 use App\Protocol\BroadcastProtocol;
 use App\Protocol\SingleCastProtocol;
 use Netsvr\SingleCast;
-use NetsvrBusiness\ClientRouterAsJson;
+use NetsvrBusiness\Contract\RouterInterface;
 use NetsvrBusiness\Contract\WorkerSocketManagerInterface;
 use Netsvr\Broadcast;
 use Netsvr\Cmd;
@@ -63,19 +63,18 @@ class WebsocketController
      * 广播消息
      * @param WorkerSocketManagerInterface $manager
      * @param Transfer $transfer
+     * @param RouterInterface $clientRouter
      * @param BroadcastProtocol $clientData
      * @return void
      */
-    public function broadcast(WorkerSocketManagerInterface $manager, Transfer $transfer, BroadcastProtocol $clientData): void
+    public function broadcast(WorkerSocketManagerInterface $manager, Transfer $transfer, RouterInterface $clientRouter, BroadcastProtocol $clientData): void
     {
         //构造一个客户端需要的广播数据结构
-        $clientData->setFromUser($transfer->getUniqId());
-        $clientRouter = new ClientRouterAsJson();
-        $clientRouter->setCmd($clientData::CMD);
-        $clientRouter->setData($clientData->serializeToString());
+        $clientData->setFromUser($transfer->getUniqId()); //设置广播的用户是谁
+        $clientRouter->setData($clientData->encode()); //将业务数据重新格式化给客户数据的路由
         //构造一个网关服务需要的广播结构
         $broadcast = new Broadcast();
-        $broadcast->setData($clientRouter->serializeToString());
+        $broadcast->setData($clientRouter->encode());//将客户路由格式化到广播对象上
         $router = new Router();
         $router->setCmd(Cmd::Broadcast);
         $router->setData($broadcast->serializeToString());
@@ -88,22 +87,21 @@ class WebsocketController
      * 单播消息给某个用户
      * @param WorkerSocketManagerInterface $manager
      * @param Transfer $transfer
+     * @param RouterInterface $clientRouter
      * @param SingleCastProtocol $clientData
      * @return void
      */
-    public function singleCast(WorkerSocketManagerInterface $manager, Transfer $transfer, SingleCastProtocol $clientData): void
+    public function singleCast(WorkerSocketManagerInterface $manager, Transfer $transfer, RouterInterface $clientRouter, SingleCastProtocol $clientData): void
     {
         //构造一个客户端需要的单播数据结构
         $clientData->setFromUser($transfer->getUniqId());
-        $clientRouter = new ClientRouterAsJson();
-        $clientRouter->setCmd($clientData::CMD);
-        $clientRouter->setData($clientData->serializeToString());
+        $clientRouter->setData($clientData->encode());
         //构造一个网关服务需要的单播对象
         $singleCast = new SingleCast();
         //设置目标用户
         $singleCast->setUniqId($clientData->getToUser());
         //设置消息
-        $singleCast->setData($clientRouter->serializeToString());
+        $singleCast->setData($clientRouter->encode());
         //构造一个网关服务需要的路由对象
         $router = new Router();
         //设置路由的命令为单播，网关收到该命令会执行单播的逻辑

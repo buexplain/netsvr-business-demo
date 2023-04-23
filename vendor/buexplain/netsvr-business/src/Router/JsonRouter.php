@@ -17,33 +17,32 @@
 
 declare(strict_types=1);
 
-namespace NetsvrBusiness;
+namespace NetsvrBusiness\Router;
 
-use NetsvrBusiness\Contract\ClientRouterInterface;
-use Netsvr\Transfer;
-use NetsvrBusiness\Exception\ClientRouterDecodeException;
+use NetsvrBusiness\Contract\RouterInterface;
+use NetsvrBusiness\Exception\RouterDecodeException;
 
 /**
  * 客户端发消息的路由，这个路由实现是解析json，json格式为：{"cmd":int, "data":"string"}
  */
-class ClientRouterAsJson implements ClientRouterInterface
+class JsonRouter implements RouterInterface
 {
     protected int $cmd = 0;
     protected string $data = '';
 
-    public function serializeToString(): string
+    public function encode(): string
     {
         return json_encode(['cmd' => $this->cmd, 'data' => $this->data], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
-    public function mergeFromString(string $data): void
+    public function decode(string $data): void
     {
         $tmp = json_decode($data, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new ClientRouterDecodeException(json_last_error_msg(), 1);
+            throw new RouterDecodeException(json_last_error_msg(), 1);
         }
         if (!is_array($tmp) || !isset($tmp['cmd']) || !is_int($tmp['cmd']) || !isset($tmp['data']) || !is_string($tmp['data'])) {
-            throw new ClientRouterDecodeException('expected package format is: {"cmd":int, "data":"string"}', 2);
+            throw new RouterDecodeException('expected package format is: {"cmd":int, "data":"string"}', 2);
         }
         $this->cmd = $tmp['cmd'];
         $this->data = $tmp['data'];

@@ -17,26 +17,25 @@
 
 declare(strict_types=1);
 
-namespace NetsvrBusiness;
+namespace NetsvrBusiness\Router;
 
-use NetsvrBusiness\Contract\ClientRouterInterface;
 use Netsvr\Cmd;
-use Netsvr\Transfer;
+use NetsvrBusiness\Contract\RouterInterface;
 
 /**
  * 客户端发消息的路由，这个路由实现是直接透传的，不解析
  */
-class ClientRouterAsTransfer implements ClientRouterInterface
+class TransferRouter implements RouterInterface
 {
     protected int $cmd = Cmd::Transfer;
     protected string $data = '';
 
-    public function serializeToString(): string
+    public function encode(): string
     {
         return $this->data;
     }
 
-    public function mergeFromString(string $data): void
+    public function decode(string $data): void
     {
         $this->data = $data;
     }

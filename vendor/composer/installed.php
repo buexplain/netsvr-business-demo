@@ -5,8 +5,8 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bfb24e67cb01f1a9b3d4f87cd987087777aa8aef',
-        'name' => 'buexplain/netsvr-business-phpdemo',
+        'reference' => '4d2fd89d0a876aa7c13f6382f3bca541d7df2e53',
+        'name' => 'buexplain/netsvr-business-demo',
         'dev' => true,
     ),
     'versions' => array(
@@ -18,16 +18,16 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'bb1270974a9c5d3e051d27cb78a6d95bf25b2be9',
+            'reference' => 'c0c257b6ec0c4f21ee3cf866f367352b84ee20fb',
             'dev_requirement' => false,
         ),
-        'buexplain/netsvr-business-phpdemo' => array(
+        'buexplain/netsvr-business-demo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bfb24e67cb01f1a9b3d4f87cd987087777aa8aef',
+            'reference' => '4d2fd89d0a876aa7c13f6382f3bca541d7df2e53',
             'dev_requirement' => false,
         ),
         'buexplain/netsvr-protocol-php' => array(

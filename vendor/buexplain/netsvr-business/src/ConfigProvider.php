@@ -19,14 +19,17 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness;
 
+use NetsvrBusiness\Router\TransferRouter;
 use NetsvrBusiness\Command\StartWorkerCommand;
 use NetsvrBusiness\Command\StatusWorkerCommand;
 use NetsvrBusiness\Command\StopWorkerCommand;
-use NetsvrBusiness\Contract\ClientRouterInterface;
+use NetsvrBusiness\Contract\RouterInterface;
 use NetsvrBusiness\Contract\DispatcherFactoryInterface;
 use NetsvrBusiness\Contract\DispatcherInterface;
 use NetsvrBusiness\Contract\WorkerSocketInterface;
 use NetsvrBusiness\Contract\WorkerSocketManagerInterface;
+use NetsvrBusiness\Dispatcher\Dispatcher;
+use NetsvrBusiness\Dispatcher\DispatcherFactory;
 use NetsvrBusiness\Socket\WorkerSocket;
 use NetsvrBusiness\Socket\WorkerSocketManager;
 
@@ -40,8 +43,8 @@ class ConfigProvider
                 WorkerSocketManagerInterface::class => WorkerSocketManager::class,
                 DispatcherFactoryInterface::class => DispatcherFactory::class,
                 DispatcherInterface::class => Dispatcher::class,
-                //这里默认采用透传的路由，使用者可以自己实现ClientRouterInterface接口，替换掉当前的配置
-                ClientRouterInterface::class => ClientRouterAsTransfer::class,
+                //这里默认采用透传的路由，使用者可以自己实现RouterInterface接口，替换掉当前的配置
+                RouterInterface::class => TransferRouter::class,
             ],
             'commands' => [
                 StartWorkerCommand::class,

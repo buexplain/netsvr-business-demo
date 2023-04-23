@@ -22,9 +22,9 @@
    use App\Controller\WebsocketController;
    use Hyperf\Context\ApplicationContext;
    use Netsvr\Cmd;
-   use NetsvrBusiness\Contract\DispatcherInterface;
+   use NetsvrBusiness\Contract\DispatcherFactoryInterface;
    
-   $dispatcher = ApplicationContext::getContainer()->get(DispatcherInterface::class);
+   $dispatcher = ApplicationContext::getContainer()->get(DispatcherFactoryInterface::class)->get();
    
    $dispatcher->addRoute(Cmd::ConnOpen, [WebsocketController::class, 'onOpen']);
    $dispatcher->addRoute(Cmd::Transfer, [WebsocketController::class, 'onMessage']);
@@ -33,14 +33,15 @@
 
 4. 新增控制器文件
     ```php
-    <?php
+   <?php
    
    declare(strict_types=1);
    
    namespace App\Controller;
    
    use NetsvrBusiness\Contract\WorkerSocketManagerInterface;
-   use NetsvrBusiness\Contract\ClientRouterInterface;
+   use NetsvrBusiness\Contract\RouterInterface;
+   use NetsvrBusiness\Contract\ClientDataInterface;
    use Netsvr\Broadcast;
    use Netsvr\Cmd;
    use Netsvr\ConnClose;
@@ -75,21 +76,22 @@
    
        /**
         * 处理用户发来的信息
-        * @param WorkerSocketManagerInterface $manager
-        * @param Transfer $transfer
-        * @param ClientRouterInterface $clientRouter
+        * @param WorkerSocketManagerInterface $manager 与网关服务的连接的管理器
+        * @param Transfer $transfer 网关转发客户数据时，使用的对象
+        * @param RouterInterface $clientRouter 客户发送业务数据时，使用路由
         * @return void
         */
-       public function onMessage(WorkerSocketManagerInterface $manager, Transfer $transfer, ClientRouterInterface $clientRouter): void
+       public function onMessage(WorkerSocketManagerInterface $manager, Transfer $transfer, RouterInterface $clientRouter): void
        {
            $broadcast = new Broadcast();
-           $broadcast->setData($transfer->getUniqId() . '：' . $transfer->getData());
+           $clientRouter->setData($transfer->getUniqId() . '：' . $clientRouter->getData());
+           $broadcast->setData($clientRouter->encode());
            $router = new Router();
            $router->setCmd(Cmd::Broadcast);
            $router->setData($broadcast->serializeToString());
            $data = $router->serializeToString();
            $manager->send($data);
-           echo '收到消息：' . $clientRouter->getCmd() . ' --> ' . $transfer->getData(), PHP_EOL;
+           echo '收到消息：' . $clientRouter->getCmd() . ' --> ' . $clientRouter->getData(), PHP_EOL;
        }
    
        /**
@@ -110,12 +112,12 @@
            echo '连接关闭：' . $connClose->serializeToJsonString(), PHP_EOL;
        }
    }
-    ```
+   ```
 5. 修改配置文件`business.php`，把里面的网关ip、port改正确
 6. 执行启动命令：`php bin/hyperf.php business:start`
 7. 打开一个在线测试websocket的网页，连接到网关服务，发送消息：`001你好`，注意这个`001`就是配置文件`business.php`
    里面的`workerId`
-8. 另外通过给配置`dependencies.php`
-   添加`\NetsvrBusiness\Contract\ClientRouterInterface::class => \NetsvrBusiness\ClientRouterAsJson::class`
-   后，可以支持客户端发送的消息体格式为`JSON`形式；JSON格式为：`{"cmd":int, "data":mixed}`，其中的`cmd`
-   是业务自定义的；这样就可以将客户发来的消息转发到具体的控制器方法
+
+## 使用该包的演示项目
+
+[https://github.com/buexplain/netsvr-business-demo](https://github.com/buexplain/netsvr-business-demo)

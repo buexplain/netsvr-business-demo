@@ -21,6 +21,9 @@ namespace NetsvrBusiness\Contract;
 
 use Netsvr\Router;
 
+/**
+ * 调度器，根据路由文件的配置命令与控制器方法的映射关系，将网关转发的数据调度到具体的控制器的方法
+ */
 interface DispatcherInterface
 {
     public function addRoute(int $cmd, array $handler): void;
