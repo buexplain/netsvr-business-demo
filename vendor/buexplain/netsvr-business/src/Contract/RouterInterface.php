@@ -21,6 +21,7 @@ namespace NetsvrBusiness\Contract;
 
 /**
  * 客户数据的路由的编解码接口
+ * 这个接口
  */
 interface RouterInterface
 {
@@ -33,33 +34,34 @@ interface RouterInterface
     /**
      * 解码
      * @param string $data
-     * @return void
      */
     public function decode(string $data): void;
 
     /**
      * 获取命令
+     *
      * @return int
      */
-    public function getCmd(): int;
+    public function getCmd();
 
     /**
      * 设置命令
-     * @param int $cmd
-     * @return void
+     *
+     * @param int $var
      */
-    public function setCmd(int $cmd): void;
+    public function setCmd(int $var);
 
     /**
      * 获取命令携带的数据
+     *
      * @return string
      */
-    public function getData(): string;
+    public function getData();
 
     /**
      * 设置命令携带的数据
-     * @param string $data
-     * @return void
+     *
+     * @param string $var
      */
-    public function setData(string $data): void;
+    public function setData(string $var);
 }

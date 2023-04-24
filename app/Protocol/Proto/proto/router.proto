@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package netsvrBusinessDemo.router;
+
+option php_namespace = "App\\Protocol\\Proto\\Protobuf";
+option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
+
+//路由
+message Router {
+  //命令
+  int32 cmd = 1;
+  //命令携带的数据
+  string data = 2;
+}

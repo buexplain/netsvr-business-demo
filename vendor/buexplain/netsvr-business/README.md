@@ -83,8 +83,8 @@
         */
        public function onMessage(WorkerSocketManagerInterface $manager, Transfer $transfer, RouterInterface $clientRouter): void
        {
-           $broadcast = new Broadcast();
            $clientRouter->setData($transfer->getUniqId() . '：' . $clientRouter->getData());
+           $broadcast = new Broadcast();
            $broadcast->setData($clientRouter->encode());
            $router = new Router();
            $router->setCmd(Cmd::Broadcast);

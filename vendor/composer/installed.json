@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-business.git",
-                "reference": "c0c257b6ec0c4f21ee3cf866f367352b84ee20fb"
+                "reference": "2421fb0465a3a0f92d99a0480532297b21b37b20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/c0c257b6ec0c4f21ee3cf866f367352b84ee20fb",
-                "reference": "c0c257b6ec0c4f21ee3cf866f367352b84ee20fb",
+                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/2421fb0465a3a0f92d99a0480532297b21b37b20",
+                "reference": "2421fb0465a3a0f92d99a0480532297b21b37b20",
                 "shasum": ""
             },
             "require": {
@@ -30,7 +30,7 @@
                 "hyperf/signal": "@dev",
                 "swoole/ide-helper": "*"
             },
-            "time": "2023-04-23T06:21:08+00:00",
+            "time": "2023-04-24T10:25:19+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -455,6 +455,61 @@
                 }
             ],
             "install-path": "../graham-campbell/result-type"
+        },
+        {
+            "name": "hyperf/codec",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/codec.git",
+                "reference": "7d3cbfa06c50ef52809acadfcbcd59424366f591"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/codec/zipball/7d3cbfa06c50ef52809acadfcbcd59424366f591",
+                "reference": "7d3cbfa06c50ef52809acadfcbcd59424366f591",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-xml": "*",
+                "hyperf/contract": "~3.0.0",
+                "php": ">=8.0"
+            },
+            "time": "2023-04-24T09:49:41+00:00",
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Codec\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A codec component for Hyperf.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "codec",
+                "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "install-path": "../hyperf/codec"
         },
         {
             "name": "hyperf/collection",
@@ -1399,6 +1454,67 @@
             "install-path": "../hyperf/pipeline"
         },
         {
+            "name": "hyperf/serializer",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/serializer.git",
+                "reference": "c4efedaa072c5ffe196e95e0c74a9d90fd1e4811"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/serializer/zipball/c4efedaa072c5ffe196e95e0c74a9d90fd1e4811",
+                "reference": "c4efedaa072c5ffe196e95e0c74a9d90fd1e4811",
+                "shasum": ""
+            },
+            "require": {
+                "hyperf/contract": "~3.0.0",
+                "php": ">=8.0"
+            },
+            "suggest": {
+                "hyperf/di": "Required to use ExceptionNormalizer",
+                "symfony/property-access": "Required to use SymfonyNormalizer (^5.0|^6.0)",
+                "symfony/serializer": "Required to use SymfonyNormalizer (^5.0|^6.0)"
+            },
+            "time": "2023-04-24T07:07:56+00:00",
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Serializer\\ConfigProvider"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Serializer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A serializer component for Hyperf.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "hyperf",
+                "php",
+                "swoole",
+                "tappable"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "install-path": "../hyperf/serializer"
+        },
+        {
             "name": "hyperf/stringable",
             "version": "dev-master",
             "version_normalized": "dev-master",
@@ -1524,16 +1640,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/utils.git",
-                "reference": "2b8d4497d094ca1406cbd7fdf58383a585fc356b"
+                "reference": "3c2dff7b188c9760f91b79ddc24e260b1540c879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/utils/zipball/2b8d4497d094ca1406cbd7fdf58383a585fc356b",
-                "reference": "2b8d4497d094ca1406cbd7fdf58383a585fc356b",
+                "url": "https://api.github.com/repos/hyperf/utils/zipball/3c2dff7b188c9760f91b79ddc24e260b1540c879",
+                "reference": "3c2dff7b188c9760f91b79ddc24e260b1540c879",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "^2.0",
+                "hyperf/codec": "~3.0.0",
                 "hyperf/collection": "~3.0.0",
                 "hyperf/context": "~3.0.0",
                 "hyperf/contract": "~3.0.0",
@@ -1541,6 +1658,7 @@
                 "hyperf/coroutine": "~3.0.0",
                 "hyperf/engine": "^1.2|^2.0",
                 "hyperf/macroable": "~3.0.0",
+                "hyperf/serializer": "~3.0.0",
                 "hyperf/stringable": "~3.0.0",
                 "php": ">=7.2"
             },
@@ -1554,13 +1672,10 @@
                 "symfony/uid": "Required to use ulid method",
                 "symfony/var-dumper": "Required to use the dd function (^5.0|^6.0)."
             },
-            "time": "2023-04-13T03:56:00+00:00",
+            "time": "2023-04-24T09:49:41+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
-                "hyperf": {
-                    "config": "Hyperf\\Utils\\ConfigProvider"
-                },
                 "branch-alias": {
                     "dev-master": "3.0-dev"
                 }

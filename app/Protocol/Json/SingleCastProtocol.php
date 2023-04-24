@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Protocol;
+namespace App\Protocol\Json;
 
-use NetsvrBusiness\Contract\DataInterface;
+use NetsvrBusiness\Contract\RouterDataInterface;
 use NetsvrBusiness\Exception\DataDecodeException;
 
 /**
  * 单播消息给某个用户，客户端发送时的格式示例：001{"cmd":2, "data":"{\"message\": \"你好\",\"toUser\":\"016444C542140625DC\"}"}
  */
-class SingleCastProtocol implements DataInterface
+class SingleCastProtocol implements RouterDataInterface
 {
-    public const CMD = 2;
-
     /**
      * 发送的消息
      * @var string

@@ -81,7 +81,7 @@ class StartWorkerCommand extends WorkerCommand
             $manager = ApplicationContext::getContainer()->get(WorkerSocketManagerInterface::class);
             $manager->loggerPrefix = "Business#$workerProcessId ";
             //连接所有的网关机器
-            $config = config('business', []);
+            $config = (array)config('business.netsvrWorkers', []);
             if (empty($config)) {
                 $this->logger->error('The business service config business.php not found, may be not run command： php bin/hyperf.php vendor:publish buexplain/netsvr-business');
                 $this->running = false;

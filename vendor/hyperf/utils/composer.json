@@ -18,6 +18,7 @@
     "require": {
         "php": ">=7.2",
         "doctrine/inflector": "^2.0",
+        "hyperf/codec": "~3.0.0",
         "hyperf/collection": "~3.0.0",
         "hyperf/context": "~3.0.0",
         "hyperf/contract": "~3.0.0",
@@ -25,6 +26,7 @@
         "hyperf/coroutine": "~3.0.0",
         "hyperf/engine": "^1.2|^2.0",
         "hyperf/macroable": "~3.0.0",
+        "hyperf/serializer": "~3.0.0",
         "hyperf/stringable": "~3.0.0"
     },
     "suggest": {
@@ -54,9 +56,6 @@
         "sort-packages": true
     },
     "extra": {
-        "hyperf": {
-            "config": "Hyperf\\Utils\\ConfigProvider"
-        },
         "branch-alias": {
             "dev-master": "3.0-dev"
         }

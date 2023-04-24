@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Protocol;
+namespace App\Protocol\Json;
 
-use NetsvrBusiness\Contract\DataInterface;
+use NetsvrBusiness\Contract\RouterDataInterface;
 use NetsvrBusiness\Exception\DataDecodeException;
 
 /**
  * 广播消息，客户端发送时的格式示例：001{"cmd":1, "data":"{\"message\": \"大家好\"}"}
  */
-class BroadcastProtocol implements DataInterface
+class BroadcastProtocol implements RouterDataInterface
 {
-    public const CMD = 1;
-
     protected string $message = '';
 
     /**

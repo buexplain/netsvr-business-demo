@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package netsvrBusinessDemo.singleCastProtocol;
+
+option php_namespace = "App\\Protocol\\Proto\\Protobuf";
+option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
+
+//单播给某个用户
+message SingleCastProtocol {
+  //消息
+  string message = 1;
+  //发送方
+  string fromUser = 2;
+  //接收方
+  string toUser = 3;
+}

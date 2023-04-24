@@ -53,9 +53,9 @@ class JsonRouter implements RouterInterface
         return $this->cmd;
     }
 
-    public function setCmd(int $cmd): void
+    public function setCmd(int $var): void
     {
-        $this->cmd = $cmd;
+        $this->cmd = $var;
     }
 
     public function getData(): string
@@ -63,8 +63,8 @@ class JsonRouter implements RouterInterface
         return $this->data;
     }
 
-    public function setData(string $data): void
+    public function setData(string $var): void
     {
-        $this->data = $data;
+        $this->data = $var;
     }
 }

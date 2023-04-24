@@ -58,6 +58,7 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
             'Hyperf\\Utils\\' => 13,
             'Hyperf\\Tappable\\' => 16,
             'Hyperf\\Stringable\\' => 18,
+            'Hyperf\\Serializer\\' => 18,
             'Hyperf\\Pipeline\\' => 16,
             'Hyperf\\Macroable\\' => 17,
             'Hyperf\\Logger\\' => 14,
@@ -74,6 +75,7 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
             'Hyperf\\Conditionable\\' => 21,
             'Hyperf\\Command\\' => 15,
             'Hyperf\\Collection\\' => 18,
+            'Hyperf\\Codec\\' => 13,
         ),
         'G' => 
         array (
@@ -182,6 +184,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         array (
             0 => __DIR__ . '/..' . '/hyperf/stringable/src',
         ),
+        'Hyperf\\Serializer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/serializer/src',
+        ),
         'Hyperf\\Pipeline\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/pipeline/src',
@@ -245,6 +251,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'Hyperf\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/collection/src',
+        ),
+        'Hyperf\\Codec\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/codec/src',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (

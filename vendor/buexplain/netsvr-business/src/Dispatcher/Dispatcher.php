@@ -28,7 +28,7 @@ use InvalidArgumentException;
 use Netsvr\Cmd;
 use Netsvr\Router;
 use Netsvr\Transfer;
-use NetsvrBusiness\Contract\DataInterface;
+use NetsvrBusiness\Contract\RouterDataInterface;
 use NetsvrBusiness\Contract\RouterInterface;
 use NetsvrBusiness\Contract\DispatcherInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -131,14 +131,14 @@ class Dispatcher implements DispatcherInterface
         if ($router->getCmd() === Cmd::Transfer) {
             //网关转发的客户消息，需要解码出客户消息携带的数据
             foreach ($definitions as $definition) {
-                if (isset($clientRouter) && is_subclass_of($definition->getName(), DataInterface::class)) {
+                if (isset($clientRouter) && is_subclass_of($definition->getName(), RouterDataInterface::class)) {
                     /**
-                     * @var $clientData DataInterface
+                     * @var $clientData RouterDataInterface
                      */
                     $clientData = make($definition->getName());
                     $clientData->decode($clientRouter->getData());
                     $arguments[$clientData::class] = $clientData;
-                    $arguments[DataInterface::class] = $clientData;
+                    $arguments[RouterDataInterface::class] = $clientData;
                     break;
                 }
             }

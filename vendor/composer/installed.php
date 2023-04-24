@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4d2fd89d0a876aa7c13f6382f3bca541d7df2e53',
+        'reference' => 'c18d75e29b25f656c225cf491079060ddd58a0e1',
         'name' => 'buexplain/netsvr-business-demo',
         'dev' => true,
     ),
@@ -18,7 +18,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'c0c257b6ec0c4f21ee3cf866f367352b84ee20fb',
+            'reference' => '2421fb0465a3a0f92d99a0480532297b21b37b20',
             'dev_requirement' => false,
         ),
         'buexplain/netsvr-business-demo' => array(
@@ -27,7 +27,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4d2fd89d0a876aa7c13f6382f3bca541d7df2e53',
+            'reference' => 'c18d75e29b25f656c225cf491079060ddd58a0e1',
             'dev_requirement' => false,
         ),
         'buexplain/netsvr-protocol-php' => array(
@@ -86,6 +86,17 @@
             'install_path' => __DIR__ . '/../graham-campbell/result-type',
             'aliases' => array(),
             'reference' => '60c5f57bee20beb1a4a3cc5fe9170de4a64521d2',
+            'dev_requirement' => false,
+        ),
+        'hyperf/codec' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/codec',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
+            'reference' => '7d3cbfa06c50ef52809acadfcbcd59424366f591',
             'dev_requirement' => false,
         ),
         'hyperf/collection' => array(
@@ -264,6 +275,17 @@
             'reference' => 'a3f48561f5cfef5f697e7005446e16560024a443',
             'dev_requirement' => false,
         ),
+        'hyperf/serializer' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hyperf/serializer',
+            'aliases' => array(
+                0 => '3.0.x-dev',
+            ),
+            'reference' => 'c4efedaa072c5ffe196e95e0c74a9d90fd1e4811',
+            'dev_requirement' => false,
+        ),
         'hyperf/stringable' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -294,7 +316,7 @@
             'aliases' => array(
                 0 => '3.0.x-dev',
             ),
-            'reference' => '2b8d4497d094ca1406cbd7fdf58383a585fc356b',
+            'reference' => '3c2dff7b188c9760f91b79ddc24e260b1540c879',
             'dev_requirement' => false,
         ),
         'monolog/monolog' => array(

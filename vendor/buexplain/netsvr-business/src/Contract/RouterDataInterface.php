@@ -22,7 +22,7 @@ namespace NetsvrBusiness\Contract;
 /**
  * 客户发送的业务数据的编码解码接口
  */
-interface DataInterface
+interface RouterDataInterface
 {
     /**
      * 编码
@@ -33,7 +33,6 @@ interface DataInterface
     /**
      * 解码
      * @param string $data
-     * @return void
      */
     public function decode(string $data): void;
 }

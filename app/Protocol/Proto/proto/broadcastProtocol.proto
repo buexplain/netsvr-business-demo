@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package netsvrBusinessDemo.broadcastProtocol;
+
+option php_namespace = "App\\Protocol\\Proto\\Protobuf";
+option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
+
+//广播给全体在线用户
+message BroadcastProtocol {
+  //消息
+  string message = 1;
+  //发送方
+  string fromUser = 2;
+}
