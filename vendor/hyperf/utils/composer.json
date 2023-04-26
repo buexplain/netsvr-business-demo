@@ -18,6 +18,7 @@
     "require": {
         "php": ">=7.2",
         "doctrine/inflector": "^2.0",
+        "hyperf/code-parser": "~3.0.0",
         "hyperf/codec": "~3.0.0",
         "hyperf/collection": "~3.0.0",
         "hyperf/context": "~3.0.0",
@@ -27,7 +28,8 @@
         "hyperf/engine": "^1.2|^2.0",
         "hyperf/macroable": "~3.0.0",
         "hyperf/serializer": "~3.0.0",
-        "hyperf/stringable": "~3.0.0"
+        "hyperf/stringable": "~3.0.0",
+        "hyperf/support": "~3.0.0"
     },
     "suggest": {
         "ext-swoole": "Required to use methods related to swoole (>=4.5).",

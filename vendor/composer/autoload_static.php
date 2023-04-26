@@ -9,10 +9,11 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
     public static $files = array (
         '9c7a683baffd24f5595c1dc5f5273030' => __DIR__ . '/..' . '/hyperf/engine/src/Functions.php',
         'f0334cce41da231af374e1df9dc548c9' => __DIR__ . '/..' . '/hyperf/collection/src/Functions.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '3ac0459b8c20ccf3a7319b7cba59c914' => __DIR__ . '/..' . '/hyperf/tappable/src/Functions.php',
-        '6c17036e92b20070dc14f563311a06a3' => __DIR__ . '/..' . '/hyperf/coroutine/src/Functions.php',
         'e45471c4161dad9820dfacbc5735c3f5' => __DIR__ . '/..' . '/hyperf/stringable/src/Functions.php',
+        '6c17036e92b20070dc14f563311a06a3' => __DIR__ . '/..' . '/hyperf/coroutine/src/Functions.php',
+        'ffe5873ab2256a6c3a4c92b3488528cb' => __DIR__ . '/..' . '/hyperf/support/src/Functions.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'bbeb7603826cb9296dde3ca1a840af47' => __DIR__ . '/..' . '/hyperf/utils/src/Functions.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
@@ -57,6 +58,7 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         array (
             'Hyperf\\Utils\\' => 13,
             'Hyperf\\Tappable\\' => 16,
+            'Hyperf\\Support\\' => 15,
             'Hyperf\\Stringable\\' => 18,
             'Hyperf\\Serializer\\' => 18,
             'Hyperf\\Pipeline\\' => 16,
@@ -76,6 +78,7 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
             'Hyperf\\Command\\' => 15,
             'Hyperf\\Collection\\' => 18,
             'Hyperf\\Codec\\' => 13,
+            'Hyperf\\CodeParser\\' => 18,
         ),
         'G' => 
         array (
@@ -180,6 +183,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         array (
             0 => __DIR__ . '/..' . '/hyperf/tappable/src',
         ),
+        'Hyperf\\Support\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/support/src',
+        ),
         'Hyperf\\Stringable\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/stringable/src',
@@ -255,6 +262,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'Hyperf\\Codec\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/codec/src',
+        ),
+        'Hyperf\\CodeParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/code-parser/src',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (

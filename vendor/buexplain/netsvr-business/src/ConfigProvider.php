@@ -58,6 +58,18 @@ class ConfigProvider
                     'source' => __DIR__ . '/../publish/business.php',
                     'destination' => BASE_PATH . '/config/autoload/business.php',
                 ],
+                [
+                    'id' => 'route',
+                    'description' => 'The route of netsvr-business.',
+                    'source' => __DIR__ . '/../publish/routes-websocket.php',
+                    'destination' => BASE_PATH . '/config/routes-websocket.php',
+                ],
+                [
+                    'id' => 'controller',
+                    'description' => 'The controller of netsvr-business.',
+                    'source' => __DIR__ . '/../publish/WebsocketTestController.php',
+                    'destination' => BASE_PATH . '/app/Controller/WebsocketTestController.php',
+                ],
             ],
         ];
     }
