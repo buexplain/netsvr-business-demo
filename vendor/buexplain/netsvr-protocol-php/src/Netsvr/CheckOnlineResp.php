@@ -16,15 +16,9 @@ use Google\Protobuf\Internal\GPBUtil;
 class CheckOnlineResp extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     */
-    protected $ctxData = '';
-    /**
      *已经存在的uniqId
      *
-     * Generated from protobuf field <code>repeated string uniqIds = 2;</code>
+     * Generated from protobuf field <code>repeated string uniqIds = 1;</code>
      */
     private $uniqIds;
 
@@ -34,8 +28,6 @@ class CheckOnlineResp extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $ctxData
-     *          worker原样回传给business
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $uniqIds
      *          已经存在的uniqId
      * }
@@ -46,35 +38,9 @@ class CheckOnlineResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @return string
-     */
-    public function getCtxData()
-    {
-        return $this->ctxData;
-    }
-
-    /**
-     *worker原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setCtxData($var)
-    {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
-
-        return $this;
-    }
-
-    /**
      *已经存在的uniqId
      *
-     * Generated from protobuf field <code>repeated string uniqIds = 2;</code>
+     * Generated from protobuf field <code>repeated string uniqIds = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getUniqIds()
@@ -85,7 +51,7 @@ class CheckOnlineResp extends \Google\Protobuf\Internal\Message
     /**
      *已经存在的uniqId
      *
-     * Generated from protobuf field <code>repeated string uniqIds = 2;</code>
+     * Generated from protobuf field <code>repeated string uniqIds = 1;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */

@@ -16,12 +16,17 @@ class TopicUniqIdListResp
         }
         $pool->internalAddGeneratedFile(
             '
-°
-topicUniqIdListResp.protonetsvr.topicUniqIdListResp"F
-TopicUniqIdListResp
-ctxData (
-topic (	
-uniqIds (	B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
+ì
+topicUniqIdListResp.protonetsvr.topicUniqIdListResp"Õ
+TopicUniqIdListResp
+serverId (I
+items (2:.netsvr.topicUniqIdListResp.TopicUniqIdListResp.ItemsEntrya
+
+ItemsEntry
+key (	B
+value (23.netsvr.topicUniqIdListResp.TopicUniqIdListRespItem:8"*
+TopicUniqIdListRespItem
+uniqIds (	B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

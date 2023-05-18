@@ -16,4 +16,14 @@ class Cmd
      * 单播
      */
     const SINGLE_CAST = 2;
+
+    /**
+     * 用户连接成功后的公开的欢迎命令
+     */
+    const PUBLIC_WELCOME = 3;
+
+    /**
+     * 用户连接成功后的私有的欢迎命令
+     */
+    const PRIVATE_WELCOME = 4;
 }

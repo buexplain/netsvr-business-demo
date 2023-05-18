@@ -19,7 +19,8 @@
     "hyperf/config": "3.0.*",
     "hyperf/logger": "3.0.*",
     "buexplain/netsvr-business": "dev-main",
-    "hyperf/framework": "3.0.*"
+    "hyperf/framework": "3.0.*",
+    "hyperf/event": "3.0.x-dev"
   },
   "require-dev": {
     "swoole/ide-helper": "*"

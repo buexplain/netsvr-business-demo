@@ -16,12 +16,10 @@ class CheckOnlineReq
         }
         $pool->internalAddGeneratedFile(
             '
-•
-checkOnlineReq.protonetsvr.checkOnlineReq"E
-CheckOnlineReq
-	routerCmd (
-ctxData (
-uniqIds (	B\'Znetsvr/ Netsvr‚Netsvr\\GPBMetadatabproto3'
+Å
+checkOnlineReq.protonetsvr.checkOnlineReq"!
+CheckOnlineReq
+uniqIds (	B\'Znetsvr/ Netsvr‚Netsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

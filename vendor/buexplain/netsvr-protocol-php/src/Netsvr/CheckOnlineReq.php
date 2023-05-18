@@ -9,28 +9,16 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- *worker响应business，检查网关中是否包含某几个uniqId
+ *worker响应business，检查某几个uniqId是否在网关中
  *
  * Generated from protobuf message <code>netsvr.checkOnlineReq.CheckOnlineReq</code>
  */
 class CheckOnlineReq extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker会将该值赋给router.Cmd
-     *
-     * Generated from protobuf field <code>int32 routerCmd = 1;</code>
-     */
-    protected $routerCmd = 0;
-    /**
-     *worker会原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 2;</code>
-     */
-    protected $ctxData = '';
-    /**
      *目标uniqId
      *
-     * Generated from protobuf field <code>repeated string uniqIds = 3;</code>
+     * Generated from protobuf field <code>repeated string uniqIds = 1;</code>
      */
     private $uniqIds;
 
@@ -40,10 +28,6 @@ class CheckOnlineReq extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type int $routerCmd
-     *          worker会将该值赋给router.Cmd
-     *     @type string $ctxData
-     *          worker会原样回传给business
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $uniqIds
      *          目标uniqId
      * }
@@ -54,61 +38,9 @@ class CheckOnlineReq extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker会将该值赋给router.Cmd
-     *
-     * Generated from protobuf field <code>int32 routerCmd = 1;</code>
-     * @return int
-     */
-    public function getRouterCmd()
-    {
-        return $this->routerCmd;
-    }
-
-    /**
-     *worker会将该值赋给router.Cmd
-     *
-     * Generated from protobuf field <code>int32 routerCmd = 1;</code>
-     * @param int $var
-     * @return $this
-     */
-    public function setRouterCmd($var)
-    {
-        GPBUtil::checkInt32($var);
-        $this->routerCmd = $var;
-
-        return $this;
-    }
-
-    /**
-     *worker会原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 2;</code>
-     * @return string
-     */
-    public function getCtxData()
-    {
-        return $this->ctxData;
-    }
-
-    /**
-     *worker会原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 2;</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setCtxData($var)
-    {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
-
-        return $this;
-    }
-
-    /**
      *目标uniqId
      *
-     * Generated from protobuf field <code>repeated string uniqIds = 3;</code>
+     * Generated from protobuf field <code>repeated string uniqIds = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getUniqIds()
@@ -119,7 +51,7 @@ class CheckOnlineReq extends \Google\Protobuf\Internal\Message
     /**
      *目标uniqId
      *
-     * Generated from protobuf field <code>repeated string uniqIds = 3;</code>
+     * Generated from protobuf field <code>repeated string uniqIds = 1;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */

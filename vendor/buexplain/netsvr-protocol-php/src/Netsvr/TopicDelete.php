@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- *business向worker请求，进行删除操作
+ *business向worker请求，进行删除主题操作
  *
  * Generated from protobuf message <code>netsvr.topicDelete.TopicDelete</code>
  */

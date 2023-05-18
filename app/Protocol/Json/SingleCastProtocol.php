@@ -62,7 +62,7 @@ class SingleCastProtocol implements RouterDataInterface
         return json_encode(['message' => $this->message, 'toUser' => $this->toUser, 'fromUser' => $this->fromUser], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
-    public function decode(string $data): void
+    public function decode(string $data): self
     {
         $tmp = json_decode($data, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -73,5 +73,6 @@ class SingleCastProtocol implements RouterDataInterface
         }
         $this->message = $tmp['message'];
         $this->toUser = $tmp['toUser'];
+        return $this;
     }
 }

@@ -16,15 +16,13 @@ class LimitReq
         }
         $pool->internalAddGeneratedFile(
             '
-æ
-limitReq.protonetsvr.limitReq"_
-LimitReq
-	routerCmd (
-ctxData (/
-items (2 .netsvr.limitReq.LimitUpdateItem"1
-LimitUpdateItem
-	workerIds (
-num (B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
+¿
+limitReq.protonetsvr.limitReq"8
+LimitReq,
+items (2.netsvr.limitReq.LimitReqItem"1
+LimitReqItem
+name (	
+concurrency (B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

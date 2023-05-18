@@ -16,13 +16,13 @@ use Google\Protobuf\Internal\GPBUtil;
 class Transfer extends \Google\Protobuf\Internal\Message
 {
     /**
-     *当前客户的uniqId
+     *当前发消息的客户的uniqId
      *
      * Generated from protobuf field <code>string uniqId = 1;</code>
      */
     protected $uniqId = '';
     /**
-     *当前客户的session
+     *当前发消息的客户的session
      *
      * Generated from protobuf field <code>string session = 2;</code>
      */
@@ -41,9 +41,9 @@ class Transfer extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $uniqId
-     *          当前客户的uniqId
+     *          当前发消息的客户的uniqId
      *     @type string $session
-     *          当前客户的session
+     *          当前发消息的客户的session
      *     @type string $data
      *          客户发送的信息
      * }
@@ -54,7 +54,7 @@ class Transfer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *当前客户的uniqId
+     *当前发消息的客户的uniqId
      *
      * Generated from protobuf field <code>string uniqId = 1;</code>
      * @return string
@@ -65,7 +65,7 @@ class Transfer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *当前客户的uniqId
+     *当前发消息的客户的uniqId
      *
      * Generated from protobuf field <code>string uniqId = 1;</code>
      * @param string $var
@@ -80,7 +80,7 @@ class Transfer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *当前客户的session
+     *当前发消息的客户的session
      *
      * Generated from protobuf field <code>string session = 2;</code>
      * @return string
@@ -91,7 +91,7 @@ class Transfer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *当前客户的session
+     *当前发消息的客户的session
      *
      * Generated from protobuf field <code>string session = 2;</code>
      * @param string $var

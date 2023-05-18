@@ -20,13 +20,15 @@ declare(strict_types=1);
 namespace NetsvrBusiness\Command;
 
 use NetsvrBusiness\Contract\DispatcherFactoryInterface;
-use NetsvrBusiness\Contract\WorkerSocketInterface;
-use NetsvrBusiness\Contract\WorkerSocketManagerInterface;
+use NetsvrBusiness\Contract\MainSocketInterface;
+use NetsvrBusiness\Contract\MainSocketManagerInterface;
 use Hyperf\Context\ApplicationContext;
+use NetsvrBusiness\Event\ServerStart;
+use NetsvrBusiness\Event\ServerStop;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Swoole\Coroutine;
-use Swoole\Process;
 use Swoole\Process\Pool;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -35,8 +37,6 @@ use Throwable;
 
 class StartWorkerCommand extends WorkerCommand
 {
-    protected bool $running = true;
-
     /**
      * @return void
      */
@@ -59,8 +59,9 @@ class StartWorkerCommand extends WorkerCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        Coroutine::set(['hook_flags' => SWOOLE_HOOK_ALL]);
         if ($this->isRun()) {
-            $this->logger->notice('The business service is running.');
+            $this->logger->debug('The business service is running.');
             return 0;
         }
         if (!class_exists('\Google\Protobuf\Internal\Message')) {
@@ -69,7 +70,7 @@ class StartWorkerCommand extends WorkerCommand
         }
         //获取一下调度器，提前把路由加载进来，避免真正处理数据的时候发生路由注册的错误
         ApplicationContext::getContainer()->get(DispatcherFactoryInterface::class)->get();
-        //开始连接网关
+        //开始启动多进程
         $workers = intval($input->getOption('workers'));
         $pool = new Pool($workers > 0 ? $workers : swoole_cpu_num());
         $pool->set(['enable_coroutine' => true]);
@@ -78,53 +79,68 @@ class StartWorkerCommand extends WorkerCommand
             if ($workerProcessId === 0) {
                 file_put_contents($this->pidFile, (string)$pool->master_pid);
             }
-            $manager = ApplicationContext::getContainer()->get(WorkerSocketManagerInterface::class);
+            $eventDispatcher = ApplicationContext::getContainer()->get(EventDispatcherInterface::class);
+            $manager = ApplicationContext::getContainer()->get(MainSocketManagerInterface::class);
             $manager->loggerPrefix = "Business#$workerProcessId ";
-            //连接所有的网关机器
-            $config = (array)config('business.netsvrWorkers', []);
+            $eventDispatcher->dispatch(new ServerStart($workerProcessId, $pool->master_pid));
+            //并发的连接所有的网关机器
+            $config = (array)\Hyperf\Config\config('business.netsvrWorkers', []);
             if (empty($config)) {
                 $this->logger->error('The business service config business.php not found, may be not run command： php bin/hyperf.php vendor:publish buexplain/netsvr-business');
-                $this->running = false;
-            }
-            $wg = new Coroutine\WaitGroup();
-            foreach ($config as $item) {
-                $wg->add();
-                Coroutine::create(function () use ($wg, $item, $manager, $workerProcessId) {
-                    try {
-                        $socket = make(WorkerSocketInterface::class, $item);
-                        $socket->loggerPrefix = "Business#$workerProcessId ";
-                        $socket->connect();
-                        $manager->add($socket);
-                    } catch (Throwable $throwable) {
-                        $message = sprintf("Business#%d Socket %s:%s %s", $workerProcessId, $item['host'], $item['port'], $throwable->getMessage());
-                        $this->logger->error($message);
-                        $this->running = false;
-                    } finally {
-                        $wg->done();
-                    }
-                });
-            }
-            $wg->wait();
-            if ($this->running === false) {
                 $pool->shutdown();
                 return;
             }
-            unset($wg, $config);
-            //向网关发起注册
+            $retCh = new Coroutine\Channel(count($config));
+            foreach ($config as $item) {
+                Coroutine::create(function () use ($retCh, $item, $manager, $workerProcessId) {
+                    try {
+                        $socket = \Hyperf\Support\make(MainSocketInterface::class, $item);
+                        $socket->loggerPrefix = "Business#$workerProcessId ";
+                        $socket->connect();
+                        $manager->add($socket);
+                        $retCh->push(true);
+                    } catch (Throwable $throwable) {
+                        $message = sprintf("Business#%d Socket %s:%s %s", $workerProcessId, $item['host'], $item['port'], $throwable->getMessage());
+                        $this->logger->error($message);
+                        $retCh->push(false);
+                    }
+                });
+            }
+            //接收连接结果
+            for ($i = count($config); $i > 0; $i--) {
+                if ($retCh->pop() === false) {
+                    //有一个网关连接失败，则停止启动程序
+                    $pool->shutdown();
+                    return;
+                }
+            }
+            //删除多余变量
+            $retCh->close();
+            unset($retCh);
+            //统一向网关发起注册
             if ($manager->register() === false) {
+                //注册失败，停止启动程序
                 $pool->shutdown();
                 return;
             }
             //监听进程关闭信号
-            Process::signal(SIGTERM, function () use ($workerProcessId, $manager) {
-                $this->running = false;
-                $this->logger->notice("Business#$workerProcessId starting unregister.");
-                $manager->unregister();
-                $this->logger->notice("Business#$workerProcessId starting disconnect.");
-                $manager->close();
+            Coroutine::create(function () use ($workerProcessId, $manager) {
+                while (true) {
+                    if (Coroutine\System::waitSignal(SIGTERM) === true) {
+                        break;
+                    }
+                    //Coroutine::sleep(3);break;
+                }
+                try {
+                    $this->logger->debug("Business#$workerProcessId starting unregister.");
+                    $manager->unregister();
+                    $this->logger->debug("Business#$workerProcessId starting disconnect.");
+                    $manager->close();
+                } catch (Throwable) {
+                }
             });
-            $this->logger->notice("Business#$workerProcessId started.");
-            //不断的从网关读取数据，并分发到对应的控制器
+            $this->logger->debug("Business#$workerProcessId started.");
+            //不断的从各个网关读取数据，并分发到对应的控制器方法
             while (true) {
                 $router = $manager->receive();
                 if ($router === false) {
@@ -148,7 +164,9 @@ class StartWorkerCommand extends WorkerCommand
                     }
                 });
             }
-            $this->logger->notice("Business#$workerProcessId stopped.");
+            $this->logger->debug("Business#$workerProcessId stopped.");
+            $eventDispatcher = ApplicationContext::getContainer()->get(EventDispatcherInterface::class);
+            $eventDispatcher->dispatch(new ServerStop($workerProcessId, $pool->master_pid));
         });
         $pool->start();
         //删除记录的主进程pid

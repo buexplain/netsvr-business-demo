@@ -16,12 +16,15 @@ use Google\Protobuf\Internal\GPBUtil;
 class TopicCountResp extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
      */
-    protected $ctxData = '';
+    protected $serverId = 0;
     /**
+     *网关包含的主题数量
+     *注意，如果你有多个网关机器，网关之间的主题数量是无法去重后统计的，这个统计只能是当前serverId的网关主题去重后的数量
+     *
      * Generated from protobuf field <code>int32 count = 2;</code>
      */
     protected $count = 0;
@@ -32,9 +35,11 @@ class TopicCountResp extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $ctxData
-     *          worker原样回传给business
+     *     @type int $serverId
+     *          网关唯一编号
      *     @type int $count
+     *          网关包含的主题数量
+     *          注意，如果你有多个网关机器，网关之间的主题数量是无法去重后统计的，这个统计只能是当前serverId的网关主题去重后的数量
      * }
      */
     public function __construct($data = NULL) {
@@ -43,32 +48,35 @@ class TopicCountResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @return string
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @return int
      */
-    public function getCtxData()
+    public function getServerId()
     {
-        return $this->ctxData;
+        return $this->serverId;
     }
 
     /**
-     *worker原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @param string $var
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setCtxData($var)
+    public function setServerId($var)
     {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
+        GPBUtil::checkInt32($var);
+        $this->serverId = $var;
 
         return $this;
     }
 
     /**
+     *网关包含的主题数量
+     *注意，如果你有多个网关机器，网关之间的主题数量是无法去重后统计的，这个统计只能是当前serverId的网关主题去重后的数量
+     *
      * Generated from protobuf field <code>int32 count = 2;</code>
      * @return int
      */
@@ -78,6 +86,9 @@ class TopicCountResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     *网关包含的主题数量
+     *注意，如果你有多个网关机器，网关之间的主题数量是无法去重后统计的，这个统计只能是当前serverId的网关主题去重后的数量
+     *
      * Generated from protobuf field <code>int32 count = 2;</code>
      * @param int $var
      * @return $this

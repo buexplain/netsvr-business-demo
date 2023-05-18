@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- *business向worker请求，将某个连接强制关闭
+ *business向worker请求，将某几个连接强制关闭
  *
  * Generated from protobuf message <code>netsvr.forceOffline.ForceOffline</code>
  */

@@ -4,115 +4,102 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Protocol\Json\BroadcastProtocol;
-use App\Protocol\Json\SingleCastProtocol;
+use App\Protocol\Cmd;
+use App\Protocol\Proto\Protobuf\BroadcastProtocol;
+use App\Protocol\Proto\Protobuf\SingleCastProtocol;
 
-//use App\Protocol\Proto\Protobuf\BroadcastProtocol;
-//use App\Protocol\Proto\Protobuf\SingleCastProtocol;
-use Netsvr\Broadcast;
-use Netsvr\Cmd;
+//只要在dependencies.php文件中，将\NetsvrBusiness\Contract\RouterInterface:class的实现替换成\NetsvrBusiness\Router\JsonRouter::class
+//就可以使用下面两个已经注释掉的json版的协议
+//use App\Protocol\Json\BroadcastProtocol;
+//use App\Protocol\Json\SingleCastProtocol;
 use Netsvr\ConnClose;
+use Netsvr\ConnInfoUpdate;
 use Netsvr\ConnOpen;
-use Netsvr\Router;
-use Netsvr\SingleCast;
 use Netsvr\Transfer;
 use NetsvrBusiness\Contract\RouterInterface;
-use NetsvrBusiness\Contract\WorkerSocketManagerInterface;
+use NetsvrBusiness\NetBus;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Throwable;
 
 class WebsocketController
 {
     /**
      * 处理用户连接打开信息
-     * @param WorkerSocketManagerInterface $manager
      * @param ConnOpen $connOpen
      * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
-    public function onOpen(WorkerSocketManagerInterface $manager, ConnOpen $connOpen): void
+    public function onOpen(ConnOpen $connOpen): void
     {
-        //构造一个广播对象
-        $broadcast = new Broadcast();
-        $broadcast->setData("有新用户进来 --> " . $connOpen->getUniqId());
-        //构造一个路由对象
-        $router = new Router();
-        //设置命令为广播
-        $router->setCmd(Cmd::Broadcast);
-        //将广播对象序列化到路由对象上
-        $router->setData($broadcast->serializeToString());
-        //将路由对象序列化后发给网关
-        $data = $router->serializeToString();
-        $manager->send($data);
+        //先将连接信息广播给所有在线的人
+        $broadcast = \Hyperf\Support\make(RouterInterface::class)
+            ->setData("有新用户进来 --> " . $connOpen->getUniqId() . '，当前在线人数是：' . array_sum(array_column(NetBus::uniqIdCount(), 'count')))
+            ->setCmd(Cmd::PUBLIC_WELCOME);
+        NetBus::broadcast($broadcast->encode());
+        //再往当前连接里面存储一些数据进去
+        $info = new ConnInfoUpdate();
+        //设置需要被修改的用户连接的uniqId
+        $info->setUniqId($connOpen->getUniqId());
+        //设置修改后需要下发给用户的信息
+        $info->setData(\Hyperf\Support\make(RouterInterface::class)->setData("欢迎你的到来！")->setCmd(Cmd::PRIVATE_WELCOME)->encode());
+        //设置session，这个一般校验账号密码后从数据库读出来的用户信息
+        $info->setNewSession("名字：王某贵，userId：" . $connOpen->getUniqId());
+        //让连接订阅一些主题，业务上讲，这些主题可以是用户加入的群的id、也可以是用户订阅的一些消息频道
+        $info->setNewTopics(["订阅一个主题", "再订阅一个主题"]);
+        NetBus::connInfoUpdate($info);
         echo '连接打开：' . $connOpen->serializeToJsonString(), PHP_EOL;
     }
 
     /**
      * 处理用户连接关闭的信息
-     * @param WorkerSocketManagerInterface $manager
      * @param ConnClose $connClose
      * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function onClose(WorkerSocketManagerInterface $manager, ConnClose $connClose): void
+    public function onClose(ConnClose $connClose): void
     {
-        $broadcast = new Broadcast();
-        $broadcast->setData("有用户退出 --> " . $connClose->getUniqId());
-        $router = new Router();
-        $router->setCmd(Cmd::Broadcast);
-        $router->setData($broadcast->serializeToString());
-        $data = $router->serializeToString();
-        $manager->send($data);
+        NetBus::broadcast("有用户退出 --> " . $connClose->getSession());
         echo '连接关闭：' . $connClose->serializeToJsonString(), PHP_EOL;
     }
 
     /**
      * 广播消息
-     * @param WorkerSocketManagerInterface $manager
      * @param Transfer $transfer
      * @param RouterInterface $clientRouter
      * @param BroadcastProtocol $clientData
      * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function broadcast(WorkerSocketManagerInterface $manager, Transfer $transfer, RouterInterface $clientRouter, BroadcastProtocol $clientData): void
+    public function broadcast(Transfer $transfer, RouterInterface $clientRouter, BroadcastProtocol $clientData): void
     {
-        //构造一个客户端需要的广播数据结构
-        $clientData->setFromUser($transfer->getUniqId()); //设置广播的用户是谁
-        $clientRouter->setData($clientData->encode()); //将业务数据重新格式化给客户数据的路由
-        //构造一个网关服务需要的广播结构
-        $broadcast = new Broadcast();
-        $broadcast->setData($clientRouter->encode());//将客户路由格式化到广播对象上
-        $router = new Router();
-        $router->setCmd(Cmd::Broadcast);
-        $router->setData($broadcast->serializeToString());
-        //发给网关
-        $manager->send($router->serializeToString());
+        //设置广播的用户是谁
+        $clientData->setFromUser($transfer->getUniqId());
+        //将业务数据重新格式化给客户数据的路由
+        $clientRouter->setData($clientData->encode());
+        //向网关发送广播数据
+        NetBus::broadcast($clientRouter->encode());
         echo '收到广播消息：' . $clientData->getMessage(), PHP_EOL;
     }
 
     /**
      * 单播消息给某个用户
-     * @param WorkerSocketManagerInterface $manager
      * @param Transfer $transfer
      * @param RouterInterface $clientRouter
      * @param SingleCastProtocol $clientData
      * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function singleCast(WorkerSocketManagerInterface $manager, Transfer $transfer, RouterInterface $clientRouter, SingleCastProtocol $clientData): void
+    public function singleCast(Transfer $transfer, RouterInterface $clientRouter, SingleCastProtocol $clientData): void
     {
-        //构造一个客户端需要的单播数据结构
         $clientData->setFromUser($transfer->getUniqId());
         $clientRouter->setData($clientData->encode());
-        //构造一个网关服务需要的单播对象
-        $singleCast = new SingleCast();
-        //设置目标用户
-        $singleCast->setUniqId($clientData->getToUser());
-        //设置消息
-        $singleCast->setData($clientRouter->encode());
-        //构造一个网关服务需要的路由对象
-        $router = new Router();
-        //设置路由的命令为单播，网关收到该命令会执行单播的逻辑
-        $router->setCmd(Cmd::SingleCast);
-        //设置单播的数据
-        $router->setData($singleCast->serializeToString());
-        //根据目标用户的id，获取目标用户所在的网关服务的socket，并将数据发送给该socket
-        $manager->getSocketByPrefixUniqId($clientData->getToUser())?->send($router->serializeToString());
+        NetBus::singleCast($clientData->getToUser(), $clientRouter->encode());
         echo '收到单播消息：from --> ' . $transfer->getUniqId() . ' to --> ' . $clientData->getToUser() . ' --> ' . $clientData->getMessage(), PHP_EOL;
     }
 }

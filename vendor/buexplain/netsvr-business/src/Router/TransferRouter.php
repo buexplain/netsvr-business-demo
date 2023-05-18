@@ -35,9 +35,10 @@ class TransferRouter implements RouterInterface
         return $this->data;
     }
 
-    public function decode(string $data): void
+    public function decode(string $data): self
     {
         $this->data = $data;
+        return $this;
     }
 
     public function getCmd(): int
@@ -45,8 +46,9 @@ class TransferRouter implements RouterInterface
         return $this->cmd;
     }
 
-    public function setCmd(int $var): void
+    public function setCmd(int $var): self
     {
+        return $this;
     }
 
     public function getData(): string
@@ -54,8 +56,9 @@ class TransferRouter implements RouterInterface
         return $this->data;
     }
 
-    public function setData(string $var): void
+    public function setData(string $var): self
     {
         $this->data = $var;
+        return $this;
     }
 }

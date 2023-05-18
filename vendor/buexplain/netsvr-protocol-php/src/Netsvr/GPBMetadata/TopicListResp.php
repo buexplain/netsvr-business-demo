@@ -16,10 +16,10 @@ class TopicListResp
         }
         $pool->internalAddGeneratedFile(
             '
-é
-topicListResp.protonetsvr.topicListResp"0
-TopicListResp
-ctxData (
+è
+topicListResp.protonetsvr.topicListResp"1
+TopicListResp
+serverId (
 topics (	B\'Znetsvr/ Netsvr‚Netsvr\\GPBMetadatabproto3'
         , true);
 

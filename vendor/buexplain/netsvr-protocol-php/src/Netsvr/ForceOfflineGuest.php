@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- *business向worker请求，将某个没有session值的连接强制关闭
+ *business向worker请求，将某几个没有session值的连接强制关闭
  *
  * Generated from protobuf message <code>netsvr.forceOfflineGuest.ForceOfflineGuest</code>
  */
@@ -22,7 +22,7 @@ class ForceOfflineGuest extends \Google\Protobuf\Internal\Message
      */
     private $uniqIds;
     /**
-     *延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接
+     *延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接，有就忽略
      *
      * Generated from protobuf field <code>int32 delay = 2;</code>
      */
@@ -43,7 +43,7 @@ class ForceOfflineGuest extends \Google\Protobuf\Internal\Message
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $uniqIds
      *          目标uniqId
      *     @type int $delay
-     *          延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接
+     *          延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接，有就忽略
      *     @type string $data
      *          需要发给客户的数据，有这个数据，则转发给该连接，并在3秒倒计时后强制关闭连接，反之，立马关闭连接
      * }
@@ -80,7 +80,7 @@ class ForceOfflineGuest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接
+     *延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接，有就忽略
      *
      * Generated from protobuf field <code>int32 delay = 2;</code>
      * @return int
@@ -91,7 +91,7 @@ class ForceOfflineGuest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接
+     *延迟多少秒执行，如果是0，立刻执行，否则就等待该秒数后，再根据uniqId获取连接，并判断连接是否存在session，没有就关闭连接，有就忽略
      *
      * Generated from protobuf field <code>int32 delay = 2;</code>
      * @param int $var

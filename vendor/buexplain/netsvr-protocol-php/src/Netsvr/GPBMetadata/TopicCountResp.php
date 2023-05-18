@@ -16,10 +16,10 @@ class TopicCountResp
         }
         $pool->internalAddGeneratedFile(
             '
-ê
-topicCountResp.protonetsvr.topicCountResp"0
-TopicCountResp
-ctxData (
+ë
+topicCountResp.protonetsvr.topicCountResp"1
+TopicCountResp
+serverId (
 count (B\'Znetsvr/ Netsvr‚Netsvr\\GPBMetadatabproto3'
         , true);
 

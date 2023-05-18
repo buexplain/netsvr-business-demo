@@ -16,11 +16,10 @@ class CheckOnlineResp
         }
         $pool->internalAddGeneratedFile(
             '
-•
-checkOnlineResp.protonetsvr.checkOnlineResp"3
+„
+checkOnlineResp.protonetsvr.checkOnlineResp""
 CheckOnlineResp
-ctxData (
-uniqIds (	B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
+uniqIds (	B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

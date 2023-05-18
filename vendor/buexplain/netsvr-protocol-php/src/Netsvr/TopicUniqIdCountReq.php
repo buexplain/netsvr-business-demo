@@ -16,27 +16,15 @@ use Google\Protobuf\Internal\GPBUtil;
 class TopicUniqIdCountReq extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker会将该值赋给router.Cmd
-     *
-     * Generated from protobuf field <code>int32 routerCmd = 1;</code>
-     */
-    protected $routerCmd = 0;
-    /**
-     *worker会原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 2;</code>
-     */
-    protected $ctxData = '';
-    /**
      *目标主题
      *
-     * Generated from protobuf field <code>repeated string topics = 3;</code>
+     * Generated from protobuf field <code>repeated string topics = 1;</code>
      */
     private $topics;
     /**
-     *是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值
+     *是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值，直接统计网关中每个主题的连接数
      *
-     * Generated from protobuf field <code>bool countAll = 4;</code>
+     * Generated from protobuf field <code>bool countAll = 2;</code>
      */
     protected $countAll = false;
 
@@ -46,14 +34,10 @@ class TopicUniqIdCountReq extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type int $routerCmd
-     *          worker会将该值赋给router.Cmd
-     *     @type string $ctxData
-     *          worker会原样回传给business
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $topics
      *          目标主题
      *     @type bool $countAll
-     *          是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值
+     *          是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值，直接统计网关中每个主题的连接数
      * }
      */
     public function __construct($data = NULL) {
@@ -62,61 +46,9 @@ class TopicUniqIdCountReq extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker会将该值赋给router.Cmd
-     *
-     * Generated from protobuf field <code>int32 routerCmd = 1;</code>
-     * @return int
-     */
-    public function getRouterCmd()
-    {
-        return $this->routerCmd;
-    }
-
-    /**
-     *worker会将该值赋给router.Cmd
-     *
-     * Generated from protobuf field <code>int32 routerCmd = 1;</code>
-     * @param int $var
-     * @return $this
-     */
-    public function setRouterCmd($var)
-    {
-        GPBUtil::checkInt32($var);
-        $this->routerCmd = $var;
-
-        return $this;
-    }
-
-    /**
-     *worker会原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 2;</code>
-     * @return string
-     */
-    public function getCtxData()
-    {
-        return $this->ctxData;
-    }
-
-    /**
-     *worker会原样回传给business
-     *
-     * Generated from protobuf field <code>bytes ctxData = 2;</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setCtxData($var)
-    {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
-
-        return $this;
-    }
-
-    /**
      *目标主题
      *
-     * Generated from protobuf field <code>repeated string topics = 3;</code>
+     * Generated from protobuf field <code>repeated string topics = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getTopics()
@@ -127,7 +59,7 @@ class TopicUniqIdCountReq extends \Google\Protobuf\Internal\Message
     /**
      *目标主题
      *
-     * Generated from protobuf field <code>repeated string topics = 3;</code>
+     * Generated from protobuf field <code>repeated string topics = 1;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
@@ -140,9 +72,9 @@ class TopicUniqIdCountReq extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值
+     *是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值，直接统计网关中每个主题的连接数
      *
-     * Generated from protobuf field <code>bool countAll = 4;</code>
+     * Generated from protobuf field <code>bool countAll = 2;</code>
      * @return bool
      */
     public function getCountAll()
@@ -151,9 +83,9 @@ class TopicUniqIdCountReq extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值
+     *是否返回全部主题的连接数，如果设置为true，则网关会忽略topics字段的值，直接统计网关中每个主题的连接数
      *
-     * Generated from protobuf field <code>bool countAll = 4;</code>
+     * Generated from protobuf field <code>bool countAll = 2;</code>
      * @param bool $var
      * @return $this
      */

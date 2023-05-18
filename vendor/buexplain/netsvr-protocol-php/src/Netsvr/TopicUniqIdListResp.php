@@ -16,23 +16,18 @@ use Google\Protobuf\Internal\GPBUtil;
 class TopicUniqIdListResp extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
      */
-    protected $ctxData = '';
+    protected $serverId = 0;
     /**
-     *当前主题
+     *key是topic，value是该主题包含的uniqId
+     *如果请求的topic没找到，则items中不会有该topic
      *
-     * Generated from protobuf field <code>string topic = 2;</code>
+     * Generated from protobuf field <code>map<string, .netsvr.topicUniqIdListResp.TopicUniqIdListRespItem> items = 2;</code>
      */
-    protected $topic = '';
-    /**
-     *当前主题包含的uniqId
-     *
-     * Generated from protobuf field <code>repeated string uniqIds = 3;</code>
-     */
-    private $uniqIds;
+    private $items;
 
     /**
      * Constructor.
@@ -40,12 +35,11 @@ class TopicUniqIdListResp extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $ctxData
-     *          worker原样回传给business
-     *     @type string $topic
-     *          当前主题
-     *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $uniqIds
-     *          当前主题包含的uniqId
+     *     @type int $serverId
+     *          网关唯一编号
+     *     @type array|\Google\Protobuf\Internal\MapField $items
+     *          key是topic，value是该主题包含的uniqId
+     *          如果请求的topic没找到，则items中不会有该topic
      * }
      */
     public function __construct($data = NULL) {
@@ -54,79 +48,55 @@ class TopicUniqIdListResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @return string
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @return int
      */
-    public function getCtxData()
+    public function getServerId()
     {
-        return $this->ctxData;
+        return $this->serverId;
     }
 
     /**
-     *worker原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @param string $var
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setCtxData($var)
+    public function setServerId($var)
     {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
+        GPBUtil::checkInt32($var);
+        $this->serverId = $var;
 
         return $this;
     }
 
     /**
-     *当前主题
+     *key是topic，value是该主题包含的uniqId
+     *如果请求的topic没找到，则items中不会有该topic
      *
-     * Generated from protobuf field <code>string topic = 2;</code>
-     * @return string
+     * Generated from protobuf field <code>map<string, .netsvr.topicUniqIdListResp.TopicUniqIdListRespItem> items = 2;</code>
+     * @return \Google\Protobuf\Internal\MapField
      */
-    public function getTopic()
+    public function getItems()
     {
-        return $this->topic;
+        return $this->items;
     }
 
     /**
-     *当前主题
+     *key是topic，value是该主题包含的uniqId
+     *如果请求的topic没找到，则items中不会有该topic
      *
-     * Generated from protobuf field <code>string topic = 2;</code>
-     * @param string $var
+     * Generated from protobuf field <code>map<string, .netsvr.topicUniqIdListResp.TopicUniqIdListRespItem> items = 2;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setTopic($var)
+    public function setItems($var)
     {
-        GPBUtil::checkString($var, True);
-        $this->topic = $var;
-
-        return $this;
-    }
-
-    /**
-     *当前主题包含的uniqId
-     *
-     * Generated from protobuf field <code>repeated string uniqIds = 3;</code>
-     * @return \Google\Protobuf\Internal\RepeatedField
-     */
-    public function getUniqIds()
-    {
-        return $this->uniqIds;
-    }
-
-    /**
-     *当前主题包含的uniqId
-     *
-     * Generated from protobuf field <code>repeated string uniqIds = 3;</code>
-     * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
-     * @return $this
-     */
-    public function setUniqIds($var)
-    {
-        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
-        $this->uniqIds = $arr;
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Netsvr\TopicUniqIdListRespItem::class);
+        $this->items = $arr;
 
         return $this;
     }

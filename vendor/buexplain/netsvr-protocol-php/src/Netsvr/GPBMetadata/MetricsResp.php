@@ -16,16 +16,16 @@ class MetricsResp
         }
         $pool->internalAddGeneratedFile(
             '
-º
-metricsResp.protonetsvr.metricsResp"®
-MetricsResp
-ctxData (9
-items (2*.netsvr.metricsResp.MetricsResp.ItemsEntryS
+·
+metricsResp.protonetsvr.metricsResp"­
+MetricsResp
+serverId (9
+items (2*.netsvr.metricsResp.MetricsResp.ItemsEntryQ
 
 ItemsEntry
-key (4
-value (2%.netsvr.metricsResp.MetricsStatusResp:8"®
-MetricsStatusResp
+key (2
+value (2#.netsvr.metricsResp.MetricsRespItem:8"¬
+MetricsRespItem
 count (
 meanRate (
 meanRateMax (

@@ -1,5 +1,6 @@
 .idea
 .env
+.stackdump
 runtime/container/*.cache
 runtime/business.pid
 runtime/hyperf.pid

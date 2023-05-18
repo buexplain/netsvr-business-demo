@@ -43,7 +43,7 @@ class StopWorkerCommand extends WorkerCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->isRun()) {
-            $this->logger->notice('The business service is not running.');
+            $this->logger->debug('The business service is not running.');
         }
         Process::kill($this->getPid(), SIGTERM);
         return 0;

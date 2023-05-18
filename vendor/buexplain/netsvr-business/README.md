@@ -13,7 +13,7 @@
    >
    > composer require google/protobuf
 3. 修改配置文件`config/autoload/business.php`，把里面的网关ip、port改成网关服务的worker服务器地址
-4. 执行启动命令：`php bin/hyperf.php business:start`
+4. 执行启动指令：`php bin/hyperf.php business:start`
 5. 打开一个在线测试websocket的网页，连接到网关服务的websocket服务器，发送消息：`001你好`，注意这个`001`就是配置文件`config/autoload/business.php`
    里面的`workerId`
 

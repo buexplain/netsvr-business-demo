@@ -34,5 +34,5 @@ interface RouterDataInterface
      * 解码
      * @param string $data
      */
-    public function decode(string $data): void;
+    public function decode(string $data): self;
 }

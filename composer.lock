@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57052436c314b88b07962bec4aa2d41a",
+    "content-hash": "d7f538d59429160dc1fcec1f45395067",
     "packages": [
         {
             "name": "buexplain/netsvr-business",
@@ -12,27 +12,31 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-business.git",
-                "reference": "64b3f7d16009761cae031893b44c8ae07a997672"
+                "reference": "9673fd8de7e271729c875da498298d9c351d3511"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/64b3f7d16009761cae031893b44c8ae07a997672",
-                "reference": "64b3f7d16009761cae031893b44c8ae07a997672",
+                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/9673fd8de7e271729c875da498298d9c351d3511",
+                "reference": "9673fd8de7e271729c875da498298d9c351d3511",
                 "shasum": ""
             },
             "require": {
                 "buexplain/netsvr-protocol-php": "dev-main",
-                "hyperf/command": "3.0.*",
-                "hyperf/config": "3.0.*",
-                "hyperf/devtool": "3.0.*",
-                "hyperf/di": "3.0.*",
-                "hyperf/logger": "3.0.*",
+                "hyperf/config": "^3.0",
+                "hyperf/devtool": "^3.0",
+                "hyperf/di": "^3.0",
+                "hyperf/event": "^3.0",
+                "hyperf/logger": "^3.0",
+                "hyperf/pool": "^3.0",
                 "php": ">=8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "*",
                 "google/protobuf": "^3.22",
-                "hyperf/signal": "@dev",
+                "hyperf/command": "^3.0",
+                "hyperf/framework": "^3.0",
+                "hyperf/process": "^3.0",
+                "hyperf/server": "^3.0",
                 "swoole/ide-helper": "*"
             },
             "default-branch": true,
@@ -69,7 +73,7 @@
                 "issues": "https://github.com/buexplain/netsvr-business/issues",
                 "source": "https://github.com/buexplain/netsvr-business/tree/main"
             },
-            "time": "2023-04-25T03:18:02+00:00"
+            "time": "2023-05-17T10:06:13+00:00"
         },
         {
             "name": "buexplain/netsvr-protocol-php",
@@ -77,12 +81,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol-php.git",
-                "reference": "ae1ffcd29c6d24dd78a54898f8949d20595212f3"
+                "reference": "292850cdf110c3a99f1b5dbcc2469755828a7edf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/ae1ffcd29c6d24dd78a54898f8949d20595212f3",
-                "reference": "ae1ffcd29c6d24dd78a54898f8949d20595212f3",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/292850cdf110c3a99f1b5dbcc2469755828a7edf",
+                "reference": "292850cdf110c3a99f1b5dbcc2469755828a7edf",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +117,7 @@
                 "issues": "https://github.com/buexplain/netsvr-protocol-php/issues",
                 "source": "https://github.com/buexplain/netsvr-protocol-php/tree/main"
             },
-            "time": "2023-04-21T05:27:31+00:00"
+            "time": "2023-05-10T09:27:08+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -233,7 +237,6 @@
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
                 "vimeo/psalm": "^4.30 || ^5.4"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -336,16 +339,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.23.0RC1",
+            "version": "v3.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "4d68483677b7f2be5d984b7b9a72f787ca85c84b"
+                "reference": "f3899c3d279b2d0cfbe48d9af0f59ee82045f598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/4d68483677b7f2be5d984b7b9a72f787ca85c84b",
-                "reference": "4d68483677b7f2be5d984b7b9a72f787ca85c84b",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/f3899c3d279b2d0cfbe48d9af0f59ee82045f598",
+                "reference": "f3899c3d279b2d0cfbe48d9af0f59ee82045f598",
                 "shasum": ""
             },
             "require": {
@@ -374,9 +377,9 @@
                 "proto"
             ],
             "support": {
-                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.0RC1"
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.1"
             },
-            "time": "2023-04-25T21:57:09+00:00"
+            "time": "2023-05-17T16:14:47+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -555,12 +558,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/collection.git",
-                "reference": "ffb7502f9f46a21ad8f546853ac4c29310aa50b6"
+                "reference": "40649d7d24c06e9e76e6fd53ea7e4f5e3acdb1ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/collection/zipball/ffb7502f9f46a21ad8f546853ac4c29310aa50b6",
-                "reference": "ffb7502f9f46a21ad8f546853ac4c29310aa50b6",
+                "url": "https://api.github.com/repos/hyperf/collection/zipball/40649d7d24c06e9e76e6fd53ea7e4f5e3acdb1ba",
+                "reference": "40649d7d24c06e9e76e6fd53ea7e4f5e3acdb1ba",
                 "shasum": ""
             },
             "require": {
@@ -601,7 +604,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-04-26T03:02:31+00:00"
+            "time": "2023-05-16T12:21:01+00:00"
         },
         {
             "name": "hyperf/command",
@@ -711,12 +714,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/config.git",
-                "reference": "45c8daa34273e83a50bd95ff24fc36a8a3ab00e3"
+                "reference": "6503882f8547809d609b9489170037ceaef04962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/config/zipball/45c8daa34273e83a50bd95ff24fc36a8a3ab00e3",
-                "reference": "45c8daa34273e83a50bd95ff24fc36a8a3ab00e3",
+                "url": "https://api.github.com/repos/hyperf/config/zipball/6503882f8547809d609b9489170037ceaef04962",
+                "reference": "6503882f8547809d609b9489170037ceaef04962",
                 "shasum": ""
             },
             "require": {
@@ -771,7 +774,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-04-26T03:02:31+00:00"
+            "time": "2023-05-09T03:02:12+00:00"
         },
         {
             "name": "hyperf/context",
@@ -1230,6 +1233,63 @@
             "time": "2023-03-24T10:37:37+00:00"
         },
         {
+            "name": "hyperf/event",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/event.git",
+                "reference": "e10cd5e8b7f02bad9c542c3592b495debba9a39a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/event/zipball/e10cd5e8b7f02bad9c542c3592b495debba9a39a",
+                "reference": "e10cd5e8b7f02bad9c542c3592b495debba9a39a",
+                "shasum": ""
+            },
+            "require": {
+                "hyperf/contract": "~3.0.0",
+                "php": ">=8.0",
+                "psr/event-dispatcher": "^1.0"
+            },
+            "suggest": {
+                "hyperf/di": "Required to use annotatioins."
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Event\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Event\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "an event manager that implements PSR-14.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "event",
+                "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2022-10-13T02:40:13+00:00"
+        },
+        {
             "name": "hyperf/framework",
             "version": "dev-master",
             "source": {
@@ -1303,12 +1363,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/logger.git",
-                "reference": "19b8da780f3f42ec63b6261b4ab6a9ee5c91a236"
+                "reference": "24a3b87f646ab6684310ead0b277e2464c6c5cab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/logger/zipball/19b8da780f3f42ec63b6261b4ab6a9ee5c91a236",
-                "reference": "19b8da780f3f42ec63b6261b4ab6a9ee5c91a236",
+                "url": "https://api.github.com/repos/hyperf/logger/zipball/24a3b87f646ab6684310ead0b277e2464c6c5cab",
+                "reference": "24a3b87f646ab6684310ead0b277e2464c6c5cab",
                 "shasum": ""
             },
             "require": {
@@ -1352,7 +1412,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-04-26T03:02:31+00:00"
+            "time": "2023-05-09T10:27:25+00:00"
         },
         {
             "name": "hyperf/macroable",
@@ -1452,6 +1512,62 @@
                 "source": "https://github.com/hyperf/hyperf"
             },
             "time": "2023-04-11T07:57:32+00:00"
+        },
+        {
+            "name": "hyperf/pool",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/pool.git",
+                "reference": "44c87d46a1619554deed3879e8db675654ffd051"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/pool/zipball/44c87d46a1619554deed3879e8db675654ffd051",
+                "reference": "44c87d46a1619554deed3879e8db675654ffd051",
+                "shasum": ""
+            },
+            "require": {
+                "hyperf/contract": "~3.0.0",
+                "hyperf/support": "~3.0.0",
+                "hyperf/utils": "~3.0.0",
+                "php": ">=8.0",
+                "psr/container": "^1.0|^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Pool\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Pool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "An independent universal connection pool component.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "connection-pool",
+                "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2023-04-26T03:02:31+00:00"
         },
         {
             "name": "hyperf/serializer",
@@ -3029,12 +3145,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swoole/ide-helper.git",
-                "reference": "c043cb5597ce80d7d1e6f8f07346123c3065ae2f"
+                "reference": "4b6e615cb27c251b6248b8bd9501edbd02a45c18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/c043cb5597ce80d7d1e6f8f07346123c3065ae2f",
-                "reference": "c043cb5597ce80d7d1e6f8f07346123c3065ae2f",
+                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/4b6e615cb27c251b6248b8bd9501edbd02a45c18",
+                "reference": "4b6e615cb27c251b6248b8bd9501edbd02a45c18",
                 "shasum": ""
             },
             "default-branch": true,
@@ -3052,15 +3168,16 @@
             "description": "IDE help files for Swoole.",
             "support": {
                 "issues": "https://github.com/swoole/ide-helper/issues",
-                "source": "https://github.com/swoole/ide-helper/tree/master"
+                "source": "https://github.com/swoole/ide-helper/tree/5.0.3"
             },
-            "time": "2023-03-20T06:49:58+00:00"
+            "time": "2023-04-28T22:20:18+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "buexplain/netsvr-business": 20
+        "buexplain/netsvr-business": 20,
+        "hyperf/event": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

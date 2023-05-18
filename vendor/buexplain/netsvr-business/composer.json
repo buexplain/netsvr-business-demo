@@ -18,13 +18,14 @@
   "require": {
     "php": ">=8.0",
     "buexplain/netsvr-protocol-php": "dev-main",
-    "hyperf/command": "3.0.*",
-    "hyperf/di": "3.0.*",
-    "hyperf/devtool": "3.0.*",
-    "hyperf/config": "3.0.*",
-    "hyperf/logger": "3.0.*"
+    "hyperf/di": "^3.0",
+    "hyperf/devtool": "^3.0",
+    "hyperf/config": "^3.0",
+    "hyperf/logger": "^3.0",
+    "hyperf/pool": "^3.0",
+    "hyperf/event": "^3.0"
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "NetsvrBusiness\\": "src/"
@@ -33,8 +34,11 @@
   "require-dev": {
     "swoole/ide-helper": "*",
     "friendsofphp/php-cs-fixer": "*",
-    "hyperf/signal": "@dev",
-    "google/protobuf": "^3.22"
+    "google/protobuf": "^3.22",
+    "hyperf/command": "^3.0",
+    "hyperf/framework": "^3.0",
+    "hyperf/process": "^3.0",
+    "hyperf/server": "^3.0"
   },
   "extra": {
     "hyperf": {

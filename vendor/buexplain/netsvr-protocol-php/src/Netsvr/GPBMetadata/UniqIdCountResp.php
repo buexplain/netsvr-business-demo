@@ -16,10 +16,10 @@ class UniqIdCountResp
         }
         $pool->internalAddGeneratedFile(
             '
-“
-uniqIdCountResp.protonetsvr.uniqIdCountResp"1
-UniqIdCountResp
-ctxData (
+”
+uniqIdCountResp.protonetsvr.uniqIdCountResp"2
+UniqIdCountResp
+serverId (
 count (B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 

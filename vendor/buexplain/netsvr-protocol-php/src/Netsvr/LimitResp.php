@@ -16,15 +16,15 @@ use Google\Protobuf\Internal\GPBUtil;
 class LimitResp extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker会原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
      */
-    protected $ctxData = '';
+    protected $serverId = 0;
     /**
-     *每个worker的配置情况
+     *网关服务中的限流器列表
      *
-     * Generated from protobuf field <code>repeated .netsvr.limitResp.LimitCountItem items = 2;</code>
+     * Generated from protobuf field <code>repeated .netsvr.limitResp.LimitRespItem items = 2;</code>
      */
     private $items;
 
@@ -34,10 +34,10 @@ class LimitResp extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $ctxData
-     *          worker会原样回传给business
-     *     @type array<\Netsvr\LimitCountItem>|\Google\Protobuf\Internal\RepeatedField $items
-     *          每个worker的配置情况
+     *     @type int $serverId
+     *          网关唯一编号
+     *     @type array<\Netsvr\LimitRespItem>|\Google\Protobuf\Internal\RepeatedField $items
+     *          网关服务中的限流器列表
      * }
      */
     public function __construct($data = NULL) {
@@ -46,35 +46,35 @@ class LimitResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker会原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @return string
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @return int
      */
-    public function getCtxData()
+    public function getServerId()
     {
-        return $this->ctxData;
+        return $this->serverId;
     }
 
     /**
-     *worker会原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @param string $var
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setCtxData($var)
+    public function setServerId($var)
     {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
+        GPBUtil::checkInt32($var);
+        $this->serverId = $var;
 
         return $this;
     }
 
     /**
-     *每个worker的配置情况
+     *网关服务中的限流器列表
      *
-     * Generated from protobuf field <code>repeated .netsvr.limitResp.LimitCountItem items = 2;</code>
+     * Generated from protobuf field <code>repeated .netsvr.limitResp.LimitRespItem items = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getItems()
@@ -83,15 +83,15 @@ class LimitResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *每个worker的配置情况
+     *网关服务中的限流器列表
      *
-     * Generated from protobuf field <code>repeated .netsvr.limitResp.LimitCountItem items = 2;</code>
-     * @param array<\Netsvr\LimitCountItem>|\Google\Protobuf\Internal\RepeatedField $var
+     * Generated from protobuf field <code>repeated .netsvr.limitResp.LimitRespItem items = 2;</code>
+     * @param array<\Netsvr\LimitRespItem>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
     public function setItems($var)
     {
-        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Netsvr\LimitCountItem::class);
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Netsvr\LimitRespItem::class);
         $this->items = $arr;
 
         return $this;

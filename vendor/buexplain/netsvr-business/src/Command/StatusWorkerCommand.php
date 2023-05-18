@@ -42,9 +42,9 @@ class StatusWorkerCommand extends WorkerCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($this->isRun()) {
-            $this->logger->notice('The business service is running.');
+            $this->logger->debug('The business service is running.');
         } else {
-            $this->logger->notice('The business service is not running.');
+            $this->logger->debug('The business service is not running.');
         }
         return 0;
     }

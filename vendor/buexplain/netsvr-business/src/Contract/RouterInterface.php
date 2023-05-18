@@ -21,7 +21,7 @@ namespace NetsvrBusiness\Contract;
 
 /**
  * 客户数据的路由的编解码接口
- * 这个接口
+ * 这个接口的方法不要设定具体返回值类型，因为protobuf生成的代码也不支持具体返回值类型
  */
 interface RouterInterface
 {
@@ -35,31 +35,31 @@ interface RouterInterface
      * 解码
      * @param string $data
      */
-    public function decode(string $data): void;
+    public function decode(string $data): self;
 
     /**
-     * 获取命令
+     * 获取指令
      *
      * @return int
      */
     public function getCmd();
 
     /**
-     * 设置命令
+     * 设置指令
      *
      * @param int $var
      */
     public function setCmd(int $var);
 
     /**
-     * 获取命令携带的数据
+     * 获取指令携带的数据
      *
      * @return string
      */
     public function getData();
 
     /**
-     * 设置命令携带的数据
+     * 设置指令携带的数据
      *
      * @param string $var
      */

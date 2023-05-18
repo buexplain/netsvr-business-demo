@@ -61,10 +61,12 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
             'Hyperf\\Support\\' => 15,
             'Hyperf\\Stringable\\' => 18,
             'Hyperf\\Serializer\\' => 18,
+            'Hyperf\\Pool\\' => 12,
             'Hyperf\\Pipeline\\' => 16,
             'Hyperf\\Macroable\\' => 17,
             'Hyperf\\Logger\\' => 14,
             'Hyperf\\Framework\\' => 17,
+            'Hyperf\\Event\\' => 13,
             'Hyperf\\Engine\\Contract\\' => 23,
             'Hyperf\\Engine\\' => 14,
             'Hyperf\\Di\\' => 10,
@@ -195,6 +197,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         array (
             0 => __DIR__ . '/..' . '/hyperf/serializer/src',
         ),
+        'Hyperf\\Pool\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/pool/src',
+        ),
         'Hyperf\\Pipeline\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/pipeline/src',
@@ -210,6 +216,10 @@ class ComposerStaticInitf30500dfdd50ccac5b3b75c62357ffb2
         'Hyperf\\Framework\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/framework/src',
+        ),
+        'Hyperf\\Event\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/event/src',
         ),
         'Hyperf\\Engine\\Contract\\' => 
         array (

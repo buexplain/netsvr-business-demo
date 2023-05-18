@@ -23,11 +23,19 @@ use NetsvrBusiness\Contract\RouterInterface;
 use NetsvrBusiness\Exception\RouterDecodeException;
 
 /**
- * 客户端发消息的路由，这个路由实现是解析json，json格式为：{"cmd":int, "data":"string"}
+ * 客户端发消息的路由，这个路由实现是json编解码，json格式为：{"cmd":int, "data":"string"}
  */
 class JsonRouter implements RouterInterface
 {
+    /**
+     * 业务指令，类似于http的url path部分
+     * @var int
+     */
     protected int $cmd = 0;
+    /**
+     * 业务指令需要的数据，类似于http的body部分
+     * @var string
+     */
     protected string $data = '';
 
     public function encode(): string
@@ -35,7 +43,7 @@ class JsonRouter implements RouterInterface
         return json_encode(['cmd' => $this->cmd, 'data' => $this->data], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
-    public function decode(string $data): void
+    public function decode(string $data): self
     {
         $tmp = json_decode($data, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -46,6 +54,7 @@ class JsonRouter implements RouterInterface
         }
         $this->cmd = $tmp['cmd'];
         $this->data = $tmp['data'];
+        return $this;
     }
 
     public function getCmd(): int
@@ -53,9 +62,10 @@ class JsonRouter implements RouterInterface
         return $this->cmd;
     }
 
-    public function setCmd(int $var): void
+    public function setCmd(int $var): self
     {
         $this->cmd = $var;
+        return $this;
     }
 
     public function getData(): string
@@ -63,8 +73,9 @@ class JsonRouter implements RouterInterface
         return $this->data;
     }
 
-    public function setData(string $var): void
+    public function setData(string $var): self
     {
         $this->data = $var;
+        return $this;
     }
 }

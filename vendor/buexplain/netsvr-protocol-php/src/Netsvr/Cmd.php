@@ -40,15 +40,15 @@ class Cmd
     /**
      *--------------------------------business单向请求worker的指令，worker不会响应business 开始--------------------------------
      *
-     * Generated from protobuf enum <code>InfoUpdate = 90002001;</code>
+     * Generated from protobuf enum <code>ConnInfoUpdate = 90002001;</code>
      */
-    const InfoUpdate = 90002001;
+    const ConnInfoUpdate = 90002001;
     /**
      *删除连接的info信息
      *
-     * Generated from protobuf enum <code>InfoDelete = 90002002;</code>
+     * Generated from protobuf enum <code>ConnInfoDelete = 90002002;</code>
      */
-    const InfoDelete = 90002002;
+    const ConnInfoDelete = 90002002;
     /**
      *广播
      *
@@ -104,7 +104,7 @@ class Cmd
      */
     const ForceOfflineGuest = 90002011;
     /**
-     *--------------------------------business请求worker的指令，worker会响应business，响应的指令是worker通过routerCmd自定义的 开始--------------------------------
+     *--------------------------------business请求worker的指令，worker会响应business 开始--------------------------------
      *
      * Generated from protobuf enum <code>Register = 90003001;</code>
      */
@@ -160,9 +160,9 @@ class Cmd
     /**
      *获取连接的信息
      *
-     * Generated from protobuf enum <code>Info = 90003010;</code>
+     * Generated from protobuf enum <code>ConnInfo = 90003010;</code>
      */
-    const Info = 90003010;
+    const ConnInfo = 90003010;
     /**
      *获取网关统计的服务状态
      *
@@ -181,8 +181,8 @@ class Cmd
         self::ConnOpen => 'ConnOpen',
         self::ConnClose => 'ConnClose',
         self::Transfer => 'Transfer',
-        self::InfoUpdate => 'InfoUpdate',
-        self::InfoDelete => 'InfoDelete',
+        self::ConnInfoUpdate => 'ConnInfoUpdate',
+        self::ConnInfoDelete => 'ConnInfoDelete',
         self::Broadcast => 'Broadcast',
         self::Multicast => 'Multicast',
         self::SingleCast => 'SingleCast',
@@ -201,7 +201,7 @@ class Cmd
         self::TopicList => 'TopicList',
         self::TopicUniqIdList => 'TopicUniqIdList',
         self::TopicUniqIdCount => 'TopicUniqIdCount',
-        self::Info => 'Info',
+        self::ConnInfo => 'ConnInfo',
         self::Metrics => 'Metrics',
         self::Limit => 'Limit',
     ];

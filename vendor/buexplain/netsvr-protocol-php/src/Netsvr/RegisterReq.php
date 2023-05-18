@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 
 /**
  *business向worker请求，注册自己
- *注册逻辑：检查注册条件后，会给business的连接异步写入注册成功的响应、将business的连接注册到管理器，让business的连接接收网关转发的客户数据，如果注册失败，会返回失败的信息，并关闭business的连接
+ *注册逻辑：检查注册条件后，会给business的连接异步写入注册成功的信息、将business的连接注册到管理器，让business的连接接收网关转发的客户数据，如果注册失败，会返回失败的信息
  *如果不想接收来自客户的信息，只是与网关交互，可以不发起注册指令
  *
  * Generated from protobuf message <code>netsvr.registerReq.RegisterReq</code>
@@ -35,7 +35,7 @@ class RegisterReq extends \Google\Protobuf\Internal\Message
      */
     protected $processCmdGoroutineNum = 0;
     /**
-     *网关服务唯一编号，如果该值与网关配置的值对不上号，则网关会拒绝business的注册请求，并断开连接
+     *网关唯一编号，如果该值与网关配置的值对不上号，网关会返回失败的信息
      *
      * Generated from protobuf field <code>uint32 serverId = 3;</code>
      */
@@ -57,7 +57,7 @@ class RegisterReq extends \Google\Protobuf\Internal\Message
      *          请根据业务，实际压测一下试试，找到最佳的数量
      *          请注意worker默认已经开启了一条协程来处理本business的请求，所以该值只有在大于1的时候才会开启更多协程
      *     @type int $serverId
-     *          网关服务唯一编号，如果该值与网关配置的值对不上号，则网关会拒绝business的注册请求，并断开连接
+     *          网关唯一编号，如果该值与网关配置的值对不上号，网关会返回失败的信息
      * }
      */
     public function __construct($data = NULL) {
@@ -128,7 +128,7 @@ class RegisterReq extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *网关服务唯一编号，如果该值与网关配置的值对不上号，则网关会拒绝business的注册请求，并断开连接
+     *网关唯一编号，如果该值与网关配置的值对不上号，网关会返回失败的信息
      *
      * Generated from protobuf field <code>uint32 serverId = 3;</code>
      * @return int
@@ -139,7 +139,7 @@ class RegisterReq extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *网关服务唯一编号，如果该值与网关配置的值对不上号，则网关会拒绝business的注册请求，并断开连接
+     *网关唯一编号，如果该值与网关配置的值对不上号，网关会返回失败的信息
      *
      * Generated from protobuf field <code>uint32 serverId = 3;</code>
      * @param int $var

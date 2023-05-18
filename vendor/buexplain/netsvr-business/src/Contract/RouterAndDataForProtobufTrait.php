@@ -52,7 +52,7 @@ trait RouterAndDataForProtobufTrait
      */
     public function encode(): string
     {
-        if (config('business.protobufAsJSON', false)) {
+        if (\Hyperf\Config\config('business.protobufAsJSON', false)) {
             return $this->serializeToJsonString();
         }
         return $this->serializeToString();
@@ -61,15 +61,16 @@ trait RouterAndDataForProtobufTrait
     /**
      * 解码
      * @param string $data
-     * @return void
+     * @return RouterAndDataForProtobufTrait
      * @throws Exception
      */
-    public function decode(string $data): void
+    public function decode(string $data): self
     {
-        if (config('business.protobufAsJSON', false)) {
+        if (\Hyperf\Config\config('business.protobufAsJSON', false)) {
             $this->mergeFromJsonString($data);
-            return;
+            return $this;
         }
         $this->mergeFromString($data);
+        return $this;
     }
 }

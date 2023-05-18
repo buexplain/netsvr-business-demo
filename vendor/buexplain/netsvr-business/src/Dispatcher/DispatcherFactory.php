@@ -21,6 +21,8 @@ use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
 use NetsvrBusiness\Contract\DispatcherFactoryInterface;
 use NetsvrBusiness\Contract\DispatcherInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class DispatcherFactory implements DispatcherFactoryInterface
 {
@@ -29,6 +31,10 @@ class DispatcherFactory implements DispatcherFactoryInterface
      */
     protected array $routes = [BASE_PATH . '/config/routes-websocket.php'];
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __construct()
     {
         $logger = ApplicationContext::getContainer()->get(StdoutLoggerInterface::class);
@@ -41,6 +47,10 @@ class DispatcherFactory implements DispatcherFactoryInterface
         }
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function get(): DispatcherInterface
     {
         return ApplicationContext::getContainer()->get(DispatcherInterface::class);

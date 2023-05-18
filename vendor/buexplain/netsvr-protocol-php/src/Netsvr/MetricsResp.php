@@ -16,13 +16,15 @@ use Google\Protobuf\Internal\GPBUtil;
 class MetricsResp extends \Google\Protobuf\Internal\Message
 {
     /**
-     *worker会原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
      */
-    protected $ctxData = '';
+    protected $serverId = 0;
     /**
-     * Generated from protobuf field <code>map<int32, .netsvr.metricsResp.MetricsStatusResp> items = 2;</code>
+     *key是统计的项，value是统计结果
+     *
+     * Generated from protobuf field <code>map<int32, .netsvr.metricsResp.MetricsRespItem> items = 2;</code>
      */
     private $items;
 
@@ -32,9 +34,10 @@ class MetricsResp extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $ctxData
-     *          worker会原样回传给business
+     *     @type int $serverId
+     *          网关唯一编号
      *     @type array|\Google\Protobuf\Internal\MapField $items
+     *          key是统计的项，value是统计结果
      * }
      */
     public function __construct($data = NULL) {
@@ -43,33 +46,35 @@ class MetricsResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *worker会原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @return string
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @return int
      */
-    public function getCtxData()
+    public function getServerId()
     {
-        return $this->ctxData;
+        return $this->serverId;
     }
 
     /**
-     *worker会原样回传给business
+     *网关唯一编号
      *
-     * Generated from protobuf field <code>bytes ctxData = 1;</code>
-     * @param string $var
+     * Generated from protobuf field <code>int32 serverId = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setCtxData($var)
+    public function setServerId($var)
     {
-        GPBUtil::checkString($var, False);
-        $this->ctxData = $var;
+        GPBUtil::checkInt32($var);
+        $this->serverId = $var;
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>map<int32, .netsvr.metricsResp.MetricsStatusResp> items = 2;</code>
+     *key是统计的项，value是统计结果
+     *
+     * Generated from protobuf field <code>map<int32, .netsvr.metricsResp.MetricsRespItem> items = 2;</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getItems()
@@ -78,13 +83,15 @@ class MetricsResp extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<int32, .netsvr.metricsResp.MetricsStatusResp> items = 2;</code>
+     *key是统计的项，value是统计结果
+     *
+     * Generated from protobuf field <code>map<int32, .netsvr.metricsResp.MetricsRespItem> items = 2;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
     public function setItems($var)
     {
-        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::INT32, \Google\Protobuf\Internal\GPBType::MESSAGE, \Netsvr\MetricsStatusResp::class);
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::INT32, \Google\Protobuf\Internal\GPBType::MESSAGE, \Netsvr\MetricsRespItem::class);
         $this->items = $arr;
 
         return $this;

@@ -34,7 +34,7 @@ class ConnOpen extends \Google\Protobuf\Internal\Message
      */
     private $subProtocol;
     /**
-     *X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的ip
+     *X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的客户端ip
      *
      * Generated from protobuf field <code>string xForwardedFor = 4;</code>
      */
@@ -53,7 +53,7 @@ class ConnOpen extends \Google\Protobuf\Internal\Message
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $subProtocol
      *          连接的websocket子协议信息
      *     @type string $xForwardedFor
-     *          X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的ip
+     *          X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的客户端ip
      * }
      */
     public function __construct($data = NULL) {
@@ -140,7 +140,7 @@ class ConnOpen extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的ip
+     *X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的客户端ip
      *
      * Generated from protobuf field <code>string xForwardedFor = 4;</code>
      * @return string
@@ -151,7 +151,7 @@ class ConnOpen extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     *X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的ip
+     *X-Forwarded-For，如果网关没有从header中拿到X-Forwarded-For的数据，则会赋值与本网关进程直连的客户端ip
      *
      * Generated from protobuf field <code>string xForwardedFor = 4;</code>
      * @param string $var

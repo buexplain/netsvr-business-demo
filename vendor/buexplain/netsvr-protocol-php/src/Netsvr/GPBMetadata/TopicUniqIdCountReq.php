@@ -16,13 +16,11 @@ class TopicUniqIdCountReq
         }
         $pool->internalAddGeneratedFile(
             '
-Å
-topicUniqIdCountReq.protonetsvr.topicUniqIdCountReq"[
-TopicUniqIdCountReq
-	routerCmd (
-ctxData (
-topics (	
-countAll (B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
+¡
+topicUniqIdCountReq.protonetsvr.topicUniqIdCountReq"7
+TopicUniqIdCountReq
+topics (	
+countAll (B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

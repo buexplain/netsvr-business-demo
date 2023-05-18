@@ -1,0 +1,46 @@
+{
+    "name": "hyperf/pool",
+    "description": "An independent universal connection pool component.",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "swoole",
+        "hyperf",
+        "connection-pool"
+    ],
+    "homepage": "https://hyperf.io",
+    "support": {
+        "docs": "https://hyperf.wiki",
+        "issues": "https://github.com/hyperf/hyperf/issues",
+        "pull-request": "https://github.com/hyperf/hyperf/pulls",
+        "source": "https://github.com/hyperf/hyperf"
+    },
+    "require": {
+        "php": ">=8.0",
+        "psr/container": "^1.0|^2.0",
+        "hyperf/contract": "~3.0.0",
+        "hyperf/support": "~3.0.0",
+        "hyperf/utils": "~3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyperf\\Pool\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HyperfTest\\Pool\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        },
+        "hyperf": {
+            "config": "Hyperf\\Pool\\ConfigProvider"
+        }
+    }
+}

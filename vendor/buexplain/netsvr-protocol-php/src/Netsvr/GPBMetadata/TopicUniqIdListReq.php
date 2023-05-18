@@ -16,12 +16,10 @@ class TopicUniqIdListReq
         }
         $pool->internalAddGeneratedFile(
             '
-¯
-topicUniqIdListReq.protonetsvr.topicUniqIdListReq"G
-TopicUniqIdListReq
-	routerCmd (
-ctxData (
-topic (	B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
+Œ
+topicUniqIdListReq.protonetsvr.topicUniqIdListReq"$
+TopicUniqIdListReq
+topics (	B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace NetsvrBusiness\Dispatcher;
 
 use Exception;
+use Google\Protobuf\Internal\Message;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\NormalizerInterface;
 use Hyperf\Di\MethodDefinitionCollectorInterface;
@@ -111,7 +112,7 @@ class Dispatcher implements DispatcherInterface
             /**
              * @var $clientRouter RouterInterface
              */
-            $clientRouter = make(RouterInterface::class);
+            $clientRouter = \Hyperf\Support\make(RouterInterface::class);
             $clientRouter->decode($tf->getData());
             $cmd = $clientRouter->getCmd();
             $arguments[RouterInterface::class] = $clientRouter;
@@ -135,7 +136,7 @@ class Dispatcher implements DispatcherInterface
                     /**
                      * @var $clientData RouterDataInterface
                      */
-                    $clientData = make($definition->getName());
+                    $clientData = \Hyperf\Support\make($definition->getName());
                     $clientData->decode($clientRouter->getData());
                     $arguments[$clientData::class] = $clientData;
                     $arguments[RouterDataInterface::class] = $clientData;
@@ -145,8 +146,9 @@ class Dispatcher implements DispatcherInterface
         } else {
             //网关转发的非客户消息，需要解码出网关组件下的具体对象
             foreach ($definitions as $definition) {
-                if (str_starts_with($definition->getName(), 'Netsvr\\') && class_exists($definition->getName())) {
-                    $netSvrObj = make($definition->getName());
+                $class = $definition->getName();
+                if (str_starts_with($class, 'Netsvr\\') && is_subclass_of($class,Message::class)) {
+                    $netSvrObj = \Hyperf\Support\make($definition->getName());
                     if (method_exists($definition->getName(), 'mergeFromString')) {
                         $netSvrObj->mergeFromString($router->getData());
                         $arguments[$definition->getName()] = $netSvrObj;
