@@ -67,11 +67,19 @@ class TaskSocketPool implements TaskSocketPoolInterface
      */
     public function get(): TaskSocketInterface
     {
-        if ($this->pool->isEmpty() && $this->num < $this->pool->capacity) {
-            $connection = \Hyperf\Support\make(TaskSocketInterface::class, $this->config);
-            $this->num++;
-            return $connection;
+        $currentNum = $this->pool->length();
+        //代码的cpu执行权力从这里开始
+        if ($currentNum === 0 && $this->num < $this->pool->capacity) {
+            try {
+                //到下面一行为止，不能发生cpu执行权力让渡，否则会导致连接创建溢出
+                ++$this->num;
+                return \Hyperf\Support\make(TaskSocketInterface::class, $this->config);
+            } catch (Throwable $throwable) {
+                --$this->num;
+                throw $throwable;
+            }
         }
+        //var_dump($this->num . ' ' . $this->pool->capacity . ' ' . $this->pool->length());
         $connection = $this->pool->pop($this->config['taskSocketPoolWaitTimeout']);
         if (!$connection instanceof TaskSocketInterface) {
             throw new RuntimeException('TaskSocketPool pool exhausted. Cannot establish new connection before wait_timeout.');
