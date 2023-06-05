@@ -9,6 +9,8 @@ option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
 message GroupChatForSendProtocol {
   //群号
   string groupChatId = 1;
+  //发送方
+  string fromUser = 2;
   //消息
-  string message = 2;
+  string message = 3;
 }

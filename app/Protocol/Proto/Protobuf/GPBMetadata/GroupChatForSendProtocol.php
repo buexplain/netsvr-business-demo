@@ -16,11 +16,12 @@ class GroupChatForSendProtocol
         }
         $pool->internalAddGeneratedFile(
             '
-á
-groupChatForSendProtocol.proto+netsvrBusinessDemo.groupChatForSendProtocol"@
+ó
+groupChatForSendProtocol.proto+netsvrBusinessDemo.groupChatForSendProtocol"R
 GroupChatForSendProtocol
-groupChatId (	
-message (	BHÊApp\\Protocol\\Proto\\Protobufâ\'App\\Protocol\\Proto\\Protobuf\\GPBMetadatabproto3'
+groupChatId (	
+fromUser (	
+message (	BHÊApp\\Protocol\\Proto\\Protobufâ\'App\\Protocol\\Proto\\Protobuf\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

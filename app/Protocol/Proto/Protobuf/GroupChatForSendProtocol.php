@@ -23,9 +23,15 @@ class GroupChatForSendProtocol extends \Google\Protobuf\Internal\Message impleme
      */
     protected $groupChatId = '';
     /**
+     *发送方
+     *
+     * Generated from protobuf field <code>string fromUser = 2;</code>
+     */
+    protected $fromUser = '';
+    /**
      *消息
      *
-     * Generated from protobuf field <code>string message = 2;</code>
+     * Generated from protobuf field <code>string message = 3;</code>
      */
     protected $message = '';
 
@@ -37,6 +43,8 @@ class GroupChatForSendProtocol extends \Google\Protobuf\Internal\Message impleme
      *
      *     @type string $groupChatId
      *          群号
+     *     @type string $fromUser
+     *          发送方
      *     @type string $message
      *          消息
      * }
@@ -73,9 +81,35 @@ class GroupChatForSendProtocol extends \Google\Protobuf\Internal\Message impleme
     }
 
     /**
+     *发送方
+     *
+     * Generated from protobuf field <code>string fromUser = 2;</code>
+     * @return string
+     */
+    public function getFromUser()
+    {
+        return $this->fromUser;
+    }
+
+    /**
+     *发送方
+     *
+     * Generated from protobuf field <code>string fromUser = 2;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setFromUser($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->fromUser = $var;
+
+        return $this;
+    }
+
+    /**
      *消息
      *
-     * Generated from protobuf field <code>string message = 2;</code>
+     * Generated from protobuf field <code>string message = 3;</code>
      * @return string
      */
     public function getMessage()
@@ -86,7 +120,7 @@ class GroupChatForSendProtocol extends \Google\Protobuf\Internal\Message impleme
     /**
      *消息
      *
-     * Generated from protobuf field <code>string message = 2;</code>
+     * Generated from protobuf field <code>string message = 3;</code>
      * @param string $var
      * @return $this
      */
