@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package netsvrBusinessDemo.groupChatForAttachProtocol;
+
+option php_namespace = "App\\Protocol\\Proto\\Protobuf";
+option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
+
+//群聊之加入某个群
+message GroupChatForAttachProtocol {
+  //群号
+  string groupChatId = 1;
+}

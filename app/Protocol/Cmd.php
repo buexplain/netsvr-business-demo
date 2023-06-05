@@ -26,4 +26,19 @@ class Cmd
      * 用户连接成功后的私有的欢迎命令
      */
     const PRIVATE_WELCOME = 4;
+
+    /**
+     * 群聊之加入某个群
+     */
+    const GROUP_CHAT_FOR_ATTACH = 5;
+
+    /**
+     * 群聊之退出某个群
+     */
+    const GROUP_CHAT_FOR_DETACH = 6;
+
+    /**
+     * 群聊之往某个群发送消息
+     */
+    const GROUP_CHAT_FOR_SEND = 7;
 }

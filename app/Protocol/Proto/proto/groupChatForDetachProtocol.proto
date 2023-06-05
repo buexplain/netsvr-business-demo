@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package netsvrBusinessDemo.groupChatForDetachProtocol;
+
+option php_namespace = "App\\Protocol\\Proto\\Protobuf";
+option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
+
+//群聊之退出某个群
+message GroupChatForDetachProtocol {
+  //群号
+  string groupChatId = 1;
+}

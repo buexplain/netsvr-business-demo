@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package netsvrBusinessDemo.groupChatForSendProtocol;
+
+option php_namespace = "App\\Protocol\\Proto\\Protobuf";
+option php_metadata_namespace = "App\\Protocol\\Proto\\Protobuf\\GPBMetadata";
+
+//群聊之往某个群发送消息
+message GroupChatForSendProtocol {
+  //群号
+  string groupChatId = 1;
+  //消息
+  string message = 2;
+}
