@@ -30,7 +30,7 @@ return [
             //连接到网关服务的超时时间，单位秒
             'connectTimeout' => 1,
             //task连接的连接池的最大连接数
-            'taskSocketPoolMaxConnections' => 50,
+            'taskSocketPoolMaxConnections' => 25,
             //task连接的连接池的获取连接时的超时时间，单位秒
             'taskSocketPoolWaitTimeout' => 3,
             //网关服务的唯一编号，该值必须与网关服务的配置一致，并且多个网关服务之间的值不能重复，如果配置错误，网关会拒绝business的注册请求，并关返回注册失败的错误
@@ -40,7 +40,7 @@ return [
             //客户发送的数据示例：001{"cmd":1,"data":"我的好朋友，你在吃什么？"}，其中001就是workerId，不足三位，前面补0
             'workerId' => (int)\Hyperf\Support\env('BUSINESS_WORKER_ID', 1),
             //该参数表示接下来，需要网关服务的worker服务器开启多少协程来处理本连接的请求
-            'processCmdGoroutineNum' => 10,
+            'processCmdGoroutineNum' => 25,
             //保持与网关服务的连接的活跃状态的心跳间隔，单位秒
             'heartbeatInterval' => 60,
             //business进程与网关服务的连接的tcp数据包大小的最大值

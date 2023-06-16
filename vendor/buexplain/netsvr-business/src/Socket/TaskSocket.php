@@ -59,8 +59,7 @@ class TaskSocket implements TaskSocketInterface
         int                     $serverId,
         int                     $packageMaxLength,
         TaskSocketPoolInterface $pool,
-    )
-    {
+    ) {
         $this->host = $host;
         $this->port = $port;
         $this->connectTimeout = $connectTimeout;

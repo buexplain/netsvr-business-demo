@@ -41,6 +41,7 @@ use Netsvr\MetricsRespItem;
 use Netsvr\Multicast;
 use Netsvr\Router;
 use Netsvr\SingleCast;
+use Netsvr\SingleCastBulk;
 use Netsvr\TopicCountResp;
 use Netsvr\TopicDelete;
 use Netsvr\TopicListResp;
@@ -161,6 +162,52 @@ class NetBus
         $router->setCmd(Cmd::SingleCast);
         $router->setData($singleCast->serializeToString());
         self::sendToSocketOfMainOrTaskByUniqId($uniqId, $router);
+    }
+
+    /**
+     * 批量单播，一次性给多个用户发送不同的消息
+     * @param array $uniqIdDataMap key是用户的uniqId，value是发给用户的数据
+     * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public static function singleCastBulk(array $uniqIdDataMap): void
+    {
+        if (count($uniqIdDataMap) == 0) {
+            return;
+        }
+        //网关是单机部署或者是只给一个用户发消息，则直接构造批量单播对象发送
+        if (self::isSinglePoint() || count($uniqIdDataMap) == 1) {
+            $bulk = [];
+            foreach ($uniqIdDataMap as $uniqId => $data) {
+                $singleCast = new SingleCast();
+                $singleCast->setUniqId($uniqId)->setData($data);
+                $bulk[] = $singleCast;
+            }
+            $singleCastBulk = new SingleCastBulk();
+            $singleCastBulk->setItems($bulk);
+            $router = new Router();
+            $router->setCmd(Cmd::SingleCastBulk);
+            $router->setData($singleCastBulk->serializeToString());
+            self::sendToSocketOfMainOrTaskByUniqId($bulk[0]->getUniqId(), $router);
+            return;
+        }
+        //网关是多机器部署，需要迭代每一个uniqId，并根据所在网关进行分组，然后再迭代每一个组，并把数据发送到对应网关
+        $socketLocator = self::getSocketLocator();
+        $bulks = [];
+        foreach ($uniqIdDataMap as $uniqId => $data) {
+            $singleCast = new SingleCast();
+            $singleCast->setUniqId($uniqId)->setData($data);
+            $bulks[$socketLocator->convertUniqIdToServerId($uniqId)][] = $singleCast;
+        }
+        foreach ($bulks as $serverId => $bulk) {
+            $singleCastBulk = new SingleCastBulk();
+            $singleCastBulk->setItems($bulk);
+            $router = new Router();
+            $router->setCmd(Cmd::SingleCastBulk);
+            $router->setData($singleCastBulk->serializeToString());
+            self::sendToSocketOfMainOrTaskByServerId($serverId, $router);
+        }
     }
 
     /**

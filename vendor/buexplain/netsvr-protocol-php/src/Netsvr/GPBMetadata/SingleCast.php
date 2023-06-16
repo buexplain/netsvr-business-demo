@@ -16,12 +16,14 @@ class SingleCast
         }
         $pool->internalAddGeneratedFile(
             '
-‚
+Â
 singleCast.protonetsvr.singleCast"*
 
 SingleCast
 uniqId (	
-data (B\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
+data (">
+SingleCastBulk,
+items (2.netsvr.singleCast.SingleCastB\'Znetsvr/ÊNetsvrâNetsvr\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

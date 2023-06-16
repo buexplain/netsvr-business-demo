@@ -22,159 +22,165 @@ class Cmd
     /**
      *--------------------------------worker单向转发给business的指令 开始--------------------------------
      *
-     * Generated from protobuf enum <code>ConnOpen = 90001001;</code>
+     * Generated from protobuf enum <code>ConnOpen = 900001001;</code>
      */
-    const ConnOpen = 90001001;
+    const ConnOpen = 900001001;
     /**
      *连接关闭
      *
-     * Generated from protobuf enum <code>ConnClose = 90001002;</code>
+     * Generated from protobuf enum <code>ConnClose = 900001002;</code>
      */
-    const ConnClose = 90001002;
+    const ConnClose = 900001002;
     /**
      *透传客户数据
      *
-     * Generated from protobuf enum <code>Transfer = 90001003;</code>
+     * Generated from protobuf enum <code>Transfer = 900001003;</code>
      */
-    const Transfer = 90001003;
+    const Transfer = 900001003;
     /**
      *--------------------------------business单向请求worker的指令，worker不会响应business 开始--------------------------------
      *
-     * Generated from protobuf enum <code>ConnInfoUpdate = 90002001;</code>
+     * Generated from protobuf enum <code>ConnInfoUpdate = 900002001;</code>
      */
-    const ConnInfoUpdate = 90002001;
+    const ConnInfoUpdate = 900002001;
     /**
      *删除连接的info信息
      *
-     * Generated from protobuf enum <code>ConnInfoDelete = 90002002;</code>
+     * Generated from protobuf enum <code>ConnInfoDelete = 900002002;</code>
      */
-    const ConnInfoDelete = 90002002;
+    const ConnInfoDelete = 900002002;
     /**
      *广播
      *
-     * Generated from protobuf enum <code>Broadcast = 90002003;</code>
+     * Generated from protobuf enum <code>Broadcast = 900002003;</code>
      */
-    const Broadcast = 90002003;
+    const Broadcast = 900002003;
     /**
      *组播
      *
-     * Generated from protobuf enum <code>Multicast = 90002004;</code>
+     * Generated from protobuf enum <code>Multicast = 900002004;</code>
      */
-    const Multicast = 90002004;
+    const Multicast = 900002004;
     /**
      *单播
      *
-     * Generated from protobuf enum <code>SingleCast = 90002005;</code>
+     * Generated from protobuf enum <code>SingleCast = 900002005;</code>
      */
-    const SingleCast = 90002005;
+    const SingleCast = 900002005;
+    /**
+     *批量单播
+     *
+     * Generated from protobuf enum <code>SingleCastBulk = 900002006;</code>
+     */
+    const SingleCastBulk = 900002006;
     /**
      *订阅
      *
-     * Generated from protobuf enum <code>TopicSubscribe = 90002006;</code>
+     * Generated from protobuf enum <code>TopicSubscribe = 900002007;</code>
      */
-    const TopicSubscribe = 90002006;
+    const TopicSubscribe = 900002007;
     /**
      *取消订阅
      *
-     * Generated from protobuf enum <code>TopicUnsubscribe = 90002007;</code>
+     * Generated from protobuf enum <code>TopicUnsubscribe = 900002008;</code>
      */
-    const TopicUnsubscribe = 90002007;
+    const TopicUnsubscribe = 900002008;
     /**
      *删除主题
      *
-     * Generated from protobuf enum <code>TopicDelete = 9000208;</code>
+     * Generated from protobuf enum <code>TopicDelete = 900002009;</code>
      */
-    const TopicDelete = 9000208;
+    const TopicDelete = 900002009;
     /**
      *发布
      *
-     * Generated from protobuf enum <code>TopicPublish = 9000209;</code>
+     * Generated from protobuf enum <code>TopicPublish = 900002010;</code>
      */
-    const TopicPublish = 9000209;
+    const TopicPublish = 900002010;
     /**
      *强制关闭某个连接
      *
-     * Generated from protobuf enum <code>ForceOffline = 90002010;</code>
+     * Generated from protobuf enum <code>ForceOffline = 900002011;</code>
      */
-    const ForceOffline = 90002010;
+    const ForceOffline = 900002011;
     /**
      *强制关闭某个空session值的连接
      *
-     * Generated from protobuf enum <code>ForceOfflineGuest = 90002011;</code>
+     * Generated from protobuf enum <code>ForceOfflineGuest = 900002012;</code>
      */
-    const ForceOfflineGuest = 90002011;
+    const ForceOfflineGuest = 900002012;
     /**
      *--------------------------------business请求worker的指令，worker会响应business 开始--------------------------------
      *
-     * Generated from protobuf enum <code>Register = 90003001;</code>
+     * Generated from protobuf enum <code>Register = 900003001;</code>
      */
-    const Register = 90003001;
+    const Register = 900003001;
     /**
      *取消注册，取消后不会再收到客户信息
      *
-     * Generated from protobuf enum <code>Unregister = 90003002;</code>
+     * Generated from protobuf enum <code>Unregister = 900003002;</code>
      */
-    const Unregister = 90003002;
+    const Unregister = 900003002;
     /**
      *判断uniqId是否在网关中
      *
-     * Generated from protobuf enum <code>CheckOnline = 90003003;</code>
+     * Generated from protobuf enum <code>CheckOnline = 900003003;</code>
      */
-    const CheckOnline = 90003003;
+    const CheckOnline = 900003003;
     /**
      *获取网关中全部的uniqId
      *
-     * Generated from protobuf enum <code>UniqIdList = 90003004;</code>
+     * Generated from protobuf enum <code>UniqIdList = 900003004;</code>
      */
-    const UniqIdList = 90003004;
+    const UniqIdList = 900003004;
     /**
      *获取网关中uniqId的数量
      *
-     * Generated from protobuf enum <code>UniqIdCount = 90003005;</code>
+     * Generated from protobuf enum <code>UniqIdCount = 900003005;</code>
      */
-    const UniqIdCount = 90003005;
+    const UniqIdCount = 900003005;
     /**
      *获取网关中的主题数量
      *
-     * Generated from protobuf enum <code>TopicCount = 90003006;</code>
+     * Generated from protobuf enum <code>TopicCount = 900003006;</code>
      */
-    const TopicCount = 90003006;
+    const TopicCount = 900003006;
     /**
      *获取网关中的主题
      *
-     * Generated from protobuf enum <code>TopicList = 90003007;</code>
+     * Generated from protobuf enum <code>TopicList = 900003007;</code>
      */
-    const TopicList = 90003007;
+    const TopicList = 900003007;
     /**
      *获取网关中某个主题包含的uniqId
      *
-     * Generated from protobuf enum <code>TopicUniqIdList = 90003008;</code>
+     * Generated from protobuf enum <code>TopicUniqIdList = 900003008;</code>
      */
-    const TopicUniqIdList = 90003008;
+    const TopicUniqIdList = 900003008;
     /**
      *获取网关中的主题包含的连接数
      *
-     * Generated from protobuf enum <code>TopicUniqIdCount = 90003009;</code>
+     * Generated from protobuf enum <code>TopicUniqIdCount = 900003009;</code>
      */
-    const TopicUniqIdCount = 90003009;
+    const TopicUniqIdCount = 900003009;
     /**
      *获取连接的信息
      *
-     * Generated from protobuf enum <code>ConnInfo = 90003010;</code>
+     * Generated from protobuf enum <code>ConnInfo = 900003010;</code>
      */
-    const ConnInfo = 90003010;
+    const ConnInfo = 900003010;
     /**
      *获取网关统计的服务状态
      *
-     * Generated from protobuf enum <code>Metrics = 900030011;</code>
+     * Generated from protobuf enum <code>Metrics = 900003011;</code>
      */
-    const Metrics = 900030011;
+    const Metrics = 900003011;
     /**
      *更新限流配置、获取网关中的限流配置的真实情况
      *
-     * Generated from protobuf enum <code>Limit = 90003012;</code>
+     * Generated from protobuf enum <code>Limit = 900003012;</code>
      */
-    const Limit = 90003012;
+    const Limit = 900003012;
 
     private static $valueToName = [
         self::Placeholder => 'Placeholder',
@@ -186,6 +192,7 @@ class Cmd
         self::Broadcast => 'Broadcast',
         self::Multicast => 'Multicast',
         self::SingleCast => 'SingleCast',
+        self::SingleCastBulk => 'SingleCastBulk',
         self::TopicSubscribe => 'TopicSubscribe',
         self::TopicUnsubscribe => 'TopicUnsubscribe',
         self::TopicDelete => 'TopicDelete',
