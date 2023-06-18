@@ -22,4 +22,6 @@ interface ResponseInterface
     public function init(mixed $frame): static;
 
     public function getFd(): int;
+
+    public function close(): bool;
 }

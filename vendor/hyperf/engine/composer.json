@@ -24,7 +24,7 @@
     },
     "require": {
         "php": ">=8.0",
-        "hyperf/engine-contract": "~1.7.0"
+        "hyperf/engine-contract": "~1.8.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
@@ -52,7 +52,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.8-dev"
+            "dev-master": "2.9-dev"
         },
         "hyperf": {
             "config": "Hyperf\\Engine\\ConfigProvider"

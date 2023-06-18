@@ -178,31 +178,28 @@ class NetBus
         }
         //网关是单机部署或者是只给一个用户发消息，则直接构造批量单播对象发送
         if (self::isSinglePoint() || count($uniqIdDataMap) == 1) {
-            $bulk = [];
-            foreach ($uniqIdDataMap as $uniqId => $data) {
-                $singleCast = new SingleCast();
-                $singleCast->setUniqId($uniqId)->setData($data);
-                $bulk[] = $singleCast;
-            }
+            $uniqIds = array_keys($uniqIdDataMap);
             $singleCastBulk = new SingleCastBulk();
-            $singleCastBulk->setItems($bulk);
+            $singleCastBulk->setUniqIds($uniqIds);
+            $singleCastBulk->setData(array_values($uniqIdDataMap));
             $router = new Router();
             $router->setCmd(Cmd::SingleCastBulk);
             $router->setData($singleCastBulk->serializeToString());
-            self::sendToSocketOfMainOrTaskByUniqId($bulk[0]->getUniqId(), $router);
+            self::sendToSocketOfMainOrTaskByUniqId($uniqIds[0], $router);
             return;
         }
         //网关是多机器部署，需要迭代每一个uniqId，并根据所在网关进行分组，然后再迭代每一个组，并把数据发送到对应网关
         $socketLocator = self::getSocketLocator();
         $bulks = [];
         foreach ($uniqIdDataMap as $uniqId => $data) {
-            $singleCast = new SingleCast();
-            $singleCast->setUniqId($uniqId)->setData($data);
-            $bulks[$socketLocator->convertUniqIdToServerId($uniqId)][] = $singleCast;
+            $serverId = $socketLocator->convertUniqIdToServerId($uniqId);
+            $bulks[$serverId]['uniqIds'][] = $uniqId;
+            $bulks[$serverId]['data'][] = $data;
         }
         foreach ($bulks as $serverId => $bulk) {
             $singleCastBulk = new SingleCastBulk();
-            $singleCastBulk->setItems($bulk);
+            $singleCastBulk->setUniqIds($bulk['uniqIds']);
+            $singleCastBulk->setData($bulk['data']);
             $router = new Router();
             $router->setCmd(Cmd::SingleCastBulk);
             $router->setData($singleCastBulk->serializeToString());

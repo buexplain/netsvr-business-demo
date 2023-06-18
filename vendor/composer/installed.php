@@ -3,7 +3,7 @@
         'name' => 'buexplain/netsvr-business-demo',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '7faf48161028eceb3aa2ca71ff613c1bbdfb6a4e',
+        'reference' => '43297cf71f78c10d9e34c05ad0e6f1346d58e813',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'buexplain/netsvr-business' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'c07c92916f78171bc0fbedbed66d9ed2b3e983c1',
+            'reference' => '4ae6e5ce105506e3798480c2f8641c5836dd38e4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../buexplain/netsvr-business',
             'aliases' => array(
@@ -24,7 +24,7 @@
         'buexplain/netsvr-business-demo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '7faf48161028eceb3aa2ca71ff613c1bbdfb6a4e',
+            'reference' => '43297cf71f78c10d9e34c05ad0e6f1346d58e813',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -33,7 +33,7 @@
         'buexplain/netsvr-protocol-php' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '79056f657f4a970f78d8174e9f4fecce20550604',
+            'reference' => 'c632d601262caf394886129d5d4635fbbf41076c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../buexplain/netsvr-protocol-php',
             'aliases' => array(
@@ -44,7 +44,7 @@
         'doctrine/inflector' => array(
             'pretty_version' => '2.1.x-dev',
             'version' => '2.1.9999999.9999999-dev',
-            'reference' => 'bf265da9f831e46e646c7a01b59ee8a33f8c0365',
+            'reference' => 'd62dadcaaf16432c7c1364bf50be9e03f26ff043',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/inflector',
             'aliases' => array(),
@@ -71,9 +71,9 @@
             'dev_requirement' => false,
         ),
         'google/protobuf' => array(
-            'pretty_version' => 'v3.23.1',
-            'version' => '3.23.1.0',
-            'reference' => 'f3899c3d279b2d0cfbe48d9af0f59ee82045f598',
+            'pretty_version' => 'v3.23.3',
+            'version' => '3.23.3.0',
+            'reference' => 'e611e00ffc99123fcbddc77774f26c813ead9294',
             'type' => 'library',
             'install_path' => __DIR__ . '/../google/protobuf',
             'aliases' => array(),
@@ -113,7 +113,7 @@
         'hyperf/collection' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '40649d7d24c06e9e76e6fd53ea7e4f5e3acdb1ba',
+            'reference' => '25be1f5643565dd19c05ee2da4156cfaa8bb71eb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/collection',
             'aliases' => array(
@@ -124,7 +124,7 @@
         'hyperf/command' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '35840669a3e1fb9e0c0eda8fc017d99612b83577',
+            'reference' => 'd63a1a55247f03c6f6b4914060b150befd5c3fbb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/command',
             'aliases' => array(
@@ -179,7 +179,7 @@
         'hyperf/coordinator' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '2addc9c2071c7318aa64dbdab50a658365ad9c12',
+            'reference' => 'a49c2d22995b4115e8b21f1de58b992047c4d0fd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/coordinator',
             'aliases' => array(
@@ -212,7 +212,7 @@
         'hyperf/di' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '32664ce4aee7e640473be9672ee282ac0076d74b',
+            'reference' => '4fa46897ffe0e1f2d1260a65a1e25dadaacbdcd2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/di',
             'aliases' => array(
@@ -223,22 +223,22 @@
         'hyperf/engine' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a9fa2c7432a502ea8a40a84c63233730eb4ca33e',
+            'reference' => '7fe486d15304ff47f05e94fd61d14d871e08f6dd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/engine',
             'aliases' => array(
-                0 => '2.8.x-dev',
+                0 => '2.9.x-dev',
             ),
             'dev_requirement' => false,
         ),
         'hyperf/engine-contract' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '69b64d723271351ab549c5204a9caef35d9d68df',
+            'reference' => '69b9bb43d6c356be7c7eb2f55ff06282436a0e4d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/engine-contract',
             'aliases' => array(
-                0 => '1.7.x-dev',
+                0 => '1.8.x-dev',
             ),
             'dev_requirement' => false,
         ),
@@ -256,7 +256,7 @@
         'hyperf/framework' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0e73f916e9295584dc2d3c3c0560f497d4412768',
+            'reference' => '38e0fdfd097e73efbe7391795a695cea874d4ca6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/framework',
             'aliases' => array(
@@ -333,7 +333,7 @@
         'hyperf/support' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7061fc18ebff1c81003d2e0a63f8445484a5cbff',
+            'reference' => '576838e7185bf8eb749920a3285b399cb9c3a24b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hyperf/support',
             'aliases' => array(
@@ -377,7 +377,7 @@
         'nikic/php-parser' => array(
             'pretty_version' => '4.x-dev',
             'version' => '4.9999999.9999999.9999999-dev',
-            'reference' => '0ffddce52d816f72d0efc4d9b02e276d3309ef01',
+            'reference' => 'c9e5a13d68486e9fd75f9be1b4639644e54e7f4f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
@@ -455,9 +455,9 @@
             'dev_requirement' => true,
         ),
         'symfony/console' => array(
-            'pretty_version' => '6.3.x-dev',
-            'version' => '6.3.9999999.9999999-dev',
-            'reference' => 'ce1cfc744b890cb2e658702770565c9c2a8abc4c',
+            'pretty_version' => '6.4.x-dev',
+            'version' => '6.4.9999999.9999999-dev',
+            'reference' => '845f20181c7f11ca9564490cc791c2fe91d443ef',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/console',
             'aliases' => array(),
@@ -466,18 +466,18 @@
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e2d1534420bd723d0ef5aec58a22c5fe60ce6f5e',
+            'reference' => '7c3aff79d10325257a001fcf92d991f24fc967cf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
             'aliases' => array(
-                0 => '3.3.x-dev',
+                0 => '3.4.x-dev',
             ),
             'dev_requirement' => false,
         ),
         'symfony/finder' => array(
-            'pretty_version' => '6.3.x-dev',
-            'version' => '6.3.9999999.9999999-dev',
-            'reference' => 'd9b01ba073c44cef617c7907ce2419f8d00d75e2',
+            'pretty_version' => '6.4.x-dev',
+            'version' => '6.4.9999999.9999999-dev',
+            'reference' => '1bb60aa99f06979e6078007a812eb7c5ffc8efc2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/finder',
             'aliases' => array(),
@@ -541,18 +541,18 @@
         'symfony/service-contracts' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a8c9cedf55f314f3a186041d19537303766df09a',
+            'reference' => '40da9cc13ec349d9e4966ce18b5fbcd724ab10a4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/service-contracts',
             'aliases' => array(
-                0 => '3.3.x-dev',
+                0 => '3.4.x-dev',
             ),
             'dev_requirement' => false,
         ),
         'symfony/string' => array(
-            'pretty_version' => '6.3.x-dev',
-            'version' => '6.3.9999999.9999999-dev',
-            'reference' => 'f2e190ee75ff0f5eced645ec0be5c66fac81f51f',
+            'pretty_version' => '6.4.x-dev',
+            'version' => '6.4.9999999.9999999-dev',
+            'reference' => '89bc6d5dcc94c89781e1f986e4d01b7ee91d684b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/string',
             'aliases' => array(),

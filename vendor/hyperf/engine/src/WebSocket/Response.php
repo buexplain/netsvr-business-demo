@@ -16,7 +16,7 @@ use Hyperf\Engine\Contract\WebSocket\ResponseInterface;
 use Hyperf\Engine\Exception\InvalidArgumentException;
 use Swoole\Http\Request;
 use Swoole\Http\Response as SwooleResponse;
-use Swoole\WebSOcket\Frame as SwooleFrame;
+use Swoole\WebSocket\Frame as SwooleFrame;
 use Swoole\WebSocket\Server;
 
 use function Hyperf\Engine\swoole_get_flags_from_frame;
@@ -64,5 +64,18 @@ class Response implements ResponseInterface
     public function getFd(): int
     {
         return $this->fd;
+    }
+
+    public function close(): bool
+    {
+        if ($this->connection instanceof SwooleResponse) {
+            return $this->connection->close();
+        }
+
+        if ($this->connection instanceof Server) {
+            return $this->connection->disconnect($this->fd);
+        }
+
+        return false;
     }
 }
