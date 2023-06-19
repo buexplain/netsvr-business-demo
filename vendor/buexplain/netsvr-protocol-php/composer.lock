@@ -4,12 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9718cb789796e3ce91793d26e57a55de",
+    "content-hash": "df5d92bb318fabd48719445ebbed8840",
     "packages": [],
     "packages-dev": [
         {
             "name": "buexplain/netsvr-protocol",
-            "version": "dev-main",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol.git",
@@ -24,7 +24,6 @@
             "require": {
                 "php": ">=8.0"
             },
-            "default-branch": true,
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -39,16 +38,14 @@
             "description": "https://github.com/buexplain/netsvr的协议",
             "support": {
                 "issues": "https://github.com/buexplain/netsvr-protocol/issues",
-                "source": "https://github.com/buexplain/netsvr-protocol/tree/main"
+                "source": "https://github.com/buexplain/netsvr-protocol/tree/v1.0.0"
             },
             "time": "2023-06-18T04:28:00+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "buexplain/netsvr-protocol": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

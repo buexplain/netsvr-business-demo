@@ -13,19 +13,19 @@
   "require": {
     "php": ">=8.0",
     "google/protobuf": "^3.22",
-    "hyperf/command": "3.0.*",
-    "hyperf/di": "3.0.*",
-    "hyperf/devtool": "3.0.*",
-    "hyperf/config": "3.0.*",
-    "hyperf/logger": "3.0.*",
-    "buexplain/netsvr-business": "dev-main",
-    "hyperf/framework": "3.0.*",
-    "hyperf/event": "3.0.x-dev"
+    "hyperf/command": "^3.0",
+    "hyperf/di": "^3.0",
+    "hyperf/devtool": "^3.0",
+    "hyperf/config": "^3.0",
+    "hyperf/logger": "^3.0",
+    "hyperf/framework": "^3.0",
+    "hyperf/event": "^3.0",
+    "buexplain/netsvr-business": "^1.0"
   },
   "require-dev": {
     "swoole/ide-helper": "*"
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": false,
   "autoload": {
     "psr-4": {

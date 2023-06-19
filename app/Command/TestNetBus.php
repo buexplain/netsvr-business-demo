@@ -44,17 +44,6 @@ class TestNetBus extends HyperfCommand
      */
     public function handle(): int
     {
-        $wg = new Coroutine\WaitGroup();
-        for ($i=0;$i<51;$i++) {
-            $wg->add(1);
-            Coroutine::create(function () use ($wg) {
-                defer(function () use ($wg) {
-                    $wg->done();
-                });
-                self::getAllOnlineUniqId();
-            });
-        }
-        $wg->wait();
         //测试连接到网关的websocket服务器
         $config = \Hyperf\Config\config('business.netsvrWorkers')[0];
         $client = new Client($config['host'], $config['port'] - 1);

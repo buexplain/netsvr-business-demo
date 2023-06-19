@@ -17,7 +17,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "buexplain/netsvr-protocol-php": "dev-main",
+    "buexplain/netsvr-protocol-php": "^v1.0",
     "hyperf/di": "^3.0",
     "hyperf/devtool": "^3.0",
     "hyperf/config": "^3.0",
@@ -25,7 +25,7 @@
     "hyperf/pool": "^3.0",
     "hyperf/event": "^3.0"
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
       "NetsvrBusiness\\": "src/"
