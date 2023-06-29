@@ -49,11 +49,17 @@ class WebsocketController
         //设置修改后需要下发给用户的信息
         $info->setData(\Hyperf\Support\make(RouterInterface::class)->setData("欢迎你的到来！")->setCmd(Cmd::PRIVATE_WELCOME)->encode());
         //设置session，这个一般校验账号密码后从数据库读出来的用户信息
-        $info->setNewSession("名字：王某贵，userId：" . $connOpen->getUniqId());
+        $info->setNewSession(json_encode(['name' => '王富贵', 'userId' => $connOpen->getUniqId(), 'auth' => [
+            //将该用户可以使用的cmd都存储到网关里面，然后利用中间件去鉴别该用户是否可以发送某个命令
+            Cmd::BROADCAST,
+            Cmd::SINGLE_CAST,
+            Cmd::GROUP_CHAT_FOR_ATTACH,
+            Cmd::GROUP_CHAT_FOR_SEND,
+            Cmd::GROUP_CHAT_FOR_DETACH,
+        ]]));
         //让连接订阅一些主题，业务上讲，这些主题可以是用户加入的群的id、也可以是用户订阅的一些消息频道
         $info->setNewTopics(["订阅一个主题", "再订阅一个主题"]);
         NetBus::connInfoUpdate($info);
-        echo '连接打开：' . $connOpen->serializeToJsonString(), PHP_EOL;
     }
 
     /**
@@ -66,11 +72,11 @@ class WebsocketController
     public function onClose(ConnClose $connClose): void
     {
         NetBus::broadcast("有用户退出 --> " . $connClose->getSession());
-        echo '连接关闭：' . $connClose->serializeToJsonString(), PHP_EOL;
     }
 
     /**
      * 广播消息
+     * websocket在线测试工具发送：001{"cmd":1, "data":"{\"message\": \"大家好\"}"}
      * @param Transfer $transfer
      * @param RouterInterface $clientRouter
      * @param BroadcastProtocol $clientData
@@ -86,11 +92,12 @@ class WebsocketController
         $clientRouter->setData($clientData->encode());
         //向网关发送广播数据
         NetBus::broadcast($clientRouter->encode());
-        echo '收到广播消息：' . $clientData->getMessage(), PHP_EOL;
     }
 
     /**
      * 单播消息给某个用户
+     * websocket在线测试工具发送：001{"cmd":2, "data":"{\"message\": \"你好\",\"toUser\":\"016444C542140625DC\"}"}
+     * 其中的toUser必须是网关中已经存在的用户的uniqId
      * @param Transfer $transfer
      * @param RouterInterface $clientRouter
      * @param SingleCastProtocol $clientData

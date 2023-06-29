@@ -86,6 +86,12 @@ class ConfigProvider
                     'source' => __DIR__ . '/../publish/WebsocketTestController.php',
                     'destination' => BASE_PATH . '/app/Controller/WebsocketTestController.php',
                 ],
+                [
+                    'id' => 'middleware',
+                    'description' => 'The middleware of netsvr-business.',
+                    'source' => __DIR__ . '/../publish/LoggerMiddleware.php',
+                    'destination' => BASE_PATH . '/app/Middleware/LoggerMiddleware.php',
+                ],
             ],
         ];
     }

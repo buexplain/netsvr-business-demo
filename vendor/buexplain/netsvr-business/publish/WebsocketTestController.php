@@ -47,7 +47,6 @@ class WebsocketTestController
         $update->setNewSession("王富贵"); //用户存储在网关的session，用户每次发消息过来，这个值会原封不动的回传给我们
         $update->setNewTopics(["王富贵的私人频道"]); //用户订阅的一些主题，通过这个主题发送消息，则所有订阅了该主题的用户都能收到消息
         NetBus::connInfoUpdate($update);
-        echo '连接打开：' . $connOpen->serializeToJsonString(), PHP_EOL;
     }
 
     /**
@@ -62,7 +61,6 @@ class WebsocketTestController
     {
         $clientRouter->setData($transfer->getUniqId() . '：' . $clientRouter->getData());
         NetBus::broadcast($clientRouter->encode());
-        echo '收到消息：' . $transfer->getSession() . ' --> ' . $clientRouter->getData(), PHP_EOL;
     }
 
     /**
@@ -75,6 +73,5 @@ class WebsocketTestController
     public function onClose(ConnClose $connClose): void
     {
         NetBus::broadcast("有用户退出 --> " . $connClose->getUniqId());
-        echo '连接关闭：' . $connClose->serializeToJsonString(), PHP_EOL;
     }
 }

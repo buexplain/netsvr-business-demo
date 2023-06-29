@@ -19,33 +19,46 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness\Dispatcher;
 
+use Closure;
 use Exception;
 use Google\Protobuf\Internal\Message;
 use Hyperf\Context\ApplicationContext;
-use Hyperf\Contract\NormalizerInterface;
 use Hyperf\Di\MethodDefinitionCollectorInterface;
-use Hyperf\Di\ReflectionType;
 use InvalidArgumentException;
 use Netsvr\Cmd;
 use Netsvr\Router;
 use Netsvr\Transfer;
+use NetsvrBusiness\Contract\MiddlewareHandlerInterface;
 use NetsvrBusiness\Contract\RouterDataInterface;
 use NetsvrBusiness\Contract\RouterInterface;
 use NetsvrBusiness\Contract\DispatcherInterface;
 use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 class Dispatcher implements DispatcherInterface
 {
+    /**
+     * @var array 收集的路由信息
+     */
     protected array $routes = [];
+    /**
+     * @var array 组路由配置的中间件
+     */
+    public array $temporaryGroupMiddleware = [];
 
     /**
+     * 添加一个路由
+     * @param int $cmd
+     * @param array $handler 数组第一个元素是类名称，第二个元素是方法名称
+     * @param array|string $middleware 中间件
+     * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function addRoute(int $cmd, array $handler): void
+    public function addRoute(int $cmd, array $handler, array|string $middleware = []): void
     {
+        $container = ApplicationContext::getContainer();
+        //判断类和方法是否正确
         if (!isset($handler[0])) {
             throw new InvalidArgumentException('Controller class required.');
         }
@@ -55,46 +68,75 @@ class Dispatcher implements DispatcherInterface
         if (!isset($handler[1])) {
             throw new InvalidArgumentException('Controller method required.');
         }
-        $controller = ApplicationContext::getContainer()->get($handler[0]);
+        $controller = $container->get($handler[0]);
         if (!method_exists($controller, $handler[1])) {
-            throw new InvalidArgumentException(sprintf('Controller method %s::%s not found.', $handler[0], $handler[1]));
+            throw new InvalidArgumentException(sprintf('Invalid controller %s, it has to provide a %s() method.', $handler[0], $handler[1]));
         }
-        $this->routes[$cmd] = $handler;
+        //将传入的中间件改刀成数组形式
+        if (is_string($middleware)) {
+            $middleware = $middleware === '' ? [] : [$middleware];
+        }
+        //合并组路由的中间件
+        $middlewareArr = [];
+        foreach ($this->temporaryGroupMiddleware as $item) {
+            array_push($middlewareArr, ...$item);
+        }
+        array_push($middlewareArr, ...$middleware);
+        //判断中间件是否正确
+        foreach ($middlewareArr as $mdr) {
+            if (!method_exists($container->get($mdr), 'process')) {
+                throw new InvalidArgumentException(sprintf('Invalid middleware %s, it has to provide a process() method.', $mdr));
+            }
+            $definitions = $container->get(MethodDefinitionCollectorInterface::class)->getParameters($mdr, 'process');
+            $ok = false;
+            foreach ($definitions as $definition) {
+                if ((class_exists($definition->getName()) && is_subclass_of($definition->getName(), MiddlewareHandlerInterface::class)) || MiddlewareHandlerInterface::class === $definition->getName()) {
+                    $ok = true;
+                }
+            }
+            if (!$ok) {
+                throw new InvalidArgumentException(sprintf('Invalid middleware %s, method process() must receive parameter %s.', $mdr, MiddlewareHandlerInterface::class));
+            }
+        }
+        //构造数据
+        $info = [
+            'class' => $handler[0],
+            'method' => $handler[1],
+            RouterDataInterface::class => null,
+            'netSvrObj' => null,
+            'middlewares' => $middlewareArr,
+        ];
+        //识别参数中的特别参数
+        $methodDefinitionCollector = $container->get(MethodDefinitionCollectorInterface::class);
+        $definitions = $methodDefinitionCollector->getParameters($info['class'], $info['method']);
+        foreach ($definitions as $definition) {
+            //业务数据路由的编码解码接口
+            if (is_subclass_of($definition->getName(), RouterDataInterface::class)) {
+                $info[RouterDataInterface::class] = $definition->getName();
+                continue;
+            }
+            //网关组件下的具体对象
+            if (str_starts_with($definition->getName(), 'Netsvr\\') && is_subclass_of($definition->getName(), Message::class)) {
+                if (method_exists($definition->getName(), 'mergeFromString')) {
+                    $info['netSvrObj'] = $definition->getName();
+                }
+            }
+        }
+        $this->routes[$cmd] = $info;
     }
 
     /**
-     * @param ContainerInterface $container
-     * @param array|ReflectionType[] $definitions
-     * @param string $callableName
-     * @param array $arguments
-     * @return array
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * 添加一组路由
+     * 路由配置的时候不允许并发配置，否则因为跨协程的原因会导致组路由的配置错乱
+     * @param array|string $middleware 中间件
+     * @param Closure $closure
+     * @return void
      */
-    protected function getInjections(ContainerInterface $container, array $definitions, string $callableName, array $arguments): array
+    public function addRouteGroup(array|string $middleware, Closure $closure): void
     {
-        $injections = [];
-        foreach ($definitions as $pos => $definition) {
-            $value = $arguments[$pos] ?? $arguments[$definition->getName()] ?? $arguments[$definition->getMeta('name')] ?? null;
-            if ($value === null) {
-                if ($definition->getMeta('defaultValueAvailable')) {
-                    $injections[] = $definition->getMeta('defaultValue');
-                } elseif ($definition->allowsNull()) {
-                    $injections[] = null;
-                } elseif ($container->has($definition->getName())) {
-                    $injections[] = $container->get($definition->getName());
-                } else {
-                    throw new InvalidArgumentException("Parameter '{$definition->getMeta('name')}' " . "of $callableName should not be null");
-                }
-            } else {
-                /**
-                 * @var $normalizer NormalizerInterface
-                 */
-                $normalizer = $container->get(NormalizerInterface::class);
-                $injections[] = $normalizer->denormalize($value, $definition->getName());
-            }
-        }
-        return $injections;
+        $this->temporaryGroupMiddleware[] = (array)$middleware;
+        $closure($this);
+        $this->temporaryGroupMiddleware = array_slice($this->temporaryGroupMiddleware, 0, count($this->temporaryGroupMiddleware) - 1);
     }
 
     /**
@@ -126,39 +168,30 @@ class Dispatcher implements DispatcherInterface
             throw new InvalidArgumentException(sprintf('Router dispatch failed, unknown cmd: %d, check the router file has been configured this cmd.', $cmd), $cmd);
         }
         $handler = $this->routes[$cmd];
-        $container = ApplicationContext::getContainer();
-        $methodDefinitionCollector = $container->get(MethodDefinitionCollectorInterface::class);
-        $definitions = $methodDefinitionCollector->getParameters($handler[0], $handler[1]);
         if ($router->getCmd() === Cmd::Transfer) {
             //网关转发的客户消息，需要解码出客户消息携带的数据
-            foreach ($definitions as $definition) {
-                if (isset($clientRouter) && is_subclass_of($definition->getName(), RouterDataInterface::class)) {
-                    /**
-                     * @var $clientData RouterDataInterface
-                     */
-                    $clientData = \Hyperf\Support\make($definition->getName());
-                    $clientData->decode($clientRouter->getData());
-                    $arguments[$clientData::class] = $clientData;
-                    $arguments[RouterDataInterface::class] = $clientData;
-                    break;
-                }
+            if (isset($clientRouter) && !is_null($handler[RouterDataInterface::class])) {
+                /**
+                 * @var $clientData RouterDataInterface
+                 */
+                $clientData = \Hyperf\Support\make($handler[RouterDataInterface::class]);
+                $clientData->decode($clientRouter->getData());
+                $arguments[$clientData::class] = $clientData;
+                $arguments[RouterDataInterface::class] = $clientData;
             }
         } else {
             //网关转发的非客户消息，需要解码出网关组件下的具体对象
-            foreach ($definitions as $definition) {
-                $class = $definition->getName();
-                if (str_starts_with($class, 'Netsvr\\') && is_subclass_of($class,Message::class)) {
-                    $netSvrObj = \Hyperf\Support\make($definition->getName());
-                    if (method_exists($definition->getName(), 'mergeFromString')) {
-                        $netSvrObj->mergeFromString($router->getData());
-                        $arguments[$definition->getName()] = $netSvrObj;
-                        break;
-                    }
-                }
+            if (!is_null($handler['netSvrObj'])) {
+                /**
+                 * @var $netSvrObj Message
+                 */
+                $netSvrObj = \Hyperf\Support\make($handler['netSvrObj']);
+                $netSvrObj->mergeFromString($router->getData());
+                $arguments[$handler['netSvrObj']] = $netSvrObj;
             }
         }
         $arguments[Router::class] = $router;
-        $parameters = $this->getInjections($container, $definitions, "$handler[0]::$handler[1]", $arguments);
-        $container->get($handler[0])->{$handler[1]}(...$parameters);
+        //参数准备完毕，构造一个中间件穿透类，让数据在到达目标控制器与方法之前先流淌过整个中间件集合
+        (new MiddlewareHandler($arguments, $handler['middlewares'], $handler['class'], $handler['method']))->handle();
     }
 }
