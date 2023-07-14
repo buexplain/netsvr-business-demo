@@ -1,7 +1,9 @@
 # netsvr-business
 
-这是一个可以快速开发websocket业务的包，它基于[https://github.com/buexplain/netsvr](https://github.com/buexplain/netsvr)
+这是一个基于hyperf框架开发的，可以快速开发websocket全双工通信业务的包，它基于[https://github.com/buexplain/netsvr](https://github.com/buexplain/netsvr)
 进行工作。
+
+ps：如果你的项目是非协程的，串行执行php代码的，则可以使用这个包：[https://github.com/buexplain/netsvr-business-serial](https://github.com/buexplain/netsvr-business-serial)
 
 ## 使用步骤
 

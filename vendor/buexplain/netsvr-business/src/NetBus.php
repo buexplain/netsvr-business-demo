@@ -55,8 +55,11 @@ use Netsvr\TopicUniqIdListRespItem;
 use Netsvr\TopicUnsubscribe;
 use Netsvr\UniqIdCountResp;
 use Netsvr\UniqIdListResp;
-use NetsvrBusiness\Contract\SocketLocatorInterface;
+use NetsvrBusiness\Contract\MainSocketManagerInterface;
+use NetsvrBusiness\Contract\SocketInterface;
+use NetsvrBusiness\Contract\ServerIdConvertInterface;
 use NetsvrBusiness\Contract\TaskSocketInterface;
+use NetsvrBusiness\Contract\TaskSocketPoolMangerInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Swoole\Coroutine;
@@ -103,6 +106,7 @@ class NetBus
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
     public static function broadcast(string $data): void
     {
@@ -135,7 +139,7 @@ class NetBus
             return;
         }
         //对uniqId按所属网关进行分组
-        $serverGroup = self::convertUniqIdToServerIdGroup($uniqIds);
+        $serverGroup = self::uniqIdsGroupByServerId($uniqIds);
         //循环发送给各个网关
         foreach ($serverGroup as $serverId => $currentUniqIds) {
             $multicast = (new Multicast())->setData($data)->setUniqIds($currentUniqIds)->serializeToString();
@@ -189,10 +193,10 @@ class NetBus
             return;
         }
         //网关是多机器部署，需要迭代每一个uniqId，并根据所在网关进行分组，然后再迭代每一个组，并把数据发送到对应网关
-        $socketLocator = self::getSocketLocator();
+        $serverIdConvert = ApplicationContext::getContainer()->get(ServerIdConvertInterface::class);
         $bulks = [];
         foreach ($uniqIdDataMap as $uniqId => $data) {
-            $serverId = $socketLocator->convertUniqIdToServerId($uniqId);
+            $serverId = $serverIdConvert->single($uniqId);
             $bulks[$serverId]['uniqIds'][] = $uniqId;
             $bulks[$serverId]['data'][] = $data;
         }
@@ -256,6 +260,7 @@ class NetBus
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
     public static function topicDelete(array|string $topics, string $data = ''): void
     {
@@ -274,6 +279,7 @@ class NetBus
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
     public static function topicPublish(array|string $topics, string $data): void
     {
@@ -305,7 +311,7 @@ class NetBus
             self::sendToSocketOfMainOrTaskByUniqId($uniqIds[0], $router);
             return;
         }
-        $serverGroup = self::convertUniqIdToServerIdGroup($uniqIds);
+        $serverGroup = self::uniqIdsGroupByServerId($uniqIds);
         foreach ($serverGroup as $serverId => $currentUniqIds) {
             $forceOffline = new ForceOffline();
             $forceOffline->setUniqIds($currentUniqIds);
@@ -336,7 +342,7 @@ class NetBus
             self::sendToSocketOfMainOrTaskByUniqId($uniqIds[0], $router);
             return;
         }
-        $serverGroup = self::convertUniqIdToServerIdGroup($uniqIds);
+        $serverGroup = self::uniqIdsGroupByServerId($uniqIds);
         foreach ($serverGroup as $serverId => $currentUniqIds) {
             $forceOfflineGuest = new ForceOfflineGuest();
             $forceOfflineGuest->setUniqIds($currentUniqIds);
@@ -361,7 +367,7 @@ class NetBus
         $uniqIds = (array)$uniqIds;
         //网关单点部署，或者是只有一个待检查的uniqId，则直接获取与网关的socket连接进行操作
         if (self::isSinglePoint() || count($uniqIds) == 1) {
-            $socket = self::getSocketLocator()->getTaskSocketByUniqId($uniqIds[0]);
+            $socket = self::getTaskSocketByUniqId($uniqIds[0]);
             if (!$socket instanceof TaskSocketInterface) {
                 return [];
             }
@@ -381,7 +387,7 @@ class NetBus
             }
         }
         //网关是多机器部署的，先对uniqId按所属网关进行分组
-        $serverGroup = self::convertUniqIdToServerIdGroup($uniqIds);
+        $serverGroup = self::uniqIdsGroupByServerId($uniqIds);
         if (empty($serverGroup)) {
             return [];
         }
@@ -390,7 +396,7 @@ class NetBus
         foreach ($serverGroup as $serverId => $currentUniqIds) {
             Coroutine::create(function () use ($serverId, $currentUniqIds, $retCh) {
                 try {
-                    $socket = self::getSocketLocator()->getTaskSocketByServerId($serverId);
+                    $socket = self::getTaskSocketByServerId($serverId);
                     if (!$socket instanceof TaskSocketInterface) {
                         //无效的serverId，即使拿不到与之对应的网关socket连接，也push一个结果进channel，否则接下来的读取channel会被阻塞住
                         $retCh->push(new CheckOnlineResp());
@@ -454,7 +460,7 @@ class NetBus
      */
     public static function uniqIdList(): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -535,7 +541,7 @@ class NetBus
      */
     public static function uniqIdCount(): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -616,7 +622,7 @@ class NetBus
      */
     public static function topicCount(): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -697,7 +703,7 @@ class NetBus
      */
     public static function topicList(): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -778,7 +784,7 @@ class NetBus
      */
     public static function topicUniqIdList(array|string $topics): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -877,7 +883,7 @@ class NetBus
      */
     public static function topicUniqIdCount(array|string $topics, bool $allTopic = false): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -968,7 +974,7 @@ class NetBus
     {
         $uniqIds = (array)$uniqIds;
         if (self::isSinglePoint() || count($uniqIds) == 1) {
-            $socket = self::getSocketLocator()->getTaskSocketByUniqId($uniqIds[0]);
+            $socket = self::getTaskSocketByUniqId($uniqIds[0]);
             if (!$socket instanceof TaskSocketInterface) {
                 return [];
             }
@@ -998,7 +1004,7 @@ class NetBus
                 $socket->release();
             }
         }
-        $serverGroup = self::convertUniqIdToServerIdGroup($uniqIds);
+        $serverGroup = self::uniqIdsGroupByServerId($uniqIds);
         if (empty($serverGroup)) {
             return [];
         }
@@ -1006,7 +1012,7 @@ class NetBus
         foreach ($serverGroup as $serverId => $currentUniqIds) {
             Coroutine::create(function () use ($serverId, $currentUniqIds, $retCh) {
                 try {
-                    $socket = self::getSocketLocator()->getTaskSocketByServerId($serverId);
+                    $socket = self::getTaskSocketByServerId($serverId);
                     if (!$socket instanceof TaskSocketInterface) {
                         $retCh->push(new ConnInfoResp());
                     } else {
@@ -1065,7 +1071,7 @@ class NetBus
      */
     public static function metrics(int $precision = 3): array
     {
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return [];
         }
@@ -1149,9 +1155,9 @@ class NetBus
     public static function limit(LimitReq $limitReq = null, int $serverId = -1): array
     {
         if ($serverId === -1) {
-            $sockets = self::getSocketLocator()->getTaskSockets();
+            $sockets = self::getTaskSockets();
         } else {
-            $resp = self::getSocketLocator()->getTaskSocketByServerId($serverId);
+            $resp = self::getTaskSocketByServerId($serverId);
             if (!empty($resp)) {
                 $sockets = [$resp];
             } else {
@@ -1223,11 +1229,12 @@ class NetBus
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
     protected static function sendToSocketsOfMainOrTask(Router $router): void
     {
         //优先通过主socket发送
-        $sockets = self::getSocketLocator()->getMainSockets();
+        $sockets = self::getMainSockets();
         if (!empty($sockets)) {
             $data = $router->serializeToString();
             foreach ($sockets as $socket) {
@@ -1241,7 +1248,7 @@ class NetBus
         /**
          * @var $sockets TaskSocketInterface[]
          */
-        $sockets = self::getSocketLocator()->getTaskSockets();
+        $sockets = self::getTaskSockets();
         if (empty($sockets)) {
             return;
         }
@@ -1278,12 +1285,12 @@ class NetBus
      */
     protected static function sendToSocketOfMainOrTaskByUniqId(string $uniqId, Router $router): void
     {
-        $socket = self::getSocketLocator()->getMainSocketByUniqId($uniqId);
+        $socket = self::getMainSocketByUniqId($uniqId);
         if (!empty($socket)) {
             $socket->send($router->serializeToString());
             return;
         }
-        $socket = self::getSocketLocator()->getTaskSocketByUniqId($uniqId);
+        $socket = self::getTaskSocketByUniqId($uniqId);
         if (!$socket instanceof TaskSocketInterface) {
             return;
         }
@@ -1303,12 +1310,12 @@ class NetBus
      */
     protected static function sendToSocketOfMainOrTaskByServerId(int $serverId, Router $router): void
     {
-        $socket = self::getSocketLocator()->getMainSocketByServerId($serverId);
+        $socket = self::getMainSocketByServerId($serverId);
         if (!empty($socket)) {
             $socket->send($router->serializeToString());
             return;
         }
-        $socket = self::getSocketLocator()->getTaskSocketByServerId($serverId);
+        $socket = self::getTaskSocketByServerId($serverId);
         if ($socket instanceof TaskSocketInterface) {
             Coroutine::create(function () use ($router, $socket) {
                 try {
@@ -1322,13 +1329,69 @@ class NetBus
     }
 
     /**
-     * @return SocketLocatorInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws Throwable
+     */
+    public static function getTaskSockets(): array
+    {
+        return ApplicationContext::getContainer()->get(TaskSocketPoolMangerInterface::class)->getSockets();
+    }
+
+    /**
+     * @param int $serverId
+     * @return TaskSocketInterface|null
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    protected static function getSocketLocator(): SocketLocatorInterface
+    protected static function getTaskSocketByServerId(int $serverId): ?TaskSocketInterface
     {
-        return ApplicationContext::getContainer()->get(SocketLocatorInterface::class);
+        return ApplicationContext::getContainer()->get(TaskSocketPoolMangerInterface::class)->getSocketByServerId($serverId);
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    protected static function getTaskSocketByUniqId(string $uniqId): ?TaskSocketInterface
+    {
+        $container = ApplicationContext::getContainer();
+        $serverId = $container->get(ServerIdConvertInterface::class)->single($uniqId);
+        return $container->get(TaskSocketPoolMangerInterface::class)->getSocketByServerId($serverId);
+    }
+
+    /**
+     * @return array|SocketInterface[]
+     * @throws NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     */
+    protected static function getMainSockets(): array
+    {
+        return ApplicationContext::getContainer()->get(MainSocketManagerInterface::class)->getSockets();
+    }
+
+    /**
+     * @param int $serverId
+     * @return SocketInterface|null
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    protected static function getMainSocketByServerId(int $serverId): ?SocketInterface
+    {
+        return ApplicationContext::getContainer()->get(MainSocketManagerInterface::class)->getSocketByServerId($serverId);
+    }
+
+    /**
+     * @param string $uniqId
+     * @return SocketInterface|null
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public static function getMainSocketByUniqId(string $uniqId): ?SocketInterface
+    {
+        $container = ApplicationContext::getContainer();
+        $serverId = $container->get(ServerIdConvertInterface::class)->single($uniqId);
+        return $container->get(MainSocketManagerInterface::class)->getSocketByServerId($serverId);
     }
 
     /**
@@ -1347,12 +1410,13 @@ class NetBus
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    protected static function convertUniqIdToServerIdGroup(array $uniqIds): array
+    protected static function uniqIdsGroupByServerId(array $uniqIds): array
     {
+        $serverIdConvert = ApplicationContext::getContainer()->get(ServerIdConvertInterface::class);
+        $convert = $serverIdConvert->bulk($uniqIds);
         $serverIdUniqIds = [];
-        $socketLocator = self::getSocketLocator();
-        foreach ($uniqIds as $uniqId) {
-            $serverIdUniqIds[$socketLocator->convertUniqIdToServerId($uniqId)][] = $uniqId;
+        foreach ($convert as $uniqId => $serverId) {
+            $serverIdUniqIds[$serverId][] = $uniqId;
         }
         return $serverIdUniqIds;
     }

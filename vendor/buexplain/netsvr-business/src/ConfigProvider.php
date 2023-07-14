@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace NetsvrBusiness;
 
-use NetsvrBusiness\Contract\SocketLocatorInterface;
+use NetsvrBusiness\Contract\ServerIdConvertInterface;
 use NetsvrBusiness\Contract\TaskSocketInterface;
 use NetsvrBusiness\Contract\TaskSocketPoolInterface;
 use NetsvrBusiness\Contract\TaskSocketPoolMangerInterface;
@@ -35,9 +35,9 @@ use NetsvrBusiness\Contract\MainSocketInterface;
 use NetsvrBusiness\Contract\MainSocketManagerInterface;
 use NetsvrBusiness\Dispatcher\Dispatcher;
 use NetsvrBusiness\Dispatcher\DispatcherFactory;
-use NetsvrBusiness\Socket\SocketLocator;
 use NetsvrBusiness\Socket\MainSocket;
 use NetsvrBusiness\Socket\MainSocketManager;
+use NetsvrBusiness\Socket\ServerIdConvert;
 use NetsvrBusiness\Socket\TaskSocket;
 use NetsvrBusiness\Socket\TaskSocketPool;
 use NetsvrBusiness\Socket\TaskSocketPoolManger;
@@ -54,7 +54,7 @@ class ConfigProvider
                 TaskSocketPoolMangerInterface::class => TaskSocketPoolManger::class,
                 TaskSocketPoolInterface::class => TaskSocketPool::class,
                 TaskSocketInterface::class => TaskSocket::class,
-                SocketLocatorInterface::class => SocketLocator::class,
+                ServerIdConvertInterface::class => ServerIdConvert::class,
                 MainSocketInterface::class => MainSocket::class,
                 MainSocketManagerInterface::class => MainSocketManager::class,
                 DispatcherFactoryInterface::class => DispatcherFactory::class,

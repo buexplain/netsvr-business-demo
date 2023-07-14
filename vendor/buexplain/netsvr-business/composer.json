@@ -1,6 +1,6 @@
 {
   "name": "buexplain/netsvr-business",
-  "description": "这是一个可以快速开发websocket业务的包，它基于https://github.com/buexplain/netsvr进行工作。",
+  "description": "这是一个基于hyperf框架开发的，可以快速开发websocket全双工通信业务的包，它基于https://github.com/buexplain/netsvr进行工作。",
   "license": "Apache-2.0",
   "authors": [
     {

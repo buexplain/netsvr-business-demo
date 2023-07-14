@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8902efadd964a9a606f7ea3f27c44bd4",
+    "content-hash": "99e013ccb110fddf3b4417580e20660e",
     "packages": [
         {
             "name": "buexplain/netsvr-business",
-            "version": "v1.1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-business.git",
-                "reference": "9f829c348568d5821aeba35e7da571f2f4cc1e84"
+                "reference": "a06967c06f3caf49b84315a0fd9bec8b421a375b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/9f829c348568d5821aeba35e7da571f2f4cc1e84",
-                "reference": "9f829c348568d5821aeba35e7da571f2f4cc1e84",
+                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/a06967c06f3caf49b84315a0fd9bec8b421a375b",
+                "reference": "a06967c06f3caf49b84315a0fd9bec8b421a375b",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                     "email": "buexplain@qq.com"
                 }
             ],
-            "description": "这是一个可以快速开发websocket业务的包，它基于https://github.com/buexplain/netsvr进行工作。",
+            "description": "这是一个基于hyperf框架开发的，可以快速开发websocket全双工通信业务的包，它基于https://github.com/buexplain/netsvr进行工作。",
             "keywords": [
                 "hyperf",
                 "netsvr",
@@ -70,9 +70,9 @@
             ],
             "support": {
                 "issues": "https://github.com/buexplain/netsvr-business/issues",
-                "source": "https://github.com/buexplain/netsvr-business/tree/v1.1.0"
+                "source": "https://github.com/buexplain/netsvr-business/tree/v2.0.0"
             },
-            "time": "2023-06-29T07:48:06+00:00"
+            "time": "2023-07-14T09:35:09+00:00"
         },
         {
             "name": "buexplain/netsvr-protocol-php",
@@ -336,16 +336,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.23.3",
+            "version": "v3.23.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "e611e00ffc99123fcbddc77774f26c813ead9294"
+                "reference": "fa784054760eec532fe8dd1919d3a0a11f5cef1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/e611e00ffc99123fcbddc77774f26c813ead9294",
-                "reference": "e611e00ffc99123fcbddc77774f26c813ead9294",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/fa784054760eec532fe8dd1919d3a0a11f5cef1f",
+                "reference": "fa784054760eec532fe8dd1919d3a0a11f5cef1f",
                 "shasum": ""
             },
             "require": {
@@ -374,9 +374,9 @@
                 "proto"
             ],
             "support": {
-                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.3"
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.4"
             },
-            "time": "2023-06-14T16:51:17+00:00"
+            "time": "2023-07-06T18:51:48+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -548,16 +548,16 @@
         },
         {
             "name": "hyperf/collection",
-            "version": "v3.0.24",
+            "version": "v3.0.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/collection.git",
-                "reference": "25be1f5643565dd19c05ee2da4156cfaa8bb71eb"
+                "reference": "c2e3f919f8c445da69e0e0c10920c6fc0754b9ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/collection/zipball/25be1f5643565dd19c05ee2da4156cfaa8bb71eb",
-                "reference": "25be1f5643565dd19c05ee2da4156cfaa8bb71eb",
+                "url": "https://api.github.com/repos/hyperf/collection/zipball/c2e3f919f8c445da69e0e0c10920c6fc0754b9ad",
+                "reference": "c2e3f919f8c445da69e0e0c10920c6fc0754b9ad",
                 "shasum": ""
             },
             "require": {
@@ -597,20 +597,20 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-06-05T11:54:56+00:00"
+            "time": "2023-07-14T03:41:52+00:00"
         },
         {
             "name": "hyperf/command",
-            "version": "v3.0.23",
+            "version": "v3.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/command.git",
-                "reference": "d63a1a55247f03c6f6b4914060b150befd5c3fbb"
+                "reference": "06df0f8102ec4079591d937adaca507fe5191082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/command/zipball/d63a1a55247f03c6f6b4914060b150befd5c3fbb",
-                "reference": "d63a1a55247f03c6f6b4914060b150befd5c3fbb",
+                "url": "https://api.github.com/repos/hyperf/command/zipball/06df0f8102ec4079591d937adaca507fe5191082",
+                "reference": "06df0f8102ec4079591d937adaca507fe5191082",
                 "shasum": ""
             },
             "require": {
@@ -647,9 +647,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/command/issues",
-                "source": "https://github.com/hyperf/command/tree/v3.0.23"
+                "source": "https://github.com/hyperf/command/tree/v3.0.27"
             },
-            "time": "2023-05-30T01:25:37+00:00"
+            "time": "2023-06-26T23:53:52+00:00"
         },
         {
             "name": "hyperf/conditionable",
@@ -1089,20 +1089,20 @@
         },
         {
             "name": "hyperf/engine",
-            "version": "v2.9.0",
+            "version": "v2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/engine.git",
-                "reference": "3e0920ad7ba15a965f129143d3248f8e85e0c2d9"
+                "reference": "9b27b29041403b8ee397ffe1e5254816e18cb5b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/engine/zipball/3e0920ad7ba15a965f129143d3248f8e85e0c2d9",
-                "reference": "3e0920ad7ba15a965f129143d3248f8e85e0c2d9",
+                "url": "https://api.github.com/repos/hyperf/engine/zipball/9b27b29041403b8ee397ffe1e5254816e18cb5b9",
+                "reference": "9b27b29041403b8ee397ffe1e5254816e18cb5b9",
                 "shasum": ""
             },
             "require": {
-                "hyperf/engine-contract": "~1.8.0",
+                "hyperf/engine-contract": "~1.9.0",
                 "php": ">=8.0"
             },
             "conflict": {
@@ -1126,7 +1126,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.9-dev"
+                    "dev-master": "2.10-dev"
                 },
                 "hyperf": {
                     "config": "Hyperf\\Engine\\ConfigProvider"
@@ -1153,22 +1153,22 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/engine/issues",
-                "source": "https://github.com/hyperf/engine/tree/v2.9.0"
+                "source": "https://github.com/hyperf/engine/tree/v2.10.0"
             },
-            "time": "2023-06-17T11:23:50+00:00"
+            "time": "2023-07-14T02:28:58+00:00"
         },
         {
             "name": "hyperf/engine-contract",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/engine-contract.git",
-                "reference": "69b9bb43d6c356be7c7eb2f55ff06282436a0e4d"
+                "reference": "45c9c49766d8b0e539975fe4c5ed6807221c4b38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/engine-contract/zipball/69b9bb43d6c356be7c7eb2f55ff06282436a0e4d",
-                "reference": "69b9bb43d6c356be7c7eb2f55ff06282436a0e4d",
+                "url": "https://api.github.com/repos/hyperf/engine-contract/zipball/45c9c49766d8b0e539975fe4c5ed6807221c4b38",
+                "reference": "45c9c49766d8b0e539975fe4c5ed6807221c4b38",
                 "shasum": ""
             },
             "require": {
@@ -1188,7 +1188,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -1210,9 +1210,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/engine-contract/issues",
-                "source": "https://github.com/hyperf/engine-contract/tree/v1.8.0"
+                "source": "https://github.com/hyperf/engine-contract/tree/v1.9.0"
             },
-            "time": "2023-06-17T11:16:19+00:00"
+            "time": "2023-07-14T02:21:02+00:00"
         },
         {
             "name": "hyperf/event",
@@ -1604,16 +1604,16 @@
         },
         {
             "name": "hyperf/stringable",
-            "version": "v3.0.18",
+            "version": "v3.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/stringable.git",
-                "reference": "ca7ec4808978e84c3b59e39c3c29229266c6fe11"
+                "reference": "cd56584d5d7a2688e1c1a401c3c41c0a8143a920"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/stringable/zipball/ca7ec4808978e84c3b59e39c3c29229266c6fe11",
-                "reference": "ca7ec4808978e84c3b59e39c3c29229266c6fe11",
+                "url": "https://api.github.com/repos/hyperf/stringable/zipball/cd56584d5d7a2688e1c1a401c3c41c0a8143a920",
+                "reference": "cd56584d5d7a2688e1c1a401c3c41c0a8143a920",
                 "shasum": ""
             },
             "require": {
@@ -1660,7 +1660,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-04-26T03:02:31+00:00"
+            "time": "2023-06-25T06:10:37+00:00"
         },
         {
             "name": "hyperf/support",

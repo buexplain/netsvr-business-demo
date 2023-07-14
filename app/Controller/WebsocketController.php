@@ -68,6 +68,7 @@ class WebsocketController
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
     public function onClose(ConnClose $connClose): void
     {
@@ -82,7 +83,7 @@ class WebsocketController
      * @param BroadcastProtocol $clientData
      * @return void
      * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * @throws NotFoundExceptionInterface|Throwable
      */
     public function broadcast(Transfer $transfer, RouterInterface $clientRouter, BroadcastProtocol $clientData): void
     {
@@ -146,7 +147,7 @@ class WebsocketController
      * 群聊之往某个群发送消息
      * websocket在线测试工具发送：001{"cmd":7,"data":"{\"groupChatId\":\"测试群\",\"message\":\"各位群友好！\"}"}
      * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * @throws NotFoundExceptionInterface|Throwable
      */
     public function groupChatForSend(Transfer $transfer, RouterInterface $clientRouter, GroupChatForSendProtocol $clientData): void
     {

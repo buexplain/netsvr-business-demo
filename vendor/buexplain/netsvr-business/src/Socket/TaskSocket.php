@@ -84,7 +84,7 @@ class TaskSocket implements TaskSocketInterface
             'package_length_offset' => 0,
             /**
              * 因为网关的包头包体协议的包头描述的长度是不含包头的，所以偏移4个字节
-             * @see https://github.com/buexplain/netsvr/blob/main/README.md#业务进程与网关之间的tcp数据包边界处理
+             * @see https://github.com/buexplain/netsvr/blob/main/README.md#业务进程与本网关之间的TCP数据包边界处理
              */
             'package_body_offset' => 4,
             'package_max_length' => $this->packageMaxLength,

@@ -47,7 +47,11 @@ class TestNetBus extends HyperfCommand
         //测试连接到网关的websocket服务器
         $config = \Hyperf\Config\config('business.netsvrWorkers')[0];
         $client = new Client($config['host'], $config['port'] - 1);
-        if ($client->upgrade('/netsvr') === false) {
+        //如果网关支持连接的时候自定义uniqId，则务必保持uniqId的前两个字符是网关唯一id的16进制格式的字符
+        //如果不保持这个规则，则你必须重新实现类 \NetsvrBusiness\Contract\ServerIdConvertInterface::class，确保uniqId转serverId正确
+        $hex = ($config['serverId'] < 15 ? '0' . dechex($config['serverId']) : dechex($config['serverId']));
+        $uniqId = $hex . uniqid();
+        if ($client->upgrade('/netsvr?uniqId=' . $uniqId) === false) {
             $this->error('连接到网关的websocket服务器失败 host: ' . $config['host'] . ' port: ' . ($config['port'] - 1));
             return 1;
         }
@@ -148,6 +152,7 @@ class TestNetBus extends HyperfCommand
      * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Throwable
      */
     protected function testBroadcast(): void
     {

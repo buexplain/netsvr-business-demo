@@ -9,12 +9,12 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace Hyperf\Command;
+namespace Hyperf\Engine\Contract;
 
-/**
- * @deprecated since 3.0.27, remove in 3.1.0, use \Hyperf\Command\Concerns\NullDisableEventDispatcher instead.
- */
-trait NullDisableEventDispatcher
+interface DefaultOptionInterface
 {
-    use Concerns\NullDisableEventDispatcher;
+    /**
+     * Get Hook Coroutine Flags.
+     */
+    public static function hookFlags(): int;
 }

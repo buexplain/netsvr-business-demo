@@ -20,7 +20,7 @@
     "hyperf/logger": "^3.0",
     "hyperf/framework": "^3.0",
     "hyperf/event": "^3.0",
-    "buexplain/netsvr-business": "^1.1"
+    "buexplain/netsvr-business": "^2.0"
   },
   "require-dev": {
     "swoole/ide-helper": "*"

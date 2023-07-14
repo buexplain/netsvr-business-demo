@@ -9,12 +9,14 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace Hyperf\Command;
+namespace Hyperf\Engine;
 
-/**
- * @deprecated since 3.0.27, remove in 3.1.0, use \Hyperf\Command\Concerns\NullDisableEventDispatcher instead.
- */
-trait NullDisableEventDispatcher
+use Hyperf\Engine\Contract\DefaultOptionInterface;
+
+class DefaultOption implements DefaultOptionInterface
 {
-    use Concerns\NullDisableEventDispatcher;
+    public static function hookFlags(): int
+    {
+        return SWOOLE_HOOK_ALL;
+    }
 }
