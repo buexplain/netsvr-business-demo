@@ -20,13 +20,13 @@
     "hyperf/logger": "^3.0",
     "hyperf/framework": "^3.0",
     "hyperf/event": "^3.0",
-    "buexplain/netsvr-business": "^2.0"
+    "buexplain/netsvr-business": "^v2.1.0"
   },
   "require-dev": {
     "swoole/ide-helper": "*"
   },
   "minimum-stability": "stable",
-  "prefer-stable": false,
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "App\\": "app/"

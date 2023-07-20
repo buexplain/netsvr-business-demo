@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99e013ccb110fddf3b4417580e20660e",
+    "content-hash": "c01d4a2e0a23f627de3acac8b35bcc57",
     "packages": [
         {
             "name": "buexplain/netsvr-business",
-            "version": "v2.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-business.git",
-                "reference": "a06967c06f3caf49b84315a0fd9bec8b421a375b"
+                "reference": "4a0865fb55f2bad514d1a9cb9bbcf9b8d09021db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/a06967c06f3caf49b84315a0fd9bec8b421a375b",
-                "reference": "a06967c06f3caf49b84315a0fd9bec8b421a375b",
+                "url": "https://api.github.com/repos/buexplain/netsvr-business/zipball/4a0865fb55f2bad514d1a9cb9bbcf9b8d09021db",
+                "reference": "4a0865fb55f2bad514d1a9cb9bbcf9b8d09021db",
                 "shasum": ""
             },
             "require": {
-                "buexplain/netsvr-protocol-php": "^v1.0",
+                "buexplain/netsvr-protocol-php": "^v1.2.0",
                 "hyperf/config": "^3.0",
                 "hyperf/devtool": "^3.0",
                 "hyperf/di": "^3.0",
@@ -70,29 +70,29 @@
             ],
             "support": {
                 "issues": "https://github.com/buexplain/netsvr-business/issues",
-                "source": "https://github.com/buexplain/netsvr-business/tree/v2.0.0"
+                "source": "https://github.com/buexplain/netsvr-business/tree/v2.1.0"
             },
-            "time": "2023-07-14T09:35:09+00:00"
+            "time": "2023-07-20T09:52:09+00:00"
         },
         {
             "name": "buexplain/netsvr-protocol-php",
-            "version": "v1.0.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buexplain/netsvr-protocol-php.git",
-                "reference": "805b80028e27c2ea3d134a064771005b33b305e9"
+                "reference": "5aa25c9c69dd9250dac1c6bc548af2c792260239"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/805b80028e27c2ea3d134a064771005b33b305e9",
-                "reference": "805b80028e27c2ea3d134a064771005b33b305e9",
+                "url": "https://api.github.com/repos/buexplain/netsvr-protocol-php/zipball/5aa25c9c69dd9250dac1c6bc548af2c792260239",
+                "reference": "5aa25c9c69dd9250dac1c6bc548af2c792260239",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0"
             },
             "require-dev": {
-                "buexplain/netsvr-protocol": "^1.0"
+                "buexplain/netsvr-protocol": "^1.2.0"
             },
             "type": "library",
             "autoload": {
@@ -113,9 +113,9 @@
             "description": "https://github.com/buexplain/netsvr-protocol生成的php版本",
             "support": {
                 "issues": "https://github.com/buexplain/netsvr-protocol-php/issues",
-                "source": "https://github.com/buexplain/netsvr-protocol-php/tree/v1.0.0"
+                "source": "https://github.com/buexplain/netsvr-protocol-php/tree/v1.2.0"
             },
-            "time": "2023-06-19T08:32:27+00:00"
+            "time": "2023-07-18T07:41:55+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -3198,7 +3198,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.0"

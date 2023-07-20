@@ -49,9 +49,11 @@ class TestNetBus extends HyperfCommand
         $client = new Client($config['host'], $config['port'] - 1);
         //如果网关支持连接的时候自定义uniqId，则务必保持uniqId的前两个字符是网关唯一id的16进制格式的字符
         //如果不保持这个规则，则你必须重新实现类 \NetsvrBusiness\Contract\ServerIdConvertInterface::class，确保uniqId转serverId正确
-        $hex = ($config['serverId'] < 15 ? '0' . dechex($config['serverId']) : dechex($config['serverId']));
+        $hex = ($config['serverId'] < 16 ? '0' . dechex($config['serverId']) : dechex($config['serverId']));
         $uniqId = $hex . uniqid();
-        if ($client->upgrade('/netsvr?uniqId=' . $uniqId) === false) {
+        //获取自定义uniqId时，必须的token
+        $token = NetBus::connOpenCustomUniqIdToken($config['serverId'])['token'];
+        if ($client->upgrade('/netsvr?uniqId=' . $uniqId . '&token=' . $token) === false) {
             $this->error('连接到网关的websocket服务器失败 host: ' . $config['host'] . ' port: ' . ($config['port'] - 1));
             return 1;
         }

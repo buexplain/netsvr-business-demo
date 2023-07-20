@@ -181,6 +181,12 @@ class Cmd
      * Generated from protobuf enum <code>Limit = 900003012;</code>
      */
     const Limit = 900003012;
+    /**
+     *连接打开时，传递自定义uniqId时的校验token，用后即删，必须是一个随机性很强的字符串
+     *
+     * Generated from protobuf enum <code>ConnOpenCustomUniqIdToken = 900003013;</code>
+     */
+    const ConnOpenCustomUniqIdToken = 900003013;
 
     private static $valueToName = [
         self::Placeholder => 'Placeholder',
@@ -211,6 +217,7 @@ class Cmd
         self::ConnInfo => 'ConnInfo',
         self::Metrics => 'Metrics',
         self::Limit => 'Limit',
+        self::ConnOpenCustomUniqIdToken => 'ConnOpenCustomUniqIdToken',
     ];
 
     public static function name($value)
