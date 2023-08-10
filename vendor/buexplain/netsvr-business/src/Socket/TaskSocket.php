@@ -111,7 +111,7 @@ class TaskSocket implements TaskSocketInterface
         //大端序，详情请看：https://github.com/buexplain/netsvr/blob/main/internal/worker/manager/connProcessor.go#L211
         $retry = 0;
         loop:
-        if ($this->socket->send(pack('N', strlen($data)) . $data) === false) {
+        if ($this->socket->sendAll(pack('N', strlen($data)) . $data) === false) {
             if ($retry > 0) {
                 Coroutine::sleep(1);
             }

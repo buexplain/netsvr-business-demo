@@ -186,7 +186,7 @@ class MainSocket implements MainSocketInterface
     private function _send(string $data): int|false
     {
         //大端序，详情请看：https://github.com/buexplain/netsvr/blob/main/internal/worker/manager/connProcessor.go#L211
-        return $this->socket->send(pack('N', strlen($data)) . $data);
+        return $this->socket->sendAll(pack('N', strlen($data)) . $data);
     }
 
     /**
